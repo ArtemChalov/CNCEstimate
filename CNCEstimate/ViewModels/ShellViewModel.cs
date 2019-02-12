@@ -47,7 +47,6 @@ namespace CNCEstimate.ViewModels
 
         public bool IsVisibleMaterialBox { get; private set; }
 
-
         public List<CuttingMachine> CuttingType
         {
             get { return _cuttingType; }
