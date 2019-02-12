@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="6f7ab58d-3899-415a-935b-c88f36d6cdaf" ChangeDateTime="02/12/2019 08:07:02">
+    <Property Name="ElementName" Value="[dbo].[Materials].[CuttingTypes]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Materials]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CutTypeSupport" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="fbe09341-09ff-439d-950b-587114f139b8" ChangeDateTime="02/12/2019 08:15:03">
+    <Property Name="ElementName" Value="[dbo].[Materials].[Title]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Materials]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="TitleId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="03554897-a297-44b3-bf8f-506666940845" ChangeDateTime="02/12/2019 08:16:32">
+    <Property Name="ElementName" Value="[dbo].[Materials].[TitleId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Materials]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Title" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="d7be09d9-48ed-4bb3-84e5-6123e99eb9aa" ChangeDateTime="02/12/2019 08:17:00">
+    <Property Name="ElementName" Value="[dbo].[Materials].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Materials]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MaterialId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9155cbdc-206e-4d12-9294-bc504ab20945" ChangeDateTime="02/12/2019 08:21:01">
+    <Property Name="ElementName" Value="[dbo].[MaterialUses].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[MaterialUses]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="MaterialUsesId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="72d532eb-8cd3-455e-a7f4-e2c5e5e78993" ChangeDateTime="02/12/2019 08:22:07">
+    <Property Name="ElementName" Value="[dbo].[CuttingMachines].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CuttingMachines]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CuttingMachinesId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f2488b03-1e12-4d7b-8bec-e0db8e714cac" ChangeDateTime="02/12/2019 11:26:46">
+    <Property Name="ElementName" Value="[dbo].[CuttingMachines].[CuttingMachinesId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[CuttingMachines]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CuttingMachineId" />
+  </Operation>
+</Operations>
