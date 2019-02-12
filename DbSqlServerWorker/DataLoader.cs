@@ -12,5 +12,10 @@ namespace DbSqlServerWorker
         {
             return _context.CuttingMachines.ToList(); ;
         }
+
+        public static List<MaterialGroup> FetchMaterialGroups()
+        {
+            return _context.MaterialGroups.ToList(); ;
+        }
     }
 }

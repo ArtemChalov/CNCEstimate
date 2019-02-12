@@ -26,7 +26,8 @@
                   SelectedItem="{Binding SelectedCuttingType}"
                   HorizontalAlignment="Left" 
                   VerticalAlignment="Top"/>
-            <ComboBox x:Name="Material" 
+            <ComboBox x:Name="MaterialGroups" 
+                      DisplayMemberPath="GroupTitle"
                       Width="200"
                       Margin="5 5 5 10"
                       SelectedItem="{Binding SelectedMater}"

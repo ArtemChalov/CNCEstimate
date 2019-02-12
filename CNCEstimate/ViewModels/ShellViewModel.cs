@@ -8,25 +8,21 @@ namespace CNCEstimate.ViewModels
 {
     public class ShellViewModel : Screen
     {
-        private List<string> _material;
+        private List<MaterialGroup> _material;
         private string _selectedMater;
         private List<CuttingMachine> _cuttingType;
         private string _selectedCuttingType;
 
         public ShellViewModel()
         {
-            Material = new List<string>()
-            {
-                "Выберите материал", "Desk", "Steel", "Plastisin"
-            };
-            SelectedMater = "Выберите материал";
+            MaterialGroups = DataLoader.FetchMaterialGroups();
 
             CuttingType = DataLoader.FetchCuttingMachine();
 
             IsVisibleMaterialBox = false;
         }
 
-        public List<string> Material
+        public List<MaterialGroup> MaterialGroups
         {
             get { return _material; }
             set { _material = value; }
@@ -66,7 +62,7 @@ namespace CNCEstimate.ViewModels
                 else
                 {
                     IsVisibleMaterialBox = false;
-                    Material = null;
+                    MaterialGroups = null;
                 }
                 NotifyOfPropertyChange(nameof(IsVisibleMaterialBox));
             }
