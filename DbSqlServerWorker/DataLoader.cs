@@ -1,12 +1,16 @@
-﻿using System;
+﻿using DbSqlServerWorker.Models;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DbSqlServerWorker
 {
-    public class Class1
+    public static class DataLoader
     {
+        static private readonly CatMachDBContext _context = new CatMachDBContext();
+
+        public static List<CuttingMachine> FetchCuttingMachine()
+        {
+            return _context.CuttingMachines.ToList(); ;
+        }
     }
 }

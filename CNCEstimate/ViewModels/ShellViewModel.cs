@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using DbSqlServerWorker;
+using DbSqlServerWorker.Models;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -8,7 +10,7 @@ namespace CNCEstimate.ViewModels
     {
         private List<string> _material;
         private string _selectedMater;
-        //private List<RepoWorker.Models.CuttingMachine> _cuttingType;
+        private List<CuttingMachine> _cuttingType;
         private string _selectedCuttingType;
 
         public ShellViewModel()
@@ -19,7 +21,7 @@ namespace CNCEstimate.ViewModels
             };
             SelectedMater = "Выберите материал";
 
-            //CuttingType = DataLoader.FetchCuttingMachine();
+            CuttingType = DataLoader.FetchCuttingMachine();
 
             IsVisibleMaterialBox = false;
         }
@@ -46,11 +48,11 @@ namespace CNCEstimate.ViewModels
         public bool IsVisibleMaterialBox { get; private set; }
 
 
-        //public List<RepoWorker.Models.CuttingMachine> CuttingType
-        //{
-        //    get { return _cuttingType; }
-        //    set { _cuttingType = value; }
-        //}
+        public List<CuttingMachine> CuttingType
+        {
+            get { return _cuttingType; }
+            set { _cuttingType = value; }
+        }
 
         public string SelectedCuttingType
         {
