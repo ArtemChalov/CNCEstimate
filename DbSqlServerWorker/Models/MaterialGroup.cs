@@ -4,5 +4,6 @@
     {
         public int MaterialGroupId { get; set; }
         public string GroupTitle { get; set; }
+        public string Parent { get; set; }
     }
 }

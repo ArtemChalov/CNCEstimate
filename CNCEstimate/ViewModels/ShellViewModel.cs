@@ -11,7 +11,7 @@ namespace CNCEstimate.ViewModels
     public class ShellViewModel : Conductor<object>
     {
         private List<MaterialGroup> _material;
-        private string _selectedMater;
+        private MaterialGroup _selectedMater;
 
         public ShellViewModel()
         {
@@ -40,7 +40,7 @@ namespace CNCEstimate.ViewModels
 
         public string MaterialTitle { get; set; }
 
-        public string SelectedMater
+        public MaterialGroup SelectedMater
         {
             get { return _selectedMater; }
             set
@@ -48,7 +48,7 @@ namespace CNCEstimate.ViewModels
                 _selectedMater = value;
                 if (value != null)
                 {
-                    MaterialTitle = value;
+                    MaterialTitle = value.GroupTitle;
                     NotifyOfPropertyChange(nameof(MaterialTitle));
                 }
             }
@@ -56,7 +56,13 @@ namespace CNCEstimate.ViewModels
 
         public void SelectMaterial()
         {
-
+            ChooseMaterialDialog dialog = new ChooseMaterialDialog()
+            {
+                Owner = (Window)this.GetView()
+            };
+            if (dialog.ShowDialog() == true)
+            {
+            }
         }
 
         public void ChoseCutType()

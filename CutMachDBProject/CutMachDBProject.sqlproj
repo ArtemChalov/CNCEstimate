@@ -74,5 +74,6 @@
     <None Include="Scripts\MaterialTitles.sql" />
     <None Include="Scripts\MatUsage.sql" />
     <None Include="Scripts\MatGroups.sql" />
+    <None Include="Scripts\ResetId.sql" />
   </ItemGroup>
 </Project>
