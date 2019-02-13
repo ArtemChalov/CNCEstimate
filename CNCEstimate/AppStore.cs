@@ -9,7 +9,7 @@ namespace CNCEstimate
         #region Fieldes
 
         private static CuttingMachine _selectedMachine;
-        private static string _selectedMaterial;
+        private static Material _selectedMaterial;
 
         #endregion
 
@@ -28,7 +28,7 @@ namespace CNCEstimate
             }
         }
 
-        public static string SelectedMaterial
+        public static Material SelectedMaterial
         {
             get { return _selectedMaterial; }
             set
@@ -46,7 +46,7 @@ namespace CNCEstimate
         #region Events
 
         public static event Action<CuttingMachine> OnMachineSelected;
-        public static event Action<string> OnMaterialSelected;
+        public static event Action<Material> OnMaterialSelected;
 
         #endregion
     }

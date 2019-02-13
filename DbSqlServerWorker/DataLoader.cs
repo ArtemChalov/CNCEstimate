@@ -22,6 +22,15 @@ namespace DbSqlServerWorker
             return query.ToList();
         }
 
+        public static MaterialGroup FetchMaterialGroupsByGroupId(int groupId)
+        {
+            var query = from groups in _context.MaterialGroups
+                        orderby groups.MaterialGroupId
+                        where groups.MaterialGroupId == groupId
+                        select groups;
+            return query.FirstOrDefault();
+        }
+
         public static List<Material> FetchMaterialsByGroupId(int groupId)
         {
             var query = from materials in _context.Materials

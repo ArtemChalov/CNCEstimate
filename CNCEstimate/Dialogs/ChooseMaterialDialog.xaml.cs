@@ -29,7 +29,29 @@ namespace CNCEstimate.Dialogs
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (AppStore.SelectedMaterial != null)
+            {
+                var matGroup = DataLoader.FetchMaterialGroupsByGroupId(AppStore.SelectedMaterial.MaterialGroupId);
 
+                if (TopGroup.ItemsSource != null && matGroup != null)
+                {
+                    foreach (MaterialGroup item in TopGroup.ItemsSource)
+                    {
+                        if (item.GroupTitle == matGroup.Parent)
+                        {
+                            TopGroup.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+
+                if (InnerGroup.ItemsSource != null)
+                {
+                    InnerGroup.SelectedItem = matGroup;
+                    InnerGroup_SelectionChanged(null, null);
+                    MaterialList.SelectedItem = AppStore.SelectedMaterial;
+                }
+            }
         }
 
         private void TopGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -54,8 +76,11 @@ namespace CNCEstimate.Dialogs
 
         private void Apply_Click(object sender, RoutedEventArgs e)
         {
-            //SelectedMachine = (CuttingMachine)CutMachines.SelectedItem;
-            this.DialogResult = true;
+            if (MaterialList.SelectedItem != null)
+            {
+                AppStore.SelectedMaterial = (Material)MaterialList.SelectedItem;
+                this.DialogResult = true;
+            }
         }
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
