@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:CNCEstimate.Views"
         mc:Ignorable="d"
         Title="CNCEstimate" Height="450" Width="800">
+    <Window.Resources>
+        <ResourceDictionary Source="/Dictionaries/ButtonStyle.xaml"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
@@ -22,30 +25,15 @@
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
                     Width="200">
-            <DockPanel LastChildFill="True"
-                       Margin="5">
-                <Button x:Name="ChoseCutType"
-                        DockPanel.Dock="Right"
-                        FontFamily="Segoe MDL2 Assets"
-                        FontSize="24"
-                        Margin="5 0">&#xE14C;</Button>
-                <TextBlock DataContext="{Binding SelectedCuttingMachine}" 
-                           Text="{Binding Path=TypeTitle}"
-                           FontSize="20">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock">
-                            <Style.Triggers>
-                                <Trigger Property="Text" Value="{x:Null}">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </Trigger>
-                                <Trigger Property="Text" Value="">
-                                    <Setter Property="Visibility" Value="Collapsed"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </DockPanel>
+            <Button x:Name="ChoseCutType"
+                        Style="{StaticResource MainButton}"
+                    HorizontalAlignment="Stretch"
+                        Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE14C;" FontFamily="Segoe MDL2 Assets"/>
+                    <TextBlock Margin="5 0" FontSize="16" Text="Выбрать тип резки"/>
+                </StackPanel>
+            </Button>
             <ComboBox x:Name="MaterialGroups" 
                       DisplayMemberPath="GroupTitle"
                       HorizontalAlignment="Stretch"
