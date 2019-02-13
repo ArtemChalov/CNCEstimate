@@ -14,7 +14,6 @@ namespace CNCEstimate.Dialogs
         {
             InitializeComponent();
             CutMachines.ItemsSource = DataLoader.FetchCuttingMachine();
-            CutMachines.SelectedIndex = 0;
         }
 
         public CuttingMachine SelectedMachine { get; private set; }
@@ -28,6 +27,16 @@ namespace CNCEstimate.Dialogs
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
+        }
+
+        public void SetCurrentMachine(CuttingMachine machine)
+        {
+            SelectedMachine = machine;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            CutMachines.SelectedItem = SelectedMachine;
         }
     }
 }

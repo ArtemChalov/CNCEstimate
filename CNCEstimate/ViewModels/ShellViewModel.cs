@@ -61,6 +61,7 @@ namespace CNCEstimate.ViewModels
             {
                 Owner = (Window)this.GetView()
             };
+            dialog.SetCurrentMachine(SelectedCuttingMachine);
 
             if(dialog.ShowDialog() == true)
             {
