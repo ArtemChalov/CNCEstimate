@@ -12,32 +12,25 @@ namespace CNCEstimate.ViewModels
     {
         private List<MaterialGroup> _material;
         private string _selectedMater;
-        private CuttingMachine _selectedCuttingMachine;
 
         public ShellViewModel()
         {
             MaterialGroups = DataLoader.FetchMaterialGroups();
-
             IsVisibleMaterialBox = false;
+            AppStore.OnMachineSelected += AppStore_OnMachineSelected;
+        }
+
+        private void AppStore_OnMachineSelected(CuttingMachine machine)
+        {
+            if (machine != null)
+            {
+                IsVisibleMaterialBox = true;
+                ActivateItem(new MachinViewFactory(machine.TypeTitle).GetView());
+            }
+            NotifyOfPropertyChange(nameof(IsVisibleMaterialBox));
         }
 
         public bool IsVisibleMaterialBox { get; private set; }
-
-        public CuttingMachine SelectedCuttingMachine
-        {
-            get { return _selectedCuttingMachine; }
-            set
-            {
-                _selectedCuttingMachine = value;
-                if (value != null)
-                {
-                    IsVisibleMaterialBox = true;
-                    ActivateItem(new MachinViewFactory(value.TypeTitle).GetView());
-                }
-                NotifyOfPropertyChange(nameof(IsVisibleMaterialBox));
-                NotifyOfPropertyChange(nameof(SelectedCuttingMachine));
-            }
-        }
 
         public List<MaterialGroup> MaterialGroups
         {
@@ -64,11 +57,11 @@ namespace CNCEstimate.ViewModels
             {
                 Owner = (Window)this.GetView()
             };
-            dialog.SetCurrentMachine(SelectedCuttingMachine);
+            dialog.SetCurrentMachine(AppStore.SelectedMachine);
 
             if(dialog.ShowDialog() == true)
             {
-                SelectedCuttingMachine = dialog.SelectedMachine;
+                AppStore.SelectedMachine = dialog.SelectedMachine;
             }
         }
     }
