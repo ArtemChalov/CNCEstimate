@@ -17,12 +17,35 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        
+        <!-- Grid Column 0 Row 1 -->
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
                     Width="200">
-            <Button x:Name="ChoseCutType"
-                    HorizontalAlignment="Stretch"
-                    Margin="10">Выбор машины</Button>
+            <DockPanel LastChildFill="True"
+                       Margin="5">
+                <Button x:Name="ChoseCutType"
+                        DockPanel.Dock="Right"
+                        FontFamily="Segoe MDL2 Assets"
+                        FontSize="24"
+                        Margin="5 0">&#xE14C;</Button>
+                <TextBlock DataContext="{Binding SelectedCuttingMachine}" 
+                           Text="{Binding Path=TypeTitle}"
+                           FontSize="20">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock">
+                            <Style.Triggers>
+                                <Trigger Property="Text" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                                <Trigger Property="Text" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </DockPanel>
             <ComboBox x:Name="MaterialGroups" 
                       DisplayMemberPath="GroupTitle"
                       HorizontalAlignment="Stretch"
@@ -41,5 +64,13 @@
                 </ComboBox.Style>
             </ComboBox>
         </StackPanel>
+
+        <!-- Grid Column 1 Row 1 -->
+        <ContentControl x:Name="ActiveItem" 
+                        Grid.Column="1" 
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"/>
+
     </Grid>
 </Window>

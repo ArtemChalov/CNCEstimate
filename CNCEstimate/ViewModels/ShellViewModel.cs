@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using CNCEstimate.Dialogs;
+using CNCEstimate.Factories;
 using DbSqlServerWorker;
 using DbSqlServerWorker.Models;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Windows;
 
 namespace CNCEstimate.ViewModels
 {
-    public class ShellViewModel : Screen
+    public class ShellViewModel : Conductor<object>
     {
         private List<MaterialGroup> _material;
         private string _selectedMater;
@@ -31,8 +32,10 @@ namespace CNCEstimate.ViewModels
                 if (value != null)
                 {
                     IsVisibleMaterialBox = true;
+                    ActivateItem(new MachinViewFactory(value.TypeTitle).GetView());
                 }
                 NotifyOfPropertyChange(nameof(IsVisibleMaterialBox));
+                NotifyOfPropertyChange(nameof(SelectedCuttingMachine));
             }
         }
 
