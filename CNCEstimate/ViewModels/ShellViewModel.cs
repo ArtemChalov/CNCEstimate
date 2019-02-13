@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using CNCEstimate.Dialogs;
 using DbSqlServerWorker;
 using DbSqlServerWorker.Models;
 using System.Collections.Generic;
@@ -10,16 +11,29 @@ namespace CNCEstimate.ViewModels
     {
         private List<MaterialGroup> _material;
         private string _selectedMater;
-        private List<CuttingMachine> _cuttingType;
-        private string _selectedCuttingType;
+        private CuttingMachine _selectedCuttingMachine;
 
         public ShellViewModel()
         {
             MaterialGroups = DataLoader.FetchMaterialGroups();
 
-            CuttingType = DataLoader.FetchCuttingMachine();
-
             IsVisibleMaterialBox = false;
+        }
+
+        public bool IsVisibleMaterialBox { get; private set; }
+
+        public CuttingMachine SelectedCuttingMachine
+        {
+            get { return _selectedCuttingMachine; }
+            set
+            {
+                _selectedCuttingMachine = value;
+                if (value != null)
+                {
+                    IsVisibleMaterialBox = true;
+                }
+                NotifyOfPropertyChange(nameof(IsVisibleMaterialBox));
+            }
         }
 
         public List<MaterialGroup> MaterialGroups
@@ -41,36 +55,17 @@ namespace CNCEstimate.ViewModels
             }
         }
 
-        public bool IsVisibleMaterialBox { get; private set; }
-
-        public List<CuttingMachine> CuttingType
+        public void ChoseCutType()
         {
-            get { return _cuttingType; }
-            set { _cuttingType = value; }
-        }
-
-        public string SelectedCuttingType
-        {
-            get { return _selectedCuttingType; }
-            set
+            ChooseCutMachineDialog dialog = new ChooseCutMachineDialog()
             {
-                _selectedCuttingType = value;
-                if (value != null && value != "Выберите тип резки")
-                {
-                    IsVisibleMaterialBox = true;
-                }
-                else
-                {
-                    IsVisibleMaterialBox = false;
-                    MaterialGroups = null;
-                }
-                NotifyOfPropertyChange(nameof(IsVisibleMaterialBox));
+                Owner = (Window)this.GetView()
+            };
+
+            if(dialog.ShowDialog() == true)
+            {
+                SelectedCuttingMachine = dialog.SelectedMachine;
             }
-        }
-
-        public void FirstMethodEx()
-        {
-
         }
     }
 }

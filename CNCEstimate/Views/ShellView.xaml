@@ -18,20 +18,16 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Column="0"
-                    Grid.Row="1">
-            <ComboBox x:Name="CuttingType"
-                      DisplayMemberPath="TypeTitle"
-                  Width="200"
-                  Margin="5 5 5 10"
-                  SelectedItem="{Binding SelectedCuttingType}"
-                  HorizontalAlignment="Left" 
-                  VerticalAlignment="Top"/>
+                    Grid.Row="1"
+                    Width="200">
+            <Button x:Name="ChoseCutType"
+                    HorizontalAlignment="Stretch"
+                    Margin="10">Выбор машины</Button>
             <ComboBox x:Name="MaterialGroups" 
                       DisplayMemberPath="GroupTitle"
-                      Width="200"
-                      Margin="5 5 5 10"
+                      HorizontalAlignment="Stretch"
+                      Margin="10"
                       SelectedItem="{Binding SelectedMater}"
-                      HorizontalAlignment="Left" 
                       VerticalAlignment="Top"
                       >
                 <ComboBox.Style>
@@ -44,7 +40,6 @@
                     </Style>
                 </ComboBox.Style>
             </ComboBox>
-            <Button x:Name="FirstMethodEx">Click</Button>
         </StackPanel>
     </Grid>
 </Window>
