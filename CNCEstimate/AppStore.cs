@@ -1,5 +1,6 @@
 ﻿using DbSqlServerWorker.Models;
 using System;
+using System.Windows;
 
 namespace CNCEstimate
 {
@@ -8,6 +9,7 @@ namespace CNCEstimate
         #region Fieldes
 
         private static CuttingMachine _selectedMachine;
+        private static string _selectedMaterial;
 
         #endregion
 
@@ -26,11 +28,25 @@ namespace CNCEstimate
             }
         }
 
+        public static string SelectedMaterial
+        {
+            get { return _selectedMaterial; }
+            set
+            {
+                _selectedMaterial = value;
+                if (value != null)
+                {
+                    OnMaterialSelected?.Invoke(value);
+                }
+            }
+        }
+
         #endregion
 
         #region Events
 
         public static event Action<CuttingMachine> OnMachineSelected;
+        public static event Action<string> OnMaterialSelected;
 
         #endregion
     }

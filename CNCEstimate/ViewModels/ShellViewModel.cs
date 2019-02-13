@@ -38,15 +38,18 @@ namespace CNCEstimate.ViewModels
             set { _material = value; }
         }
 
+        public string MaterialTitle { get; set; }
+
         public string SelectedMater
         {
             get { return _selectedMater; }
             set
             {
                 _selectedMater = value;
-                if (value != null && value != "Выберите материал")
+                if (value != null)
                 {
-                    MessageBox.Show(value);
+                    MaterialTitle = value;
+                    NotifyOfPropertyChange(nameof(MaterialTitle));
                 }
             }
         }
