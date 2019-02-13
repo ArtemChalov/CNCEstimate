@@ -51,6 +51,11 @@ namespace CNCEstimate.ViewModels
             }
         }
 
+        public void SelectMaterial()
+        {
+
+        }
+
         public void ChoseCutType()
         {
             ChooseCutMachineDialog dialog = new ChooseCutMachineDialog()

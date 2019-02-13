@@ -25,6 +25,15 @@
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
                     Width="200">
+            <Button x:Name="SelectMaterial"
+                        Style="{StaticResource MainButton}"
+                    HorizontalAlignment="Stretch"
+                        Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE14C;" FontFamily="Segoe MDL2 Assets"/>
+                    <TextBlock Margin="5 0" FontSize="16" Text="Выбрать материал"/>
+                </StackPanel>
+            </Button>
             <Button x:Name="ChoseCutType"
                         Style="{StaticResource MainButton}"
                     HorizontalAlignment="Stretch"
