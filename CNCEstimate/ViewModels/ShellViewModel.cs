@@ -60,9 +60,7 @@ namespace CNCEstimate.ViewModels
             {
                 Owner = (Window)this.GetView()
             };
-            if (dialog.ShowDialog() == true)
-            {
-            }
+            dialog.ShowDialog();
         }
 
         public void ChoseCutType()

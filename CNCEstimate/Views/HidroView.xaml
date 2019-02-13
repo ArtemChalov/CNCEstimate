@@ -5,9 +5,42 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CNCEstimate.Views"
              mc:Ignorable="d" 
-             Background="Gray"
+             Background="#190000FF"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Dictionaries/ButtonStyle.xaml"/>
+    </UserControl.Resources>
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Grid Column 0 Row 0 -->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3"
+                    HorizontalAlignment="Left">
+            <Button x:Name="SelectMaterial"
+                    Style="{StaticResource MainButton}"
+                    HorizontalAlignment="Stretch"
+                    Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE14C;" FontFamily="Segoe MDL2 Assets"/>
+                    <TextBlock Margin="5 0" FontSize="16" Text="Выбрать материал"/>
+                </StackPanel>
+            </Button>
+            <TextBlock x:Name="MaterialTitle"
+                       VerticalAlignment="Center"
+                       FontSize="18"
+                       Margin="5"
+                       FontFamily="Segoe UI"/>
+        </StackPanel>
     </Grid>
 </UserControl>

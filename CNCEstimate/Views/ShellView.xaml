@@ -25,17 +25,6 @@
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
                     Width="200">
-            <Button x:Name="SelectMaterial"
-                        Style="{StaticResource MainButton}"
-                    HorizontalAlignment="Stretch"
-                        Margin="5">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="&#xE14C;" FontFamily="Segoe MDL2 Assets"/>
-                    <TextBlock Margin="5 0" FontSize="16" Text="Выбрать материал"/>
-                </StackPanel>
-            </Button>
-            <TextBlock Text="Материал:" Margin="10 0"/>
-            <TextBlock x:Name="MaterialTitle"/>
             <Button x:Name="ChoseCutType"
                         Style="{StaticResource MainButton}"
                     HorizontalAlignment="Stretch"
@@ -45,23 +34,6 @@
                     <TextBlock Margin="5 0" FontSize="16" Text="Выбрать тип резки"/>
                 </StackPanel>
             </Button>
-            <ComboBox x:Name="MaterialGroups" 
-                      DisplayMemberPath="GroupTitle"
-                      HorizontalAlignment="Stretch"
-                      Margin="10"
-                      SelectedItem="{Binding SelectedMater}"
-                      VerticalAlignment="Top"
-                      >
-                <ComboBox.Style>
-                    <Style TargetType="ComboBox">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=IsVisibleMaterialBox}" Value="false">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </ComboBox.Style>
-            </ComboBox>
         </StackPanel>
 
         <!-- Grid Column 1 Row 1 -->
