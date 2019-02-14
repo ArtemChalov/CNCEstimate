@@ -36,7 +36,10 @@ namespace CNCEstimate.Dialogs
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            CutMachines.SelectedItem = SelectedMachine;
+            if (SelectedMachine == null)
+                CutMachines.SelectedIndex = 0;
+            else
+                CutMachines.SelectedItem = SelectedMachine;
         }
     }
 }
