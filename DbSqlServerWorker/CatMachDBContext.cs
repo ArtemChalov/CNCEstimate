@@ -11,7 +11,7 @@ namespace DbSqlServerWorker
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CuttingMachineDB;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=CNCEstimateDB;Trusted_Connection=True;");
         }
     }
 }

@@ -6,5 +6,6 @@
         public string Title { get; set; }
         public double Density { get; set; }
         public int MaterialGroupId { get; set; }
+        public string Support { get; set; }
     }
 }

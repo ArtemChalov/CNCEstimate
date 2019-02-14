@@ -61,19 +61,17 @@
     <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Tables\MaterialHeaders.sql" />
-    <Build Include="Tables\MaterialUses.sql" />
     <Build Include="Tables\CuttingMachines.sql" />
     <Build Include="Tables\MaterialGroups.sql" />
+    <Build Include="Tables\Materials.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="CutMachDBProject.refactorlog" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Scripts\CutMach.sql" />
-    <None Include="Scripts\MaterialTitles.sql" />
-    <None Include="Scripts\MatUsage.sql" />
-    <None Include="Scripts\MatGroups.sql" />
+    <None Include="Scripts\CuttingMachines.sql" />
+    <None Include="Scripts\Materials.sql" />
+    <None Include="Scripts\MaterialGroups.sql" />
     <None Include="Scripts\ResetId.sql" />
   </ItemGroup>
 </Project>
