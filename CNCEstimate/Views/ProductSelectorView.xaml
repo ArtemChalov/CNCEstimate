@@ -7,14 +7,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid HorizontalAlignment="Stretch">
-        <Button x:Name="CreateProduct"
-                HorizontalAlignment="Left"
-                Style="{StaticResource MainButton}"
-                Margin="5">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="&#xE109;" FontFamily="Segoe MDL2 Assets"/>
-                <TextBlock Margin="5 0" FontSize="16" Text="Создать деталь"/>
-            </StackPanel>
-        </Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Stretch">
+            <Button x:Name="CreateProduct"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource MainButton}"
+                    Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="&#xE109;" FontFamily="Segoe MDL2 Assets"/>
+                    <TextBlock Margin="5 0" FontSize="16" Text="Создать деталь"/>
+                </StackPanel>
+            </Button>
+            <Separator Foreground="AliceBlue"
+                       Height="2"
+                       Margin="1 0 1 0">
+                <Separator.Effect>
+                    <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="3"/>
+                </Separator.Effect>
+            </Separator>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -55,27 +55,10 @@
         </StackPanel>
         
         <!-- Grid Column 0 Row 2 -->
-        <StackPanel Grid.Column="0"
-                    Grid.Row="2"
-                    Grid.ColumnSpan="3"
-                    HorizontalAlignment="Stretch">
-            <ContentControl x:Name="ProductSelectorItem"/>
-            <Separator Foreground="AliceBlue"
-                       Height="2"
-                       Margin="1 0 1 0">
-                <Separator.Effect>
-                    <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="3"/>
-                </Separator.Effect>
-                <Separator.Style>
-                    <Style TargetType="Separator">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=Content, ElementName=ProductSelectorItem}" Value="{x:Null}">
-                                <Setter Property="Visibility" Value="Collapsed"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Separator.Style>
-            </Separator>
-        </StackPanel>
+        <ContentControl x:Name="ProductSelectorItem"
+                        Grid.Column="0"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="3"
+                        HorizontalAlignment="Stretch"/>
     </Grid>
 </UserControl>
