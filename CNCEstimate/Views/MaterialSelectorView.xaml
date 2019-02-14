@@ -9,24 +9,20 @@
     <UserControl.Resources>
         <ResourceDictionary Source="/Dictionaries/ButtonStyle.xaml"/>
     </UserControl.Resources>
-    <StackPanel Orientation="Horizontal"
-                    Grid.Column="0"
-                    Grid.Row="0"
-                    Grid.ColumnSpan="3"
-                    HorizontalAlignment="Left">
+    <Grid HorizontalAlignment="Stretch">
         <Button x:Name="SelectMaterial"
-                    Style="{StaticResource MainButton}"
-                    HorizontalAlignment="Stretch"
-                    Margin="5">
+                HorizontalAlignment="Left"
+                Style="{StaticResource MainButton}"
+                Margin="5">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="&#xE14C;" FontFamily="Segoe MDL2 Assets"/>
-                <TextBlock Margin="5 0" FontSize="16" Text="Выбрать материал"/>
+                <!--<TextBlock Margin="5 0" FontSize="16" Text="Выбрать материал"/>-->
             </StackPanel>
         </Button>
         <TextBlock x:Name="MaterialTitle"
-                       VerticalAlignment="Center"
-                       FontSize="18"
-                       Margin="5"
-                       FontFamily="Segoe UI"/>
-    </StackPanel>
+                   VerticalAlignment="Center"
+                   FontSize="18"
+                   HorizontalAlignment="Center"
+                   FontFamily="Segoe UI"/>
+    </Grid>
 </UserControl>

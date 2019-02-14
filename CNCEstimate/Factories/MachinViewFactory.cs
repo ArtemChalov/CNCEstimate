@@ -21,6 +21,8 @@ namespace CNCEstimate.Factories
                     return new LaserViewModel();
                 case "Плазменная резка":
                     return new PlasmaViewModel();
+                case "Газовая резка":
+                    return new GasViewModel();
                 default: return null;
             }
         }

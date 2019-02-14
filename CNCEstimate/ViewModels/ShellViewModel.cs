@@ -11,7 +11,6 @@ namespace CNCEstimate.ViewModels
         public ShellViewModel()
         {
             AppStore.OnMachineSelected += AppStore_OnMachineSelected;
-            AppStore.MainWindow = (Window)this.GetView();
         }
 
         private void AppStore_OnMachineSelected(CuttingMachine machine)
@@ -24,13 +23,15 @@ namespace CNCEstimate.ViewModels
 
         public void ChoseCutType()
         {
+            if (AppStore.MainWindow == null)
+                AppStore.MainWindow = (Window)this.GetView();
             ChooseCutMachineDialog dialog = new ChooseCutMachineDialog()
             {
                 Owner = AppStore.MainWindow
             };
             dialog.SetCurrentMachine(AppStore.SelectedMachine);
 
-            if(dialog.ShowDialog() == true)
+            if (dialog.ShowDialog() == true)
             {
                 AppStore.SelectedMachine = dialog.SelectedMachine;
             }

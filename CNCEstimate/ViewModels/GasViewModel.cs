@@ -2,9 +2,9 @@
 
 namespace CNCEstimate.ViewModels
 {
-    public class HidroViewModel : Conductor<object>
+    public class GasViewModel : Conductor<object>
     {
-        public HidroViewModel()
+        public GasViewModel()
         {
             ActivateItem(new MaterialSelectorViewModel());
         }

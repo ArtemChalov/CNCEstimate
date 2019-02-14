@@ -153,11 +153,15 @@
       <DependentUpon>ChooseMaterialDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Factories\MachinViewFactory.cs" />
+    <Compile Include="ViewModels\GasViewModel.cs" />
     <Compile Include="ViewModels\HidroViewModel.cs" />
     <Compile Include="ViewModels\LaserViewModel.cs" />
     <Compile Include="ViewModels\MaterialSelectorViewModel.cs" />
     <Compile Include="ViewModels\PlasmaViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\GasView.xaml.cs">
+      <DependentUpon>GasView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HidroView.xaml.cs">
       <DependentUpon>HidroView.xaml</DependentUpon>
     </Compile>
@@ -186,6 +190,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionaries\ButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

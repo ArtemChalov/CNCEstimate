@@ -1,13 +1,12 @@
 ﻿using Caliburn.Micro;
 using CNCEstimate.Dialogs;
 using DbSqlServerWorker.DataLoaders;
-using System.Windows;
 
 namespace CNCEstimate.ViewModels
 {
     public class MaterialSelectorViewModel : Screen
     {
-        private string _materialTitle;
+        private string _materialTitle = "Выберите материал";
 
         public string MaterialTitle
         {
