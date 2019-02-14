@@ -1,4 +1,4 @@
-﻿using DbSqlServerWorker;
+﻿using DbSqlServerWorker.DataLoaders;
 using DbSqlServerWorker.Models;
 using System.Windows;
 
@@ -13,7 +13,7 @@ namespace CNCEstimate.Dialogs
         public ChooseCutMachineDialog()
         {
             InitializeComponent();
-            CutMachines.ItemsSource = DataLoader.FetchCuttingMachine();
+            CutMachines.ItemsSource = MachineLoader.FetchCuttingMachine();
         }
 
         public CuttingMachine SelectedMachine { get; private set; }

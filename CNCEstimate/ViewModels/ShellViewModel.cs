@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using CNCEstimate.Dialogs;
 using CNCEstimate.Factories;
-using DbSqlServerWorker;
+using DbSqlServerWorker.DataLoaders;
 using DbSqlServerWorker.Models;
 using System.Collections.Generic;
 using System.Windows;
@@ -15,7 +15,7 @@ namespace CNCEstimate.ViewModels
 
         public ShellViewModel()
         {
-            MaterialGroups = DataLoader.FetchMaterialGroups();
+            MaterialGroups = MaterialLoader.FetchMaterialGroups();
             IsVisibleMaterialBox = false;
             AppStore.OnMachineSelected += AppStore_OnMachineSelected;
         }

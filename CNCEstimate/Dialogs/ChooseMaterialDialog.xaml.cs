@@ -1,4 +1,4 @@
-﻿using DbSqlServerWorker;
+﻿using DbSqlServerWorker.DataLoaders;
 using DbSqlServerWorker.Models;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,7 +14,7 @@ namespace CNCEstimate.Dialogs
         public ChooseMaterialDialog()
         {
             InitializeComponent();
-            TopGroup.ItemsSource = DataLoader.FetchMaterialGroupsByParent();
+            TopGroup.ItemsSource = MaterialLoader.FetchMaterialGroupsByParent();
         }
 
         public Material SelectedMaterial { get; private set; }
@@ -23,7 +23,7 @@ namespace CNCEstimate.Dialogs
         {
             if (AppStore.SelectedMaterial != null)
             {
-                var matGroup = DataLoader.FetchMaterialGroupsByGroupId(AppStore.SelectedMaterial.MaterialGroupId);
+                var matGroup = MaterialLoader.FetchMaterialGroupsByGroupId(AppStore.SelectedMaterial.MaterialGroupId);
 
                 if (TopGroup.ItemsSource != null && matGroup != null)
                 {
@@ -53,7 +53,7 @@ namespace CNCEstimate.Dialogs
                 InnerGroup.ItemsSource = null;
                 MaterialList.ItemsSource = null;
                 MaterialList.SelectedItem = null;
-                InnerGroup.ItemsSource = DataLoader.FetchMaterialGroupsByParent(((MaterialGroup)TopGroup.SelectedItem).GroupTitle);
+                InnerGroup.ItemsSource = MaterialLoader.FetchMaterialGroupsByParent(((MaterialGroup)TopGroup.SelectedItem).GroupTitle);
             }
         }
 
@@ -62,7 +62,7 @@ namespace CNCEstimate.Dialogs
             if (InnerGroup.SelectedItem != null)
             {
                 MaterialList.ItemsSource = null;
-                MaterialList.ItemsSource = DataLoader.FetchMaterialsByGroupId(((MaterialGroup)InnerGroup.SelectedItem).MaterialGroupId);
+                MaterialList.ItemsSource = MaterialLoader.FetchMaterialsByGroupId(((MaterialGroup)InnerGroup.SelectedItem).MaterialGroupId);
             }
         }
 

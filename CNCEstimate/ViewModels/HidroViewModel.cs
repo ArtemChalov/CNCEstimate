@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using CNCEstimate.Dialogs;
+using DbSqlServerWorker.DataLoaders;
 using System.Windows;
 
 namespace CNCEstimate.ViewModels
@@ -13,7 +14,7 @@ namespace CNCEstimate.ViewModels
             get { return _materialTitle; }
             set
             {
-                _materialTitle = "Материал: " + value;
+                _materialTitle = value;
                 NotifyOfPropertyChange(nameof(MaterialTitle));
             }
         }
@@ -27,7 +28,8 @@ namespace CNCEstimate.ViewModels
             if (dialog.ShowDialog() == true)
             {
                 AppStore.SelectedMaterial = dialog.SelectedMaterial;
-                MaterialTitle = AppStore.SelectedMaterial.Title;
+                MaterialTitle = 
+                    $"Материал: {AppStore.SelectedMaterial.Title} ({MaterialLoader.FetchMaterialGostByMaterialGroupId(AppStore.SelectedMaterial.MaterialGroupId)})";
             }
         }
 

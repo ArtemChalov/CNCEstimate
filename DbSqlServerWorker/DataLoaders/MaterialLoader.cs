@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DbSqlServerWorker
+namespace DbSqlServerWorker.DataLoaders
 {
-    public static class DataLoader
+    public static class MaterialLoader
     {
         static private readonly CatMachDBContext _context = new CatMachDBContext();
-
-        public static List<CuttingMachine> FetchCuttingMachine()
-        {
-            return _context.CuttingMachines.ToList(); ;
-        }
 
         public static List<MaterialGroup> FetchMaterialGroupsByParent(string parent = null)
         {
@@ -43,6 +38,14 @@ namespace DbSqlServerWorker
         public static List<MaterialGroup> FetchMaterialGroups()
         {
             return _context.MaterialGroups.ToList(); ;
+        }
+
+        public static string FetchMaterialGostByMaterialGroupId(int groupId)
+        {
+            var query = from groups in _context.MaterialGroups
+                        where groups.MaterialGroupId == groupId
+                        select groups.Gost;
+            return query.FirstOrDefault();
         }
     }
 }
