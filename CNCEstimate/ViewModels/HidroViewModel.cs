@@ -5,33 +5,11 @@ using System.Windows;
 
 namespace CNCEstimate.ViewModels
 {
-    public class HidroViewModel : Screen
+    public class HidroViewModel : Conductor<object>
     {
-        private string _materialTitle;
-
-        public string MaterialTitle
+        public HidroViewModel()
         {
-            get { return _materialTitle; }
-            set
-            {
-                _materialTitle = value;
-                NotifyOfPropertyChange(nameof(MaterialTitle));
-            }
+            ActivateItem(new MaterialSelectorViewModel());
         }
-
-        public void SelectMaterial()
-        {
-            ChooseMaterialDialog dialog = new ChooseMaterialDialog()
-            {
-                Owner = (Window)((ShellViewModel)this.Parent).GetView()
-            };
-            if (dialog.ShowDialog() == true)
-            {
-                AppStore.SelectedMaterial = dialog.SelectedMaterial;
-                MaterialTitle = 
-                    $"Материал: {AppStore.SelectedMaterial.Title} ({MaterialLoader.FetchMaterialGostByMaterialGroupId(AppStore.SelectedMaterial.MaterialGroupId)})";
-            }
-        }
-
     }
 }

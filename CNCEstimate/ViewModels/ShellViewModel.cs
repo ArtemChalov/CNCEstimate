@@ -18,6 +18,7 @@ namespace CNCEstimate.ViewModels
             MaterialGroups = MaterialLoader.FetchMaterialGroups();
             IsVisibleMaterialBox = false;
             AppStore.OnMachineSelected += AppStore_OnMachineSelected;
+            AppStore.MainWindow = (Window)this.GetView();
         }
 
         private void AppStore_OnMachineSelected(CuttingMachine machine)

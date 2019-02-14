@@ -15,6 +15,8 @@ namespace CNCEstimate
 
         #region Properties
 
+        public static Window MainWindow { get; set; }
+
         public static CuttingMachine SelectedMachine
         {
             get { return _selectedMachine; }
