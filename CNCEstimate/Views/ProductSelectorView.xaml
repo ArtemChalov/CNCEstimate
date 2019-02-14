@@ -14,27 +14,75 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Column="0"
+        
+        <!-- Grid Columt 0 Row 0-->
+        <StackPanel Orientation="Horizontal"
+                    Grid.Column="0"
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
-                    HorizontalAlignment="Stretch">
-            <Button x:Name="CreateProduct"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Left">
+            <TextBlock Text="&#xE109;" 
+                       FontFamily="Segoe MDL2 Assets"
+                       VerticalAlignment="Center"
+                       Foreground="#FF12408F"
+                       FontSize="24"
+                       Margin="7 5 10 5"
+                       FontWeight="ExtraBold"/>
+            <Button x:Name="CreateStandartProduct"
+                    Width="180"
                     Style="{StaticResource MainButton}"
-                    Margin="5">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="&#xE109;" FontFamily="Segoe MDL2 Assets"/>
-                    <TextBlock Margin="5 0" FontSize="16" Text="Создать деталь"/>
-                </StackPanel>
-            </Button>
-            <Separator Foreground="AliceBlue"
-                       Height="2"
-                       Margin="1 0 1 0">
-                <Separator.Effect>
-                    <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="3"/>
-                </Separator.Effect>
-            </Separator>
+                    Margin="5"
+                    FontSize="16">Стандартное изделие</Button>
+            <ComboBox x:Name="StandartProductList"
+                      Margin="5"
+                      FontSize="16"
+                      Width="120"
+                      SelectedItem="{Binding SelectedStandartProduct}">
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding StComboListVisible}" Value="false">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
         </StackPanel>
+
+        <Button x:Name="CloseProduct"
+                Grid.Column="1"
+                Grid.Row="0"
+                HorizontalAlignment="Right"
+                Foreground="Red"
+                Background="Transparent"
+                Padding="5"
+                FontFamily="Segoe MDL2 Assets"
+                Margin="5"
+                Content="&#xE106;">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding StComboListVisible}" Value="false">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <!-- Grid Columt 0 Row 1-->
+        <Separator Foreground="AliceBlue"
+                   Grid.Column="0"
+                   Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   Height="2"
+                   Margin="1 0 1 0">
+            <Separator.Effect>
+                <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="3"/>
+            </Separator.Effect>
+        </Separator>
     </Grid>
 </UserControl>
