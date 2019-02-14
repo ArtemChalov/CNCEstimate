@@ -25,7 +25,11 @@ namespace CNCEstimate.ViewModels
 
         private void OnMaterialChanged(Material material)
         {
-            MessageBox.Show($"I'm from {material.Title}");
+        }
+
+        public void CreateProduct()
+        {
+            MessageBox.Show($"I'm from {Material.Title}");
         }
     }
 }
