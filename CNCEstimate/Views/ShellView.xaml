@@ -24,14 +24,17 @@
         <!-- Grid Column 0 Row 1 -->
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
-                    Width="200">
+                    HorizontalAlignment="Stretch">
             <Button x:Name="ChoseCutType"
                         Style="{StaticResource MainButton}"
                     HorizontalAlignment="Stretch"
                         Margin="5">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="&#xE14C;" FontFamily="Segoe MDL2 Assets"/>
-                    <TextBlock Margin="5 0" FontSize="16" Text="Выбрать тип резки"/>
+                    <TextBlock VerticalAlignment="Center"
+                               Text="&#xE924;"
+                               FontSize="22"
+                               FontFamily="Segoe MDL2 Assets"/>
+                    <TextBlock Margin="5 0" FontSize="18" FontWeight="DemiBold" Text="Тип обработки"/>
                 </StackPanel>
             </Button>
         </StackPanel>
