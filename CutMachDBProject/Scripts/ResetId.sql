@@ -1,1 +1,1 @@
-﻿DBCC CHECKIDENT('[MaterialGroups]', RESEED, 0)
+﻿DBCC CHECKIDENT('[CuttingMachines]', RESEED, 0)

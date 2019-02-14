@@ -5,5 +5,6 @@
 	[Density] FLOAT NOT NULL, 
 	[MaterialGroupId] INT NOT NULL, 
 	[Support] NVARCHAR(10) NOT NULL, 
-	CONSTRAINT [FK_Materials_MaterialGroupId] FOREIGN KEY ([MaterialGroupId]) REFERENCES [MaterialGroups]([MaterialGroupId])
+	CONSTRAINT [FK_Materials_MaterialGroupId] FOREIGN KEY ([MaterialGroupId]) REFERENCES [MaterialGroups]([MaterialGroupId]), 
+    CONSTRAINT [UQ_Materials_Title] UNIQUE ([Title])
 )
