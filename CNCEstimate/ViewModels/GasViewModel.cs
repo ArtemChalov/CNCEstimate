@@ -5,14 +5,17 @@ namespace CNCEstimate.ViewModels
 {
     public class GasViewModel : Conductor<IScreen>.Collection.AllActive
     {
-        public MaterialSelectorViewModel MaterialSelectorItem { get; set; } = new MaterialSelectorViewModel();
-
-        public ProductSelectorViewModel ProductSelectorItem { get; set; }
-
         public GasViewModel()
         {
-            MaterialSelectorItem.OnMaterialChanged = OnMaterialChanged;
+            MaterialSelectorItem = new MaterialSelectorViewModel()
+            {
+                OnMaterialChanged = OnMaterialChanged
+            };
         }
+
+        public MaterialSelectorViewModel MaterialSelectorItem { get; set; }
+
+        public ProductSelectorViewModel ProductSelectorItem { get; set; }
 
         private void OnMaterialChanged(Material material)
         {

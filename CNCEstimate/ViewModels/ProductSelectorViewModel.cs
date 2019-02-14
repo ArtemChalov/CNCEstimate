@@ -1,4 +1,5 @@
-﻿using Caliburn.Micro;
+﻿using System.Windows;
+using Caliburn.Micro;
 using DbSqlServerWorker.Models;
 
 namespace CNCEstimate.ViewModels
@@ -15,7 +16,16 @@ namespace CNCEstimate.ViewModels
         public Material Material
         {
             get { return _material; }
-            set { _material = value; }
+            set
+            {
+                _material = value;
+                OnMaterialChanged(value);
+            }
+        }
+
+        private void OnMaterialChanged(Material material)
+        {
+            MessageBox.Show($"I'm from {material.Title}");
         }
     }
 }

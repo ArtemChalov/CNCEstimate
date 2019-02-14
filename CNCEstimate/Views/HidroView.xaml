@@ -47,7 +47,7 @@
                     Grid.Row="1"
                     Grid.ColumnSpan="3"
                     HorizontalAlignment="Stretch">
-            <ContentControl x:Name="ActiveItem"/>
+            <ContentControl x:Name="MaterialSelectorItem"/>
             <Separator Foreground="AliceBlue"
                        Height="2"
                        Margin="1 0 1 0">
@@ -56,5 +56,6 @@
                 </Separator.Effect>
             </Separator>
         </StackPanel>
+        <ContentControl Grid.Column="0" Grid.Row="2" x:Name="ProductSelectorItem"/>
     </Grid>
 </UserControl>
