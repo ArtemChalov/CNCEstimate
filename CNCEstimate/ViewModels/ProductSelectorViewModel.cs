@@ -6,7 +6,7 @@ using DbSqlServerWorker.Models;
 
 namespace CNCEstimate.ViewModels
 {
-    public class ProductSelectorViewModel : Screen
+    public class ProductSelectorViewModel : Conductor<object>
     {
         private Material _material;
         private bool _stComboListVisible;
@@ -74,11 +74,12 @@ namespace CNCEstimate.ViewModels
         {
             StandartProductList = null;
             StComboListVisible = false;
+            DeactivateItem(this.ActiveItem, true);
         }
 
         private void OnStandartProductSelected(string stProductName)
         {
-            MessageBox.Show(stProductName);
+            ActivateItem(new StandartProductViewModel(stProductName));
         }
     }
 }

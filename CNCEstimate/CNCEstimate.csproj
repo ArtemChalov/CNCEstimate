@@ -160,6 +160,7 @@
     <Compile Include="ViewModels\PlasmaViewModel.cs" />
     <Compile Include="ViewModels\ProductSelectorViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="ViewModels\StandartProductViewModel.cs" />
     <Compile Include="Views\GasView.xaml.cs">
       <DependentUpon>GasView.xaml</DependentUpon>
     </Compile>
@@ -184,6 +185,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Views\StandartProductView.xaml.cs">
+      <DependentUpon>StandartProductView.xaml</DependentUpon>
     </Compile>
     <Page Include="Dialogs\ChooseCutMachineDialog.xaml">
       <SubType>Designer</SubType>
@@ -222,6 +226,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StandartProductView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
