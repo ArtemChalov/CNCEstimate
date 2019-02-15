@@ -16,7 +16,7 @@
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,7 +26,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -138,6 +138,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WriteableBitmapEx, Version=1.0.0.1, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\WriteableBitmapEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -152,7 +156,10 @@
     <Compile Include="Dialogs\ChooseMaterialDialog.xaml.cs">
       <DependentUpon>ChooseMaterialDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Factories\InputDataPresenterItemFactory.cs" />
     <Compile Include="Factories\MachinViewFactory.cs" />
+    <Compile Include="Models\Primitives\IBasePrimitive.cs" />
+    <Compile Include="Models\Primitives\LineObj.cs" />
     <Compile Include="ViewModels\GasViewModel.cs" />
     <Compile Include="ViewModels\HidroViewModel.cs" />
     <Compile Include="ViewModels\LaserViewModel.cs" />
@@ -261,9 +268,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\DbSqlServerWorker\DbSqlServerWorker.csproj">
       <Project>{3A6937D1-2CC3-428E-B594-8D0AC358C740}</Project>
