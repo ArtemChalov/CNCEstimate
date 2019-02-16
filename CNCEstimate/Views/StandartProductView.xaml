@@ -38,11 +38,11 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBox Text="{Binding H.Length, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBox Text="{Binding B.Length, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBox Text="{Binding H1.Length, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBox Text="{Binding B1.Length, UpdateSourceTrigger=PropertyChanged}"/>
-                        <TextBox Text="{Binding S.Length, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding H, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding B, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding H1, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding B1, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding S, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>

@@ -21,7 +21,7 @@ namespace CNCEstimate.ViewModels
             _inputDataPresenter.Children.Add(new TextBlock() { Text = "Hello" });
             _FigureItems = new BindableCollection<PlateFigure>()
             {
-                new PlateFigure(new LineObj(200, 0.5), new LineObj(300, 0.5), new LineObj(20, 0.5), new LineObj(20, 0.5))
+                new PlateFigure(200, 300, 20, 20)
             };
         }
 

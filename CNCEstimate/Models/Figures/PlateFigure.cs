@@ -1,69 +1,87 @@
 ﻿using Caliburn.Micro;
-using Primitives;
 using System;
+using System.Collections.Generic;
 
 namespace CNCEstimate.Models.Figures
 {
     public class PlateFigure : PropertyChangedBase
     {
-        private LineObj _h;
-        private LineObj _b;
-        private LineObj _h1;
-        private LineObj _b1;
-        private LineObj _s;
+        private double _h;
+        private double _b;
+        private double _h1;
+        private double _b1;
+        private double _s;
 
-        public PlateFigure(){}
+        public PlateFigure() { }
 
-        public PlateFigure(LineObj h, LineObj b, LineObj h1, LineObj b1)
+        public PlateFigure(double h, double b, double h1, double b1)
         {
-            _s = new LineObj(2, 0.5);
             _h = h;
             _b = b;
             _h1 = h1;
             _b1 = b1;
         }
 
-        public LineObj H
+        public double H
         {
             get { return _h; }
-            set { _h = value; NotifyOfPropertyChange(); }
-        }
-
-        public LineObj B
-        {
-            get { return _b; }
-            set { _b = value; NotifyOfPropertyChange(); }
-        }
-
-        public LineObj H1
-        {
-            get { return _h1; }
-            set { _h1 = value; NotifyOfPropertyChange(); }
-        }
-
-        public LineObj B1
-        {
-            get { return _b1; }
-            set { _b1 = value; NotifyOfPropertyChange();
+            set
+            {
+                _h = value;
+                NotifyOfPropertyChange();
                 NotifyOfPropertyChange(nameof(S));
             }
         }
 
-        public LineObj S
+        public double B
         {
-            get { return CalcSlantLength(); }
-            set { _s = value; NotifyOfPropertyChange(); }
+            get { return _b; }
+            set
+            {
+                _b = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(S));
+            }
         }
 
-        private LineObj CalcSlantLength()
+        public double H1
         {
-            if (_s != null)
+            get { return _h1; }
+            set
             {
-                var a = H.Length - H1.Length;
-                var b = B.Length - B1.Length;
-
-                _s.Length = Math.Sqrt((a * a) + (b * b));
+                _h1 = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(S));
             }
+        }
+
+        public double B1
+        {
+            get { return _b1; }
+            set
+            {
+                _b1 = value;
+                NotifyOfPropertyChange();
+                NotifyOfPropertyChange(nameof(S));
+            }
+        }
+
+        public double S
+        {
+            get { return CalcSlantLength(); }
+            set
+            {
+                _s = value;
+                NotifyOfPropertyChange();
+            }
+        }
+
+        private double CalcSlantLength()
+        {
+            var a = H - H1;
+            var b = B - B1;
+
+            _s = Math.Round(Math.Sqrt((a * a) + (b * b)));
             return _s;
         }
     }
