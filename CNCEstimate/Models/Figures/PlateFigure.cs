@@ -16,11 +16,11 @@ namespace CNCEstimate.Models.Figures
 
         public PlateFigure(LineObj h, LineObj b, LineObj h1, LineObj b1)
         {
+            _s = new LineObj(2, 0.5);
             _h = h;
             _b = b;
             _h1 = h1;
             _b1 = b1;
-            _s = new LineObj(2, 0, 0.5);
         }
 
         public LineObj H

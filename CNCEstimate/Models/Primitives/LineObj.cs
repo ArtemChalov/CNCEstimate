@@ -1,18 +1,20 @@
-﻿using Caliburn.Micro;
+﻿using System;
+using Caliburn.Micro;
 
 namespace Primitives
 {
     public class LineObj : PropertyChangedBase, IBasePrimitive
     {
-        private double _speed;
         private double _length;
-        private double _brakeCoeff;
+        private double _brakeCoefficient;
+        private double _normalizedLength;
+        private double _edgeLength;
 
-        public LineObj(double speed, double totalLength, double brakeCoeff)
+        public LineObj(double length, double brakeCoeff, double edjeLength = 10)
         {
-            _speed = speed;
-            _length = totalLength;
-            _brakeCoeff = brakeCoeff;
+            _length = length;
+            _brakeCoefficient = brakeCoeff;
+            _edgeLength = edjeLength;
         }
 
         public string Tag { get => "Line"; }
@@ -24,48 +26,42 @@ namespace Primitives
             set
             {
                 _length = value;
-                NotifyOfPropertyChange(nameof(Time));
+                OnCalcNormalizedLength(value);
+                NotifyOfPropertyChange();
             }
         }
 
-        // Coefficient used as multiplier to the edge section length
-        public double A
-        {
-            get { return _brakeCoeff; }
+        public double NormalizedLength {
+            get { return _normalizedLength; }
             set
             {
-                _brakeCoeff = value;
-                NotifyOfPropertyChange(nameof(Time));
-            }
-        }
-
-        public double B { get; set; } = 1;
-        // Cutting speed in millimeter per minute
-        // specified with material
-        public double Speed
-        {
-            get { return _speed; }
-            set
-            {
-                _speed = value;
-                NotifyOfPropertyChange(nameof(Time));
+                _normalizedLength = value;
+                NotifyOfPropertyChange();
             }
         }
 
         // Edge section length
-        public double SLength { get; set; } = 10;
-
-        // Main length
-        public double MLength { get => CalcMainLength(); }
-
-        public double Time => SLength * Speed * A + MLength * Speed;
-
-        private double CalcMainLength()
+        public double EdgeLength
         {
-            if (Length - (SLength * 2) > 0)
-                return Length - (SLength * 2);
+            get { return _edgeLength; }
+            set { _edgeLength = value; }
+        }
 
-            return 0;
+        // Coefficient used as multiplier to the edge section length
+        public double BrakeCoefficient
+        {
+            get { return _brakeCoefficient; }
+            set { _brakeCoefficient = value; }
+        }
+
+        public double Coeff { get; set; } = 1;
+
+        private void OnCalcNormalizedLength(double length)
+        {
+            var mainLength = length - EdgeLength;
+            if (mainLength < 0) mainLength = 0;
+
+            NormalizedLength = mainLength + EdgeLength / BrakeCoefficient;
         }
     }
 }

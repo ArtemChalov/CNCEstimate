@@ -15,20 +15,20 @@ namespace Primitives
         /// </summary>
         double Length { get; set; }
         /// <summary>
-        /// Сoeffiсient 1
+        /// Primitive normalized length
         /// </summary>
-        double A { get; set; }
+        double NormalizedLength { get; set; }
         /// <summary>
-        /// Сoeffiсient 2
+        /// Length were the machine are braking to stop or change direction.
         /// </summary>
-        double B { get; set; }
+        double EdgeLength { get; set; }
         /// <summary>
-        /// Cutting speed in millimeter per minute
+        /// Сoeffiсient used to calculate the normalized length
         /// </summary>
-        double Speed { get; set; }
+        double BrakeCoefficient { get; set; }
         /// <summary>
-        /// The time spend to cut process
+        /// Some coeffiсient
         /// </summary>
-        double Time { get; }
+        double Coeff { get; set; }
     }
 }
