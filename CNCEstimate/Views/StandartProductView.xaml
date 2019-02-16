@@ -28,7 +28,25 @@
         </StackPanel>
 
         <!-- Grid Column 1 Row 0 -->
-        <ContentControl Content="{Binding InputDataPresenter}"/>
+        <ContentControl Grid.Column="1"
+                        Grid.Row="0"
+                        Content="{Binding InputDataPresenter}"/>
+
+        <ItemsControl Grid.Column="1"
+                      Grid.Row="0"
+                      ItemsSource="{Binding FigureItems}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBox Text="{Binding H.Length, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding B.Length, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding H1.Length, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding B1.Length, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox Text="{Binding S.Length, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
     </Grid>
 </UserControl>

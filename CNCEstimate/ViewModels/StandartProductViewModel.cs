@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using CNCEstimate.Models.Figures;
+using Primitives;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
@@ -9,6 +11,7 @@ namespace CNCEstimate.ViewModels
         string _tagName;
         BitmapImage _imageSrc;
         private StackPanel _inputDataPresenter;
+        private BindableCollection<PlateFigure> _FigureItems;
 
         public StandartProductViewModel(string tag)
         {
@@ -16,6 +19,10 @@ namespace CNCEstimate.ViewModels
             ImageSrc = WriteableBitmapEx.BitmapImageFactory.CreateFromFile($"{System.AppDomain.CurrentDomain.BaseDirectory}\\{_tagName}.png");
             _inputDataPresenter = new StackPanel();
             _inputDataPresenter.Children.Add(new TextBlock() { Text = "Hello" });
+            _FigureItems = new BindableCollection<PlateFigure>()
+            {
+                new PlateFigure(new LineObj(2, 200, 0.7), new LineObj(2, 300, 0.7), new LineObj(2, 20, 0.7), new LineObj(2, 20, 0.7))
+            };
         }
 
         public string TagName
@@ -30,7 +37,7 @@ namespace CNCEstimate.ViewModels
             set
             {
                 _imageSrc = value;
-                NotifyOfPropertyChange(nameof(ImageSrc));
+                NotifyOfPropertyChange();
             }
         }
 
@@ -38,7 +45,17 @@ namespace CNCEstimate.ViewModels
         {
             get { return _inputDataPresenter; }
             set { _inputDataPresenter = value;
-                NotifyOfPropertyChange(nameof(InputDataPresenter));
+                NotifyOfPropertyChange();
+            }
+        }
+
+        public BindableCollection<PlateFigure> FigureItems
+        {
+            get { return _FigureItems; }
+            set
+            {
+                _FigureItems = value;
+                NotifyOfPropertyChange();
             }
         }
     }

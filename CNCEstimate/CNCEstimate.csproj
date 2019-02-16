@@ -158,6 +158,7 @@
     </Compile>
     <Compile Include="Factories\InputDataPresenterItemFactory.cs" />
     <Compile Include="Factories\MachinViewFactory.cs" />
+    <Compile Include="Models\Figures\PlateFigure.cs" />
     <Compile Include="Models\Primitives\IBasePrimitive.cs" />
     <Compile Include="Models\Primitives\LineObj.cs" />
     <Compile Include="ViewModels\GasViewModel.cs" />

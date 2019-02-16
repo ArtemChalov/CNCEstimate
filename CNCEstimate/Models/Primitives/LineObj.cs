@@ -2,7 +2,7 @@
 
 namespace Primitives
 {
-    class LineObj : PropertyChangedBase, IBasePrimitive
+    public class LineObj : PropertyChangedBase, IBasePrimitive
     {
         private double _speed;
         private double _length;
