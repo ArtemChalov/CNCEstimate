@@ -36,5 +36,10 @@ namespace CNCEstimate.ViewModels
                 AppStore.SelectedMachine = dialog.SelectedMachine;
             }
         }
+
+        public void KompasBtn()
+        {
+
+        }
     }
 }

@@ -34,6 +34,9 @@
                     <TextBlock Margin="5 0" FontSize="18" FontWeight="DemiBold" Text="Тип обработки"/>
                 </StackPanel>
             </Button>
+            <Button x:Name="KompasBtn" 
+                    Style="{StaticResource MainButton}"
+                    Margin="5">Компас</Button>
         </StackPanel>
 
         <!-- Grid Column 1 Row 1 -->
