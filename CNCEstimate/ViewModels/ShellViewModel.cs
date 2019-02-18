@@ -39,7 +39,7 @@ namespace CNCEstimate.ViewModels
 
         public void KompasBtn()
         {
-
+            ActivateItem(new KompasViewModel());
         }
     }
 }

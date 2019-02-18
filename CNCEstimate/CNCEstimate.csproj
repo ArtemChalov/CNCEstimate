@@ -163,6 +163,7 @@
     <Compile Include="Models\Primitives\LineObj.cs" />
     <Compile Include="ViewModels\GasViewModel.cs" />
     <Compile Include="ViewModels\HidroViewModel.cs" />
+    <Compile Include="ViewModels\KompasViewModel.cs" />
     <Compile Include="ViewModels\LaserViewModel.cs" />
     <Compile Include="ViewModels\MaterialSelectorViewModel.cs" />
     <Compile Include="ViewModels\PlasmaViewModel.cs" />
@@ -174,6 +175,9 @@
     </Compile>
     <Compile Include="Views\HidroView.xaml.cs">
       <DependentUpon>HidroView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KompasView.xaml.cs">
+      <DependentUpon>KompasView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LaserView.xaml.cs">
       <DependentUpon>LaserView.xaml</DependentUpon>
@@ -214,6 +218,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\HidroView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KompasView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -274,6 +282,10 @@
     <ProjectReference Include="..\DbSqlServerWorker\DbSqlServerWorker.csproj">
       <Project>{3A6937D1-2CC3-428E-B594-8D0AC358C740}</Project>
       <Name>DbSqlServerWorker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KompasNet\KompasNet.csproj">
+      <Project>{638A6DD8-32FE-47FB-9D50-49DDA5831A26}</Project>
+      <Name>KompasNet</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

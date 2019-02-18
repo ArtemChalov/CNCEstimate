@@ -7,9 +7,9 @@ namespace KompasNet
 {
     public static class KompasObjectFactory
     {
-        private static KompasObject _kompasObject = null;
+        public static KompasObject Kompas = null;
 
-        public static KompasObject GetKompasObject()
+        public static void Open()
         {
             string progId = string.Empty;
 
@@ -19,19 +19,29 @@ namespace KompasNet
             progId = "KOMPAS.Application.5";
 #endif
 
-            if (_kompasObject == null)
+            if (Kompas == null)
             {
                 Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
 
                 Process[] pname = Process.GetProcessesByName("KOMPAS");
                 if (pname.Length == 0)
-                    _kompasObject = (KompasObject)Activator.CreateInstance(t);
+                    Kompas = (KompasObject)Activator.CreateInstance(t);
                 else
                 {
-                    _kompasObject = (KompasObject)Marshal.GetActiveObject(progId);
+                    Kompas = (KompasObject)Marshal.GetActiveObject(progId);
                 }
             }
-            return _kompasObject;
+
+            Kompas.Visible = true;
+        }
+
+        public static void Close()
+        {
+            if (Kompas != null)
+            {
+                Kompas.Quit();
+                Kompas = null;
+            }
         }
     }
 }

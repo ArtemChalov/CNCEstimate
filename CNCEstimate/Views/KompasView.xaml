@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="CNCEstimate.Views.KompasView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CNCEstimate.Views"
+             mc:Ignorable="d" 
+             Background="#FF72DCFB"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- Grid Column 0 Row 0 -->
+        <StackPanel Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Stretch">
+            <TextBlock HorizontalAlignment="Center"
+                       FontSize="24"
+                       Foreground="Blue"
+                       Text="Работа с компасом"/>
+            <Separator Foreground="AliceBlue"
+                       Height="2"
+                       Margin="1 3 1 0">
+                <Separator.Effect>
+                    <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="3"/>
+                </Separator.Effect>
+            </Separator>
+        </StackPanel>
+
+        <!-- Grid Column 0 Row 1 -->
+        <StackPanel Grid.Column="0"
+                    Grid.Row="1"
+                    Margin="5 0 0 0">
+            <Button x:Name="Open"
+                    Margin="5"
+                    Style="{StaticResource MainButton}">
+                Открыть
+            </Button>
+            <Button x:Name="Close" 
+                    Margin="5"
+                    Style="{StaticResource MainButton}">
+                Закрыть
+            </Button>
+            <Button x:Name="Create2D" 
+                    Margin="5 15 5 5"
+                    Style="{StaticResource MainButton}">
+                Создать чертеж
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
