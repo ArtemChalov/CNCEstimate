@@ -1,39 +1,35 @@
 ﻿using Kompas6API5;
 using Kompas6Constants;
 using KompasNet.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace KompasNet.Documents
 {
     public class CreateStamp
     {
-        private MainStamp _stamp;
-        public CreateStamp(MainStamp stamp)
+        public void Create(Document2D document2D, MainStamp stamp)
         {
-            _stamp = stamp;
-        }
-
-        public void Create(Document2D document2D, KompasObject Kompas)
-        {
-            Stamp stamp;
-            stamp = document2D.GetStamp();
-            stamp.ksOpenStamp();
-            foreach (var item in _stamp.SignDict)
+            KompasObject Kompas = KompasObjectFactory.Kompas;
+            if (stamp != null && Kompas != null)
             {
-                if (item.Value > 0)
+                Stamp kstamp = null;
+                kstamp = document2D?.GetStamp();
+                if (kstamp != null)
                 {
-                    stamp.ksColumnNumber(item.Value);
-                    TextItemParam textItemParam;
-                    textItemParam = (TextItemParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_TextItemParam);
-                    textItemParam.s = _stamp.ValueDict[item.Key];
-                    stamp.ksTextLine(textItemParam);
+                    kstamp.ksOpenStamp();
+                    foreach (var item in stamp.SignDict)
+                    {
+                        if (item.Value > 0)
+                        {
+                            kstamp.ksColumnNumber(item.Value);
+                            TextItemParam textItemParam;
+                            textItemParam = (TextItemParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_TextItemParam);
+                            textItemParam.s = stamp.ValueDict[item.Key];
+                            kstamp.ksTextLine(textItemParam);
+                        }
+                    }
+                    kstamp.ksCloseStamp();
                 }
             }
-            stamp.ksCloseStamp();
         }
     }
 }

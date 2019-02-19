@@ -1,6 +1,10 @@
-﻿using KompasNet;
+﻿using CNCEstimate.Dialogs;
+using CNCEstimate.Models;
+using KompasNet;
 using KompasNet.Documents;
 using KompasNet.Models;
+using System;
+using System.ComponentModel;
 
 namespace CNCEstimate.ViewModels
 {
@@ -19,7 +23,20 @@ namespace CNCEstimate.ViewModels
 
         public void Create2D()
         {
-            CreateDocument2D.Create("Новый документ", new MainStamp("Чалов", "Деталь","000.001", "Ст3сп", "ООО\n\"АгроПермьКомплекс\""));
+            var title = new TitleClass();
+            var window = new InputDataDialogWindow(title);
+            window.Title = "Название файла";
+            window.Owner = AppStore.MainWindow;
+
+            window.ShowDialog();
+
+            //new CreateDocument2D().Create("Новый документ", null);
+        }
+
+        internal class TitleClass
+        {
+            [DisplayName("Название файла")]
+            public string Title { get; set; }
         }
     }
 }

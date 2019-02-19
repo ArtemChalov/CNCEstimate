@@ -39,6 +39,8 @@ namespace CNCEstimate.ViewModels
 
         public void KompasBtn()
         {
+            if (AppStore.MainWindow == null)
+                AppStore.MainWindow = (Window)this.GetView();
             ActivateItem(new KompasViewModel());
         }
     }

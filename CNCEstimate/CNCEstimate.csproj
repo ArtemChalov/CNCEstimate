@@ -156,6 +156,9 @@
     <Compile Include="Dialogs\ChooseMaterialDialog.xaml.cs">
       <DependentUpon>ChooseMaterialDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\InputDataDialogWindow.xaml.cs">
+      <DependentUpon>InputDataDialogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Factories\InputDataPresenterItemFactory.cs" />
     <Compile Include="Factories\MachinViewFactory.cs" />
     <Compile Include="Models\Figures\PlateFigure.cs" />
@@ -206,6 +209,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dialogs\ChooseMaterialDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\InputDataDialogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -5,9 +5,9 @@ using KompasNet.Models;
 
 namespace KompasNet.Documents
 {
-    public static class CreateDocument2D
+    public class CreateDocument2D
     {
-        public static void Create(string fileName, MainStamp mainStamp)
+        public void Create(string fileName, MainStamp mainStamp)
         {
             if (KompasObjectFactory.Kompas == null)
                 KompasObjectFactory.Open();
@@ -20,6 +20,7 @@ namespace KompasNet.Documents
                 documentParam = (DocumentParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_DocumentParam);
                 documentParam.Init();
                 documentParam.type = (short)DocType.lt_DocSheetStandart;
+                documentParam.fileName = fileName;
 
                 SheetPar sheetPar;
                 sheetPar = (SheetPar)documentParam.GetLayoutParam();
@@ -37,17 +38,7 @@ namespace KompasNet.Documents
                 document2D = (Document2D)Kompas.Document2D();
                 document2D.ksCreateDocument(documentParam);
 
-                new CreateStamp(mainStamp).Create(document2D, Kompas);
-
-                //Stamp stamp;
-                //stamp = document2D.GetStamp();
-                //stamp.ksOpenStamp();
-                //stamp.ksColumnNumber(1);
-                //TextItemParam textItemParam;
-                //textItemParam = (TextItemParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_TextItemParam);
-                //textItemParam.s = "Деталь";
-                //stamp.ksTextLine(textItemParam);
-                //stamp.ksCloseStamp();
+                new CreateStamp().Create(document2D, mainStamp);
 
                 Kompas.Visible = true;
             }
