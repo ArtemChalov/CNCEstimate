@@ -1,11 +1,7 @@
 ﻿using CNCEstimate.Dialogs;
-using CNCEstimate.Models;
 using KompasNet;
 using KompasNet.Documents;
-using KompasNet.Models;
-using System;
 using System.ComponentModel;
-using System.Windows;
 
 namespace CNCEstimate.ViewModels
 {
