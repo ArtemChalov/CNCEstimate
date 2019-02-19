@@ -43,6 +43,11 @@
       <HintPath>C:\Program Files\ASCON\KOMPAS-3D v17\SDK\Samples\CSharp\Common\Kompas6Constants.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="KompasAPI7">
+      <HintPath>C:\Program Files\ASCON\KOMPAS-3D v17\SDK\Samples\CSharp\Common\KompasAPI7.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,8 +58,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Documents\CreateDocument2D.cs" />
+    <Compile Include="Documents\KompasDocument2D.cs" />
     <Compile Include="Documents\CreateStamp.cs" />
+    <Compile Include="Drawing2D\DrawPrimitive.cs" />
+    <Compile Include="Drawing2D\LineSeg.cs" />
     <Compile Include="KompasObjectFactory.cs" />
     <Compile Include="Models\MainStamp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

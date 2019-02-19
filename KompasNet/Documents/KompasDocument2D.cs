@@ -1,7 +1,9 @@
 ﻿using KAPITypes;
 using Kompas6API5;
 using Kompas6Constants;
+using KompasAPI7;
 using KompasNet.Models;
+using System.Windows;
 
 namespace KompasNet.Documents
 {
@@ -40,6 +42,41 @@ namespace KompasNet.Documents
 
                 new CreateStamp().Create(document2D, mainStamp);
             }
+        }
+
+        public Document2D GetDocument()
+        {
+            KompasObjectFactory.Open();
+
+            if (KompasObjectFactory.Kompas != null)
+            {
+                KompasObject Kompas = KompasObjectFactory.Kompas;
+
+                var document2D = (Document2D)Kompas.ActiveDocument2D();
+
+                IApplication app = Kompas.ksGetApplication7();
+                IDocuments docs = app.Documents;
+                OpenDocumentParam odp = docs.GetOpenDocumentParam();
+                for (int i = 0; i < docs.Count; i++)
+                {
+                    IKompasDocument doc = docs[i];
+                    DocumentTypeEnum dte = doc.DocumentType;
+                    MessageBox.Show(docs[i].Name);
+                }
+
+                //if (document2D != null)
+                //{
+                //    var refer = document2D.reference;
+                //    DocumentParam documentParam;
+                //    documentParam = (DocumentParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_DocumentParam);
+                //    documentParam.Init();
+                //    document2D.ksGetObjParam(refer, documentParam);
+                //    MessageBox.Show(documentParam.fileName);
+                //}
+
+                if (document2D != null) return document2D;
+            }
+            return null;
         }
     }
 }

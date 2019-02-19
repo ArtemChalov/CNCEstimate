@@ -1,6 +1,7 @@
 ﻿using CNCEstimate.Dialogs;
 using KompasNet;
 using KompasNet.Documents;
+using KompasNet.Drawing2D;
 using System.ComponentModel;
 
 namespace CNCEstimate.ViewModels
@@ -28,9 +29,15 @@ namespace CNCEstimate.ViewModels
 
             if(window.ShowDialog() == true)
             {
-                new CreateDocument2D().Create(title.Title, null);
+                new KompasDocument2D().CreateDocument(title.Title, null);
             }
             title = null;
+        }
+
+        public void DrawLineSeg()
+        {
+            LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 0);
+            lineSeg.Draw();
         }
 
         internal class TitleClass

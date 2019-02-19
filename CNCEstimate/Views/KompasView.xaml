@@ -54,6 +54,11 @@
                     Style="{StaticResource MainButton}">
                 Создать чертеж
             </Button>
+            <Button x:Name="DrawLineSeg" 
+                    Margin="5"
+                    Style="{StaticResource MainButton}">
+                Создать линию
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>
