@@ -18,17 +18,23 @@ namespace KompasNet
 #else
             progId = "KOMPAS.Application.5";
 #endif
+            Process[] pname = Process.GetProcessesByName("KOMPAS");
 
             if (Kompas == null)
             {
-                Type t = Type.GetTypeFromProgID("KOMPAS.Application.5");
-
-                Process[] pname = Process.GetProcessesByName("KOMPAS");
                 if (pname.Length == 0)
-                    Kompas = (KompasObject)Activator.CreateInstance(t);
+                    Kompas = (KompasObject)Activator.CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
                 else
                 {
                     Kompas = (KompasObject)Marshal.GetActiveObject(progId);
+                }
+            }
+            else
+            {
+                if (pname.Length == 0)
+                {
+                    Kompas = null;
+                    Kompas = (KompasObject)Activator.CreateInstance(Type.GetTypeFromProgID("KOMPAS.Application.5"));
                 }
             }
 
@@ -39,7 +45,9 @@ namespace KompasNet
         {
             if (Kompas != null)
             {
-                Kompas.Quit();
+                Process[] pname = Process.GetProcessesByName("KOMPAS");
+                if (pname.Length == 0)
+                    Kompas.Quit();
                 Kompas = null;
             }
         }

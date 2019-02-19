@@ -11,8 +11,27 @@
         MinWidth="220"
         MinHeight="180"
         WindowStartupLocation="CenterOwner"
-        Title="InputDataDialogWindow" Height="450" Width="800">
-    <Grid>
-        <StackPanel x:Name="StackContainer"/>
-    </Grid>
+        Title="InputDataDialogWindow" Height="220" Width="300">
+    <Border Padding="10 20 10 5">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="StackContainer"
+                        Grid.Row="0"/>
+            <StackPanel Orientation="Horizontal"
+                        Grid.Row="1"
+                        Margin="10"
+                        HorizontalAlignment="Right">
+                <Button Click="Apply_Click"
+                        Margin="10 0"
+                        Width="80"
+                        Height="30">Применить</Button>
+                <Button Click="Cancel_Click"
+                        Width="80"
+                        Height="30">Отменить</Button>
+            </StackPanel>
+        </Grid>
+    </Border>
 </Window>

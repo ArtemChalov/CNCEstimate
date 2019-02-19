@@ -21,15 +21,20 @@ namespace CNCEstimate.Dialogs
     /// </summary>
     public partial class InputDataDialogWindow : Window
     {
+        private object _obj;
+
         public InputDataDialogWindow(object obj)
         {
             InitializeComponent();
-            CreateList(obj);
+            _obj = obj;
+            CreateList();
         }
 
-        private void CreateList(object obj)
+        private void CreateList()
         {
-            var collection = GetPropertiesCollection(obj);
+            if (_obj == null) return;
+
+            var collection = GetPropertiesCollection(_obj);
             foreach (var item in collection)
             {
                 StackContainer.Children.Add(item);
@@ -42,26 +47,60 @@ namespace CNCEstimate.Dialogs
             foreach (var prop in obj.GetType().GetProperties())
             {
                 DisplayNameAttribute MyAttribute = (DisplayNameAttribute)prop.GetCustomAttribute(typeof(DisplayNameAttribute));
-                    
+
                 string atrRes = "";
                 if (MyAttribute != null)
                 {
                     atrRes = MyAttribute.DisplayName;
+                    StackPanel stack = new StackPanel
+                    {
+                        Orientation = Orientation.Vertical
+                    };
+
+                    TextBox textBox = new TextBox() { FontSize = 16, Width = 200 };
+                    Binding myBinding = new Binding(prop.Name);
+                    myBinding.Source = obj;
+                    myBinding.Path = new PropertyPath(prop.Name);
+                    myBinding.Mode = BindingMode.TwoWay;
+                    myBinding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+                    BindingOperations.SetBinding(textBox, TextBox.TextProperty, myBinding);
+
+                    stack.Children.Add(new TextBlock() { Text = atrRes, FontSize = 14, Width = 200 });
+                    stack.Children.Add(textBox);
+
+                    list.Add(stack);
                 }
-                //MessageBox.Show($"{prop.Name} - {prop.GetValue(obj)?.ToString()} - {atrRes}");
-
-                StackPanel stack = new StackPanel
-                {
-                    Orientation = Orientation.Vertical
-                };
-
-                stack.Children.Add(new TextBlock() { Text = atrRes, FontSize = 14, Width = 200 });
-                stack.Children.Add(new TextBox() { FontSize = 16, Width = 200});
-
-                list.Add(stack);
             }
 
             return list;
+        }
+
+        private void Apply_Click(object sender, RoutedEventArgs e)
+        {
+            bool res = true;
+            foreach (var prop in _obj.GetType().GetProperties())
+            {
+                if (prop.PropertyType == typeof(string))
+                {
+                    string str = prop.GetValue(_obj).ToString();
+                    if (String.IsNullOrEmpty(str) || String.IsNullOrWhiteSpace(str))
+                    {
+                        DisplayNameAttribute MyAttribute = (DisplayNameAttribute)prop.GetCustomAttribute(typeof(DisplayNameAttribute));
+                        MessageBox.Show($"Поле \"{MyAttribute.DisplayName}\" не может быть пустым!");
+                        res = false;
+                        break;
+                    }
+                }
+            }
+
+            if (res == false) return;
+
+            this.DialogResult = true;
+        }
+
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
         }
     }
 }

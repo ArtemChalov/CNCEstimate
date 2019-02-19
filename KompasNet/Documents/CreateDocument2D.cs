@@ -9,8 +9,7 @@ namespace KompasNet.Documents
     {
         public void Create(string fileName, MainStamp mainStamp)
         {
-            if (KompasObjectFactory.Kompas == null)
-                KompasObjectFactory.Open();
+            KompasObjectFactory.Open();
 
             if (KompasObjectFactory.Kompas != null)
             {

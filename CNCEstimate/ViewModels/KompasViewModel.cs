@@ -5,6 +5,7 @@ using KompasNet.Documents;
 using KompasNet.Models;
 using System;
 using System.ComponentModel;
+using System.Windows;
 
 namespace CNCEstimate.ViewModels
 {
@@ -24,13 +25,16 @@ namespace CNCEstimate.ViewModels
         public void Create2D()
         {
             var title = new TitleClass();
+            title.Title = "Новый чертеж";
             var window = new InputDataDialogWindow(title);
             window.Title = "Название файла";
             window.Owner = AppStore.MainWindow;
 
-            window.ShowDialog();
-
-            //new CreateDocument2D().Create("Новый документ", null);
+            if(window.ShowDialog() == true)
+            {
+                new CreateDocument2D().Create(title.Title, null);
+            }
+            title = null;
         }
 
         internal class TitleClass
