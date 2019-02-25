@@ -40,6 +40,11 @@ namespace CNCEstimate.ViewModels
             lineSeg.Draw();
         }
 
+        public void GetViewParam()
+        {
+            new KompasDocument2D().GetViewPram();
+        }
+
         internal class TitleClass
         {
             [DisplayName("Название файла")]

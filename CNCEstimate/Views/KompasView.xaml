@@ -59,6 +59,11 @@
                     Style="{StaticResource MainButton}">
                 Создать линию
             </Button>
+            <Button x:Name="GetViewParam" 
+                    Margin="5"
+                    Style="{StaticResource MainButton}">
+                Параметры вида
+            </Button>
         </StackPanel>
     </Grid>
 </UserControl>

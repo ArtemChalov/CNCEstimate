@@ -54,15 +54,43 @@ namespace KompasNet.Documents
 
                 var document2D = (Document2D)Kompas.ActiveDocument2D();
 
-                IApplication app = Kompas.ksGetApplication7();
-                IDocuments docs = app.Documents;
-                OpenDocumentParam odp = docs.GetOpenDocumentParam();
-                for (int i = 0; i < docs.Count; i++)
-                {
-                    IKompasDocument doc = docs[i];
-                    DocumentTypeEnum dte = doc.DocumentType;
-                    MessageBox.Show(docs[i].Name);
-                }
+                //var refer = document2D.reference;
+
+                //DocumentParam documentParam;
+
+                //var param = document2D.ksGetObjParam(document2D.reference, )
+                //documentParam = (DocumentParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_DocumentParam);
+
+                //IApplication app = Kompas.ksGetApplication7();
+                //KompasAPI7.Documents docs = app.Documents;
+                //foreach (IKompasDocument item in docs)
+                //{
+                //    if (item.DocumentType == DocumentTypeEnum.ksDocumentDrawing)
+                //    {
+
+                //        var v = ((IKompasDocument2D)item);
+                //        var ls = v.LayoutSheets;
+                //        //IDrawingObject drawing = v.Views[0];
+                //        //ILineSegment segment = new LineSegment();
+                //        //segment.X1 = 45;
+                //        //segment.X2 = 45;
+                //        //segment.Y1 = 100;
+                //        //segment.Y2 = 200;
+                //        MessageBox.Show($"{item.Name}");
+                //        //((IKompasDocument2D)item).DocumentType
+                //    }
+                //   // MessageBox.Show($"{item.Name}, {item.DocumentType} ");
+                //}
+
+
+                //IDocuments docs = app.Documents;
+                //OpenDocumentParam odp = docs.GetOpenDocumentParam();
+                //for (int i = 0; i < docs.Count; i++)
+                //{
+                //    IKompasDocument doc = docs[i];
+                //    DocumentTypeEnum dte = doc.DocumentType;
+                //    MessageBox.Show(docs[i].Name);
+                //}
 
                 //if (document2D != null)
                 //{
@@ -77,6 +105,54 @@ namespace KompasNet.Documents
                 if (document2D != null) return document2D;
             }
             return null;
+        }
+
+        public void GetViewPram()
+        {
+            KompasObjectFactory.Open();
+
+            if (KompasObjectFactory.Kompas != null)
+            {
+                KompasObject Kompas = KompasObjectFactory.Kompas;
+
+                IApplication app = Kompas.ksGetApplication7();
+
+                KompasAPI7.Documents docs = app.Documents;
+                foreach (IKompasDocument item in docs)
+                {
+                    if (item.DocumentType == DocumentTypeEnum.ksDocumentDrawing)
+                    {
+                        var vm = ((IKompasDocument2D)item);
+                        var views = vm.ViewsAndLayersManager.Views;
+                        //views.AddStandartViews("Чертеж1.cdw", null, )
+                        foreach (IView view in views)
+                        {
+                            if (item.Name == "Чертеж1.cdw")
+                            {
+                                views.Add(LtViewType.vt_Standart);
+                                IDrawingObject dr = (IDrawingObject)item;
+                                dr.Update();
+                                MessageBox.Show($"Doc Name{item.Name}, Name {view.Name}, scale {view.Scale}");
+                            }
+                        }
+                    }
+                }
+            }
+
+            //KompasObjectFactory.Open();
+            ////ViewParam viewParam;
+
+            //if (KompasObjectFactory.Kompas != null)
+            //{
+            //    KompasObject Kompas = KompasObjectFactory.Kompas;
+            //    var document2D = (Document2D)Kompas.ActiveDocument2D();
+
+            //    //document2D.ksGetObjParam
+
+            //    ViewParam viewParam = (ViewParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_ViewParam);
+            //    MessageBox.Show(viewParam.GetType().ToString());
+            //    MessageBox.Show($"Name: {viewParam.name}, scale: {viewParam.scale_}, x: {viewParam.x}, y: {viewParam.y}");
+            //}
         }
     }
 }
