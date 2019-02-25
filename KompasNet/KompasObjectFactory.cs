@@ -1,5 +1,8 @@
 ﻿using Kompas6API5;
+using KompasAPI7;
+using KompasNet.Models;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -51,5 +54,71 @@ namespace KompasNet
                 Kompas = null;
             }
         }
+
+        public static List<KDocumentItem> GetDocumentsNameList()
+        {
+            Open();
+
+            List<KDocumentItem> list = new List<KDocumentItem>();
+
+            if (KompasObjectFactory.Kompas != null)
+            {
+                KompasObject Kompas = KompasObjectFactory.Kompas;
+
+                IApplication app = Kompas.ksGetApplication7();
+
+                foreach (IKompasDocument item in app.Documents)
+                {
+                    if (item.Name.Length > 0)
+                        list.Add(new KDocumentItem(item.Name, item.Active));
+                }
+            }
+
+            return list;
+        }
+
+        public static bool SetActiveDocument(KDocumentItem kDocument)
+        {
+            bool output = false;
+            List<KDocumentItem> docList = GetDocumentsNameList();
+            if (docList.Contains(kDocument) && KompasObjectFactory.Kompas != null)
+            {
+                KompasObject Kompas = KompasObjectFactory.Kompas;
+
+                IApplication app = Kompas.ksGetApplication7();
+
+                foreach (IKompasDocument item in app.Documents)
+                {
+                    if (item.Name == kDocument.Name)
+                    {
+                        item.Active = true;
+                        output = true;
+                    }
+                }
+            }
+            return output;
+        }
+
+        //public static List<KDocumentItem> SetActiveKDocumentByName()
+        //{
+        //    Open();
+
+        //    List<KDocumentItem> list = new List<KDocumentItem>();
+
+        //    if (KompasObjectFactory.Kompas != null)
+        //    {
+        //        KompasObject Kompas = KompasObjectFactory.Kompas;
+
+        //        IApplication app = Kompas.ksGetApplication7();
+
+        //        foreach (IKompasDocument item in app.Documents)
+        //        {
+        //            if (item.Name.Length > 0)
+        //                list.Add(new KDocumentItem(item.Name, item.Active));
+        //        }
+        //    }
+
+        //    return list;
+        //}
     }
 }

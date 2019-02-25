@@ -65,5 +65,14 @@
                 Параметры вида
             </Button>
         </StackPanel>
+
+        <ComboBox x:Name="KDrawings"
+                  Grid.Column="1"
+                  Grid.Row="1"
+                  DisplayMemberPath="Name"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top"
+                  MinWidth="200"
+                  SelectedItem="{Binding SelectedKDrawing}"/>
     </Grid>
 </UserControl>

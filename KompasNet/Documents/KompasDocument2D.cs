@@ -82,6 +82,13 @@ namespace KompasNet.Documents
 
                 IApplication app = Kompas.ksGetApplication7();
 
+                foreach(IKompasDocument item in app.Documents)
+                {
+                    MessageBox.Show($"Type: {item.DocumentType}\nName: {item.Name}\nActive: {item.Active}");
+                }
+
+                return;
+
                 IKompasDocument2D doc = (IKompasDocument2D)app.Documents.AddWithDefaultSettings(DocumentTypeEnum.ksDocumentDrawing);
                 if (doc != null)
                 {
@@ -91,6 +98,11 @@ namespace KompasNet.Documents
                     format.VerticalOrientation = false;
                     format.Format = ksDocumentFormatEnum.ksFormatA3;
                     layout.Update();
+
+                    IStamp stamp = layout.Stamp;
+                    IText text = stamp.Text[1];
+                    text.Str = "Part";
+                    stamp.Update();
 
                     ViewsAndLayersManager viewManageer = doc.ViewsAndLayersManager;
                     Views views = viewManageer.Views;
@@ -105,6 +117,8 @@ namespace KompasNet.Documents
                     views = viewManageer.Views;
                     drawingObject = views[views.Count - 1];
                     view = (IView)drawingObject;
+
+
                     IDrawingContainer container = (IDrawingContainer)view;
 
                     ILineSegment lineSegment = container.LineSegments.Add();
