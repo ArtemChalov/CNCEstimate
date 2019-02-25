@@ -20,14 +20,14 @@ namespace KompasNet.Documents
 
                 DocumentParam documentParam;
                 documentParam = (DocumentParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_DocumentParam);
-                documentParam.Init();
-                documentParam.type = (short)DocType.lt_DocSheetStandart;
+                documentParam.Init(); // Сбрасываем все параметры
+                documentParam.type = (short)DocType.lt_DocSheetStandart; // Стандартный черетеж
                 documentParam.fileName = fileName;
 
                 SheetPar sheetPar;
                 sheetPar = (SheetPar)documentParam.GetLayoutParam();
-                sheetPar.layoutName = @"C:\Program Files\ASCON\KOMPAS-3D v17\Sys\GRAPHIC.LYT"; 
-                sheetPar.shtType = 1;  //Тип документа
+                sheetPar.layoutName = @"C:\Program Files\ASCON\KOMPAS-3D v17\Sys\GRAPHIC.LYT"; // Библиотека с оформлениями
+                sheetPar.shtType = 1;  //Тип документа (в данном случае 1 из GRAPHIC.LYT - первый лист по ГОСТ)
 
                 //Подготавливаем параметры листа
                 StandartSheet standartSheet;
@@ -36,11 +36,24 @@ namespace KompasNet.Documents
                 standartSheet.format = 4;     //А4
                 standartSheet.multiply = 1;   //кратность
 
+                ViewParam viewParam = Kompas.GetParamStruct((short)StructType2DEnum.ko_ViewParam);
+                viewParam.Init();
+                viewParam.name = "Вид 1";
+                viewParam.scale_ = 0.5;
+                viewParam.x = 20;
+                viewParam.y = 60;
+
                 Document2D document2D;
                 document2D = (Document2D)Kompas.Document2D();
-                document2D.ksCreateDocument(documentParam);
 
-                new CreateStamp().Create(document2D, mainStamp);
+                if (document2D.ksCreateDocument(documentParam))
+                {
+                    int viewNumber = 0;
+                    document2D?.ksCreateSheetView(viewParam, ref viewNumber);
+                    new CreateStamp().Create(document2D, mainStamp);
+
+                    MessageBox.Show($"Создан чертеж: \"{fileName}\"\nФормат: А{standartSheet.format}\nВид: {viewParam.name}\nМасштаб {viewParam.scale_}");
+                }
             }
         }
 
@@ -53,54 +66,6 @@ namespace KompasNet.Documents
                 KompasObject Kompas = KompasObjectFactory.Kompas;
 
                 var document2D = (Document2D)Kompas.ActiveDocument2D();
-
-                //var refer = document2D.reference;
-
-                //DocumentParam documentParam;
-
-                //var param = document2D.ksGetObjParam(document2D.reference, )
-                //documentParam = (DocumentParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_DocumentParam);
-
-                //IApplication app = Kompas.ksGetApplication7();
-                //KompasAPI7.Documents docs = app.Documents;
-                //foreach (IKompasDocument item in docs)
-                //{
-                //    if (item.DocumentType == DocumentTypeEnum.ksDocumentDrawing)
-                //    {
-
-                //        var v = ((IKompasDocument2D)item);
-                //        var ls = v.LayoutSheets;
-                //        //IDrawingObject drawing = v.Views[0];
-                //        //ILineSegment segment = new LineSegment();
-                //        //segment.X1 = 45;
-                //        //segment.X2 = 45;
-                //        //segment.Y1 = 100;
-                //        //segment.Y2 = 200;
-                //        MessageBox.Show($"{item.Name}");
-                //        //((IKompasDocument2D)item).DocumentType
-                //    }
-                //   // MessageBox.Show($"{item.Name}, {item.DocumentType} ");
-                //}
-
-
-                //IDocuments docs = app.Documents;
-                //OpenDocumentParam odp = docs.GetOpenDocumentParam();
-                //for (int i = 0; i < docs.Count; i++)
-                //{
-                //    IKompasDocument doc = docs[i];
-                //    DocumentTypeEnum dte = doc.DocumentType;
-                //    MessageBox.Show(docs[i].Name);
-                //}
-
-                //if (document2D != null)
-                //{
-                //    var refer = document2D.reference;
-                //    DocumentParam documentParam;
-                //    documentParam = (DocumentParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_DocumentParam);
-                //    documentParam.Init();
-                //    document2D.ksGetObjParam(refer, documentParam);
-                //    MessageBox.Show(documentParam.fileName);
-                //}
 
                 if (document2D != null) return document2D;
             }
@@ -115,28 +80,44 @@ namespace KompasNet.Documents
             {
                 KompasObject Kompas = KompasObjectFactory.Kompas;
 
-                IApplication app = Kompas.ksGetApplication7();
+                Document2D document2D = Kompas.ActiveDocument2D();
 
-                KompasAPI7.Documents docs = app.Documents;
-                foreach (IKompasDocument item in docs)
-                {
-                    if (item.DocumentType == DocumentTypeEnum.ksDocumentDrawing)
-                    {
-                        var vm = ((IKompasDocument2D)item);
-                        var views = vm.ViewsAndLayersManager.Views;
-                        //views.AddStandartViews("Чертеж1.cdw", null, )
-                        foreach (IView view in views)
-                        {
-                            if (item.Name == "Чертеж1.cdw")
-                            {
-                                views.Add(LtViewType.vt_Standart);
-                                IDrawingObject dr = (IDrawingObject)item;
-                                dr.Update();
-                                MessageBox.Show($"Doc Name{item.Name}, Name {view.Name}, scale {view.Scale}");
-                            }
-                        }
-                    }
-                }
+                ViewParam viewParam = Kompas.GetParamStruct((short)StructType2DEnum.ko_ViewParam);
+                viewParam.Init();
+                viewParam.name = "Вид 1";
+                viewParam.scale_ = 0.5;
+                viewParam.x = 20;
+                viewParam.y = 60;
+                int viewNumber = 0;
+
+                document2D?.ksCreateSheetView(viewParam, ref viewNumber);
+
+                MessageBox.Show($"Создан вид \"{viewParam.name}\", с номером {viewNumber}.");
+
+
+                //IApplication app = Kompas.ksGetApplication7();
+
+                //int viewNumber = 0;
+
+                //KompasAPI7.Documents docs = app.Documents;
+                //foreach (IKompasDocument item in docs)
+                //{
+                //    if (item.DocumentType == DocumentTypeEnum.ksDocumentDrawing)
+                //    {
+                //        var views = ((IKompasDocument2D)item).ViewsAndLayersManager.Views;
+                //        foreach (IView view in views)
+                //        {
+                //            if (item.Name == "Чертеж1.cdw")
+                //            {
+                //                viewNumber = view.Number;
+                //                views.Add(LtViewType.vt_Standart);
+                //                IDrawingObject dr = (IDrawingObject)item;
+                //                dr.Update();
+                //                MessageBox.Show($"Doc Name{item.Name}, Name {view.Name}, scale {view.Scale}");
+                //            }
+                //        }
+                //    }
+                //}
             }
 
             //KompasObjectFactory.Open();
