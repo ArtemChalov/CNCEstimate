@@ -82,8 +82,7 @@ namespace KompasNet.Documents
 
                 IApplication app = Kompas.ksGetApplication7();
 
-                KompasAPI7.Documents docs = app.Documents;
-                IKompasDocument2D doc = (IKompasDocument2D)docs.AddWithDefaultSettings(DocumentTypeEnum.ksDocumentDrawing);
+                IKompasDocument2D doc = (IKompasDocument2D)app.Documents.AddWithDefaultSettings(DocumentTypeEnum.ksDocumentDrawing);
                 if (doc != null)
                 {
                     ILayoutSheet layout = doc.LayoutSheets[doc.LayoutSheets.Count - 1];
@@ -95,9 +94,30 @@ namespace KompasNet.Documents
 
                     ViewsAndLayersManager viewManageer = doc.ViewsAndLayersManager;
                     Views views = viewManageer.Views;
-                    IDrawingObject view = views[views.Count - 1];
-                    ((IView)view).Scale = 0.5;
+                    IDrawingObject drawingObject = views[views.Count - 1];
+
+                    IView view = (IView)drawingObject;
+                    view.Scale = 0.5;
                     view.Update();
+                    drawingObject.Update();
+
+                    viewManageer = doc.ViewsAndLayersManager;
+                    views = viewManageer.Views;
+                    drawingObject = views[views.Count - 1];
+                    view = (IView)drawingObject;
+                    IDrawingContainer container = (IDrawingContainer)view;
+
+                    ILineSegment lineSegment = container.LineSegments.Add();
+                    lineSegment.Style = 1;
+                    //lineSegment.Length = 200;
+                    lineSegment.X1 = 30;
+                    lineSegment.Y1 = 60;
+                    lineSegment.X1 = 300;
+                    lineSegment.Y1 = 120;
+                    //lineSegment.Angle = 30;
+                    lineSegment.Update();
+                    view.Update();
+                    drawingObject.Update();
                 }
                 else
                     MessageBox.Show("Не получилось создать документ!");
