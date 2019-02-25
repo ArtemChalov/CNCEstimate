@@ -82,17 +82,18 @@ namespace KompasNet.Documents
 
                 Document2D document2D = Kompas.ActiveDocument2D();
 
+                document2D.ksOpenView(1);
+
                 ViewParam viewParam = Kompas.GetParamStruct((short)StructType2DEnum.ko_ViewParam);
-                viewParam.Init();
-                viewParam.name = "Вид 1";
-                viewParam.scale_ = 0.5;
-                viewParam.x = 20;
-                viewParam.y = 60;
-                int viewNumber = 0;
+                //viewParam.name = "Вид 1";
+                //viewParam.scale_ = 0.5;
+                //viewParam.x = 20;
+                //viewParam.y = 60;
+                //int viewNumber = 0;
 
-                document2D?.ksCreateSheetView(viewParam, ref viewNumber);
+                //document2D?.ksCreateSheetView(viewParam, ref viewNumber);
 
-                MessageBox.Show($"Создан вид \"{viewParam.name}\", с номером {viewNumber}.");
+                MessageBox.Show($"Открыт вид \"{viewParam.name}\".");
 
 
                 //IApplication app = Kompas.ksGetApplication7();

@@ -53,7 +53,7 @@ namespace KompasNet.Drawing2D
         public void Draw()
         {
             var document2D = new KompasDocument2D().GetDocument();
-            document2D?.ksLineSeg(X1, Y1, X2, Y2, Style);
+            document2D?.ksLineSeg(X1, Y1, X2, Y2, 0);
         }
     }
 }
