@@ -80,61 +80,28 @@ namespace KompasNet.Documents
             {
                 KompasObject Kompas = KompasObjectFactory.Kompas;
 
-                Document2D document2D = Kompas.ActiveDocument2D();
+                IApplication app = Kompas.ksGetApplication7();
 
-                document2D.ksOpenView(1);
+                KompasAPI7.Documents docs = app.Documents;
+                IKompasDocument2D doc = (IKompasDocument2D)docs.AddWithDefaultSettings(DocumentTypeEnum.ksDocumentDrawing);
+                if (doc != null)
+                {
+                    ILayoutSheet layout = doc.LayoutSheets[doc.LayoutSheets.Count - 1];
 
-                ViewParam viewParam = Kompas.GetParamStruct((short)StructType2DEnum.ko_ViewParam);
-                //viewParam.name = "Вид 1";
-                //viewParam.scale_ = 0.5;
-                //viewParam.x = 20;
-                //viewParam.y = 60;
-                //int viewNumber = 0;
+                    SheetFormat format = layout.Format;
+                    format.VerticalOrientation = false;
+                    format.Format = ksDocumentFormatEnum.ksFormatA3;
+                    layout.Update();
 
-                //document2D?.ksCreateSheetView(viewParam, ref viewNumber);
-
-                MessageBox.Show($"Открыт вид \"{viewParam.name}\".");
-
-
-                //IApplication app = Kompas.ksGetApplication7();
-
-                //int viewNumber = 0;
-
-                //KompasAPI7.Documents docs = app.Documents;
-                //foreach (IKompasDocument item in docs)
-                //{
-                //    if (item.DocumentType == DocumentTypeEnum.ksDocumentDrawing)
-                //    {
-                //        var views = ((IKompasDocument2D)item).ViewsAndLayersManager.Views;
-                //        foreach (IView view in views)
-                //        {
-                //            if (item.Name == "Чертеж1.cdw")
-                //            {
-                //                viewNumber = view.Number;
-                //                views.Add(LtViewType.vt_Standart);
-                //                IDrawingObject dr = (IDrawingObject)item;
-                //                dr.Update();
-                //                MessageBox.Show($"Doc Name{item.Name}, Name {view.Name}, scale {view.Scale}");
-                //            }
-                //        }
-                //    }
-                //}
+                    ViewsAndLayersManager viewManageer = doc.ViewsAndLayersManager;
+                    Views views = viewManageer.Views;
+                    IDrawingObject view = views[views.Count - 1];
+                    ((IView)view).Scale = 0.5;
+                    view.Update();
+                }
+                else
+                    MessageBox.Show("Не получилось создать документ!");
             }
-
-            //KompasObjectFactory.Open();
-            ////ViewParam viewParam;
-
-            //if (KompasObjectFactory.Kompas != null)
-            //{
-            //    KompasObject Kompas = KompasObjectFactory.Kompas;
-            //    var document2D = (Document2D)Kompas.ActiveDocument2D();
-
-            //    //document2D.ksGetObjParam
-
-            //    ViewParam viewParam = (ViewParam)Kompas.GetParamStruct((short)StructType2DEnum.ko_ViewParam);
-            //    MessageBox.Show(viewParam.GetType().ToString());
-            //    MessageBox.Show($"Name: {viewParam.name}, scale: {viewParam.scale_}, x: {viewParam.x}, y: {viewParam.y}");
-            //}
         }
     }
 }
