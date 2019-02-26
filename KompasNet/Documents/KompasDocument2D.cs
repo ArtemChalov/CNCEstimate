@@ -82,14 +82,10 @@ namespace KompasNet.Documents
 
                 IApplication app = Kompas.ksGetApplication7();
 
-                foreach(IKompasDocument item in app.Documents)
-                {
-                    MessageBox.Show($"Type: {item.DocumentType}\nName: {item.Name}\nActive: {item.Active}");
-                }
-
-                return;
-
                 IKompasDocument2D doc = (IKompasDocument2D)app.Documents.AddWithDefaultSettings(DocumentTypeEnum.ksDocumentDrawing);
+
+
+
                 if (doc != null)
                 {
                     ILayoutSheet layout = doc.LayoutSheets[doc.LayoutSheets.Count - 1];

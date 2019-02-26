@@ -7,55 +7,51 @@ namespace KompasNet.Models
     {
         public Dictionary<string, short> SignDict;
         public Dictionary<string, string> ValueDict;
-        private string _creator;
+        private string _developer;
         private string _detailName;
-        private string _drawingtId;
+        private string _drawingtSign;
         private string _material;
         private string _company;
         private string _scale;
 
-        public MainStamp(string creator, string detailName, string drawingtId, string material,  string company, string scale)
+        public MainStamp(string developer, string detailName = "Деталь")
         {
             ValueDict = new Dictionary<string, string>()
             {
-                {nameof(Creator), null },
+                {nameof(Developer), null },
                 {nameof(DetailName),null },
-                {nameof(DrawingtId), null },
+                {nameof(DrawingtSign), null },
                 {nameof(Material), null },
                 {nameof(Company), null },
                 {nameof(Scale), null }
             };
             SignDict = new Dictionary<string, short>()
             {
-                {nameof(Creator), -1 },
+                {nameof(Developer), -1 },
                 {nameof(DetailName), -1 },
-                {nameof(DrawingtId), -1 },
+                {nameof(DrawingtSign), -1 },
                 {nameof(Material), -1 },
                 {nameof(Company), -1 },
                 {nameof(Scale), -1 }
             };
-            Creator = creator;
+            Developer = developer;
             DetailName = detailName;
-            DrawingtId = drawingtId;
-            Material = material;
-            Company = company;
-            Scale = scale;
         }
 
-        public string Creator
+        public string Developer
         {
-            get { return _creator; }
+            get { return _developer; }
             set
             {
-                _creator = value;
+                _developer = value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    SignDict[nameof(Creator)] = -1;
+                    SignDict[nameof(Developer)] = -1;
                 }
                 else
                 {
-                    SignDict[nameof(Creator)] = 110;
-                    ValueDict[nameof(Creator)] = value;
+                    SignDict[nameof(Developer)] = 110;
+                    ValueDict[nameof(Developer)] = value;
                 }
             }
         }
@@ -76,20 +72,20 @@ namespace KompasNet.Models
                 }
             }
         }
-        public string DrawingtId
+        public string DrawingtSign
         {
-            get { return _drawingtId; }
+            get { return _drawingtSign; }
             set
             {
-                _drawingtId = value;
+                _drawingtSign = value;
                 if (string.IsNullOrEmpty(value))
                 {
-                    SignDict[nameof(DrawingtId)] = -1;
+                    SignDict[nameof(DrawingtSign)] = -1;
                 }
                 else
                 {
-                    SignDict[nameof(DrawingtId)] = 2;
-                    ValueDict[nameof(DrawingtId)] = value;
+                    SignDict[nameof(DrawingtSign)] = 2;
+                    ValueDict[nameof(DrawingtSign)] = value;
                 }
             }
         }

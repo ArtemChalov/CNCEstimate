@@ -20,7 +20,7 @@ namespace KompasNet.Documents
                 {
                     if (item.Name == fileName)
                     {
-                        MessageBox.Show($"Чертеж с именем \"{fileName}\" уже создан.");
+                        OnError($"Чертеж с именем \"{fileName}\" уже создан.");
                         return;
                     }
                 }
@@ -62,7 +62,10 @@ namespace KompasNet.Documents
                     int viewNumber = 0;
                     document2D?.ksCreateSheetView(viewParam, ref viewNumber);
                     if (mainStamp == null)
-                        mainStamp = new MainStamp(null, null, null, null, null, new HelpDict().ScaleDictionary[viewParam.scale_]);
+                    {
+                        mainStamp = new MainStamp(null, null);
+                        mainStamp.Scale = new HelpDict().ScaleDictionary[viewParam.scale_];
+                    }
                     else
                         mainStamp.Scale = new HelpDict().ScaleDictionary[viewParam.scale_];
                     new CreateStamp().Create(document2D, mainStamp);
@@ -72,66 +75,17 @@ namespace KompasNet.Documents
             }
         }
 
-        private void CreateDocument7(string fileName)
-        {
-            if (KManager.Open())
-            {
-                IApplication app = KManager.Kompas.ksGetApplication7();
-
-                foreach (IKompasDocument item in app.Documents)
-                {
-                    if (item.Name == fileName)
-                    {
-                        MessageBox.Show($"Чертеж с именем \"{fileName}\" уже создан.");
-                        return;
-                    }
-                }
-
-                IKompasDocument2D doc = (IKompasDocument2D)app.Documents.AddWithDefaultSettings(DocumentTypeEnum.ksDocumentDrawing);
-
-                if (doc != null)
-                {
-
-                    ILayoutSheet layout = doc.LayoutSheets[doc.LayoutSheets.Count - 1];
-
-                    SheetFormat format = layout.Format;
-                    format.VerticalOrientation = false;
-                    format.Format = ksDocumentFormatEnum.ksFormatA3;
-                    layout.Update();
-
-                    IStamp stamp = layout.Stamp;
-                    IText text = stamp.Text[1];
-                    text.Str = "Part";
-                    stamp.Update();
-
-                    ViewsAndLayersManager viewManageer = doc.ViewsAndLayersManager;
-                    Views views = viewManageer.Views;
-                    IDrawingObject drawingObject = views[views.Count - 1];
-
-                    IView view = (IView)drawingObject;
-                    view.Scale = 0.5;
-                    view.Update();
-                    drawingObject.Update();
-
-                    viewManageer = doc.ViewsAndLayersManager;
-                    views = viewManageer.Views;
-                    drawingObject = views[views.Count - 1];
-                    view = (IView)drawingObject;
-
-                }
-
-            }
-        }
-
         #region Handlers
 
-        public delegate void KompasEventHandler(KDocumentItem kDocument);
-        
+        public delegate void NewDoc2DEventHandler(KDocumentItem kDocument);
+        public delegate void ErrorMessageHandler(string massage);
+
         #endregion
 
         #region Events
 
-        public event KompasEventHandler OnDocument2DCreated;
+        public event NewDoc2DEventHandler OnDocument2DCreated;
+        public event ErrorMessageHandler OnError;
 
         #endregion
     }

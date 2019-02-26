@@ -72,11 +72,18 @@ namespace CNCEstimate.ViewModels
             if(window.ShowDialog() == true)
             {
                 kManager2D.OnDocument2DCreated += KManager2D_OnDocument2DCreated;
-                kManager2D.CreateDocument(title.Title, 3, 0.5, true, new MainStamp("Чалов", "Косынка", "03.019.001", "Сталь 3", "ООО\n\"АгроПермьКомплекс\"", null));
+                kManager2D.OnError += KManager2D_OnError;
+                kManager2D.CreateDocument(title.Title, 3, 0.5, true, new MainStamp("Чалов", "Косынка"));
             }
             title = null;
             kManager2D.OnDocument2DCreated -= KManager2D_OnDocument2DCreated;
+            kManager2D.OnError -= KManager2D_OnError;
             kManager2D = null;
+        }
+
+        private void KManager2D_OnError(string massage)
+        {
+            MessageBox.Show(massage);
         }
 
         private void KManager2D_OnDocument2DCreated(KDocumentItem kDocument)
