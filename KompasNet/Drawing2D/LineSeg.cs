@@ -1,4 +1,5 @@
 ﻿using Kompas6API5;
+using KompasAPI7;
 using KompasNet.Documents;
 
 namespace KompasNet.Drawing2D
@@ -52,9 +53,17 @@ namespace KompasNet.Drawing2D
 
         public void Draw()
         {
+            IDrawingContainer container = KManager2D.GetIDrawingContainer();
 
-            var document2D = new KompasDocument2D().GetDocument();
-            document2D?.ksLineSeg(X1, Y1, X2, Y2, 0);
+            if (container == null) return;
+
+            ILineSegment lineSegment = container.LineSegments.Add();
+            lineSegment.Style = Style;
+            lineSegment.X1 = X1;
+            lineSegment.Y1 = Y1;
+            lineSegment.X2 = X2;
+            lineSegment.Y2 = Y2;
+            lineSegment.Update();
         }
     }
 }

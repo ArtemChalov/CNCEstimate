@@ -77,7 +77,7 @@ namespace CNCEstimate.ViewModels
                 kManager2D.OnDocument2DCreated += KManager2D_OnDocument2DCreated;
                 kManager2D.OnError += (massage) => { MessageBox.Show(massage); };
 
-                kManager2D.CreateDocument(title.Title, 3, 0.5, false, new MainStamp("Чалов", "Косынка"));
+                kManager2D.CreateDocument(title.Title, 3, true);
             }
 
             title = null;
@@ -86,7 +86,7 @@ namespace CNCEstimate.ViewModels
 
         public void DrawLineSeg()
         {
-            LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 0);
+            LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 2);
             lineSeg.Draw();
         }
 

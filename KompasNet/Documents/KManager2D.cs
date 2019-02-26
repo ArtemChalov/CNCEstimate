@@ -9,7 +9,7 @@ namespace KompasNet.Documents
 {
     public class KManager2D
     {
-        public void CreateDocument(string fileName, short format, double scale, bool isHorizontal, MainStamp mainStamp)
+        public void CreateDocument(string fileName, short format, bool isHorizontal, double scale = 1, MainStamp mainStamp = null)
         {
             if (KManager.Open())
             {
@@ -74,6 +74,25 @@ namespace KompasNet.Documents
                     OnDocument2DCreated(new KDocumentItem(fileName, null, true));
                 }
             }
+        }
+
+        public static IDrawingContainer GetIDrawingContainer()
+        {
+            if (KManager.Open())
+            {
+                IApplication app = KManager.Kompas.ksGetApplication7();
+                IKompasDocument kdoc = app.ActiveDocument;
+
+                if (kdoc is IKompasDocument2D doc)
+                {
+                    ViewsAndLayersManager viewManageer = doc.ViewsAndLayersManager;
+                    Views views = viewManageer.Views;
+
+                    return (IDrawingContainer)views[views.Count - 1];
+                }
+            }
+
+            return null;
         }
 
         #region Handlers
