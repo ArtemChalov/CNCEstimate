@@ -8,7 +8,7 @@ namespace KompasNet.Documents
     {
         public void Create(Document2D document2D, MainStamp stamp)
         {
-            KompasObject Kompas = KompasObjectFactory.Kompas;
+            KompasObject Kompas = KManager.Kompas;
             if (stamp != null && Kompas != null)
             {
                 Stamp kstamp = null;

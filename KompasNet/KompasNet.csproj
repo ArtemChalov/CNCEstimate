@@ -62,7 +62,7 @@
     <Compile Include="Documents\CreateStamp.cs" />
     <Compile Include="Drawing2D\DrawPrimitive.cs" />
     <Compile Include="Drawing2D\LineSeg.cs" />
-    <Compile Include="KompasObjectFactory.cs" />
+    <Compile Include="KManager.cs" />
     <Compile Include="Models\KDocumentItem.cs" />
     <Compile Include="Models\MainStamp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

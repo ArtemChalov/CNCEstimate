@@ -33,10 +33,10 @@ namespace CNCEstimate.ViewModels
                 _selectedKDrawing = value;
                 if (_selectedKDrawing != null)
                 {
-                    if (!KompasObjectFactory.SetActiveDocument(_selectedKDrawing))
+                    if (!KManager.SetActiveDocument(_selectedKDrawing))
                     {
                         MessageBox.Show($"Чертеж \"{_selectedKDrawing.Name}\"\nбыл закрыт или удален!");
-                        KDrawings = KompasObjectFactory.GetDocumentsNameList();
+                        KDrawings = KManager.GetDocumentsNameList();
                         _selectedKDrawing = KDrawings.Where(kd => kd.Active == true).FirstOrDefault();
                         NotifyOfPropertyChange(nameof(SelectedKDrawing));
                     }
@@ -48,15 +48,15 @@ namespace CNCEstimate.ViewModels
 
         public void Open()
         {
-            KompasObjectFactory.Open();
-            KDrawings = KompasObjectFactory.GetDocumentsNameList();
+            KManager.Open();
+            KDrawings = KManager.GetDocumentsNameList();
             _selectedKDrawing = KDrawings.Where(kd => kd.Active == true).FirstOrDefault();
             NotifyOfPropertyChange(nameof(SelectedKDrawing));
         }
 
         public void Close()
         {
-            KompasObjectFactory.Close();
+            KManager.Close();
         }
 
         public void Create2D()

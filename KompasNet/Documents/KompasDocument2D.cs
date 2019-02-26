@@ -11,11 +11,11 @@ namespace KompasNet.Documents
     {
         public void CreateDocument(string fileName, MainStamp mainStamp)
         {
-            KompasObjectFactory.Open();
+            KManager.Open();
 
-            if (KompasObjectFactory.Kompas != null)
+            if (KManager.Kompas != null)
             {
-                KompasObject Kompas = KompasObjectFactory.Kompas;
+                KompasObject Kompas = KManager.Kompas;
                 Kompas.Visible = true;
 
                 DocumentParam documentParam;
@@ -59,11 +59,11 @@ namespace KompasNet.Documents
 
         public Document2D GetDocument()
         {
-            KompasObjectFactory.Open();
+            KManager.Open();
 
-            if (KompasObjectFactory.Kompas != null)
+            if (KManager.Kompas != null)
             {
-                KompasObject Kompas = KompasObjectFactory.Kompas;
+                KompasObject Kompas = KManager.Kompas;
 
                 var document2D = (Document2D)Kompas.ActiveDocument2D();
 
@@ -74,11 +74,11 @@ namespace KompasNet.Documents
 
         public void GetViewPram()
         {
-            KompasObjectFactory.Open();
+            KManager.Open();
 
-            if (KompasObjectFactory.Kompas != null)
+            if (KManager.Kompas != null)
             {
-                KompasObject Kompas = KompasObjectFactory.Kompas;
+                KompasObject Kompas = KManager.Kompas;
 
                 IApplication app = Kompas.ksGetApplication7();
 
@@ -136,6 +136,18 @@ namespace KompasNet.Documents
                 else
                     MessageBox.Show("Не получилось создать документ!");
             }
+        }
+
+        private bool Create2DDocAPI5(string fileName)
+        {
+            bool res = false;
+            return res;
+        }
+
+        private bool Create2DDocAPI7(string fileName)
+        {
+            bool res = false;
+            return res;
         }
     }
 }
