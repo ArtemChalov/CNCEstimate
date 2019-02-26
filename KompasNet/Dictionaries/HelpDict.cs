@@ -2,17 +2,28 @@
 
 namespace KompasNet.Dictionaries
 {
+    public enum DictionaryType
+    {
+        Scale = 0
+    }
+
     public class HelpDict
     {
-        public Dictionary<double, string> ScaleDictionary;
-        public HelpDict()
+        public Dictionary<double, string> _ScaleDictionary;
+
+        public HelpDict(DictionaryType type)
         {
-            CreateScales();
+            switch (type)
+            {
+                case DictionaryType.Scale:
+                    CreateScales();
+                    break;
+            }
         }
 
         private void CreateScales()
         {
-            ScaleDictionary = new Dictionary<double, string>()
+            _ScaleDictionary = new Dictionary<double, string>()
             {
                 { 0.01, "1:100" },
                 { 0.02, "1:50" },  

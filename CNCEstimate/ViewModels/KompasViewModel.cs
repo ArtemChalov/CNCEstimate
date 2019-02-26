@@ -16,6 +16,8 @@ namespace CNCEstimate.ViewModels
         private List<KDocumentItem> _kDrawings;
         private KDocumentItem _selectedKDrawing;
 
+        #region Properties
+
         public List<KDocumentItem> KDrawings
         {
             get { return _kDrawings; }
@@ -45,13 +47,14 @@ namespace CNCEstimate.ViewModels
             }
         }
 
+        #endregion
+
+        #region Button Methods
 
         public void Open()
         {
             KManager.Open();
-            KDrawings = KManager.GetDocumentsNameList();
-            _selectedKDrawing = KDrawings.Where(kd => kd.Active == true).FirstOrDefault();
-            NotifyOfPropertyChange(nameof(SelectedKDrawing));
+            GetOpendKDocumentList();
         }
 
         public void Close()
@@ -63,8 +66,8 @@ namespace CNCEstimate.ViewModels
         {
             KManager2D kManager2D = new KManager2D();
 
-            var title = new TitleClass();
-            title.Title = "Новый чертеж";
+            var title = new TitleClass() { Title = "Новый чертеж" };
+
             var window = new InputDataDialogWindow(title);
             window.Title = "Название файла";
             window.Owner = AppStore.MainWindow;
@@ -72,23 +75,13 @@ namespace CNCEstimate.ViewModels
             if(window.ShowDialog() == true)
             {
                 kManager2D.OnDocument2DCreated += KManager2D_OnDocument2DCreated;
-                kManager2D.OnError += KManager2D_OnError;
-                kManager2D.CreateDocument(title.Title, 3, 0.5, true, new MainStamp("Чалов", "Косынка"));
+                kManager2D.OnError += (massage) => { MessageBox.Show(massage); };
+
+                kManager2D.CreateDocument(title.Title, 3, 0.5, false, new MainStamp("Чалов", "Косынка"));
             }
+
             title = null;
-            kManager2D.OnDocument2DCreated -= KManager2D_OnDocument2DCreated;
-            kManager2D.OnError -= KManager2D_OnError;
             kManager2D = null;
-        }
-
-        private void KManager2D_OnError(string massage)
-        {
-            MessageBox.Show(massage);
-        }
-
-        private void KManager2D_OnDocument2DCreated(KDocumentItem kDocument)
-        {
-            MessageBox.Show($"Cоздан чертеж \"{kDocument.Name}\"");
         }
 
         public void DrawLineSeg()
@@ -101,6 +94,28 @@ namespace CNCEstimate.ViewModels
         {
             new KompasDocument2D().GetViewPram();
         }
+
+        #endregion
+
+        #region Private Methods
+
+        private void GetOpendKDocumentList()
+        {
+            KDrawings = KManager.GetDocumentsNameList();
+            _selectedKDrawing = KDrawings.Where(kd => kd.Active == true).FirstOrDefault();
+            NotifyOfPropertyChange(nameof(SelectedKDrawing));
+        }
+
+        private void KManager2D_OnDocument2DCreated(KDocumentItem kDocument)
+        {
+            if (kDocument != null)
+            {
+                MessageBox.Show($"Cоздан чертеж \"{kDocument.Name}\"");
+                GetOpendKDocumentList();
+            }
+        }
+
+        #endregion
 
         internal class TitleClass
         {

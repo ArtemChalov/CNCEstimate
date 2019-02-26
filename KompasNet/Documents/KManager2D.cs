@@ -4,7 +4,6 @@ using Kompas6Constants;
 using KompasAPI7;
 using KompasNet.Dictionaries;
 using KompasNet.Models;
-using System.Windows;
 
 namespace KompasNet.Documents
 {
@@ -61,14 +60,16 @@ namespace KompasNet.Documents
                 {
                     int viewNumber = 0;
                     document2D?.ksCreateSheetView(viewParam, ref viewNumber);
+                    var scales = new HelpDict(DictionaryType.Scale);
                     if (mainStamp == null)
                     {
                         mainStamp = new MainStamp(null, null);
-                        mainStamp.Scale = new HelpDict().ScaleDictionary[viewParam.scale_];
+                        mainStamp.Scale = scales._ScaleDictionary[viewParam.scale_];
                     }
                     else
-                        mainStamp.Scale = new HelpDict().ScaleDictionary[viewParam.scale_];
+                        mainStamp.Scale = scales._ScaleDictionary[viewParam.scale_];
                     new CreateStamp().Create(document2D, mainStamp);
+                    scales = null;
 
                     OnDocument2DCreated(new KDocumentItem(fileName, null, true));
                 }
