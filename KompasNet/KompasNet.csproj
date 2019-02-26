@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dictionaries\HelpDict.cs" />
+    <Compile Include="Documents\KManager2D.cs" />
     <Compile Include="Documents\KompasDocument2D.cs" />
     <Compile Include="Documents\CreateStamp.cs" />
     <Compile Include="Drawing2D\DrawPrimitive.cs" />

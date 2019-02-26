@@ -61,6 +61,8 @@ namespace CNCEstimate.ViewModels
 
         public void Create2D()
         {
+            KManager2D kManager2D = new KManager2D();
+
             var title = new TitleClass();
             title.Title = "Новый чертеж";
             var window = new InputDataDialogWindow(title);
@@ -69,9 +71,17 @@ namespace CNCEstimate.ViewModels
 
             if(window.ShowDialog() == true)
             {
-                new KompasDocument2D().CreateDocument(title.Title, null);
+                kManager2D.OnDocument2DCreated += KManager2D_OnDocument2DCreated;
+                kManager2D.CreateDocument(title.Title, 3, 0.5, true, new MainStamp("Чалов", "Косынка", "03.019.001", "Сталь 3", "ООО\n\"АгроПермьКомплекс\"", null));
             }
             title = null;
+            kManager2D.OnDocument2DCreated -= KManager2D_OnDocument2DCreated;
+            kManager2D = null;
+        }
+
+        private void KManager2D_OnDocument2DCreated(KDocumentItem kDocument)
+        {
+            MessageBox.Show($"Cоздан чертеж \"{kDocument.Name}\"");
         }
 
         public void DrawLineSeg()

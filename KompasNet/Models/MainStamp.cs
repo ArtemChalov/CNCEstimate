@@ -12,8 +12,9 @@ namespace KompasNet.Models
         private string _drawingtId;
         private string _material;
         private string _company;
+        private string _scale;
 
-        public MainStamp(string creator, string detailName, string drawingtId, string material,  string company)
+        public MainStamp(string creator, string detailName, string drawingtId, string material,  string company, string scale)
         {
             ValueDict = new Dictionary<string, string>()
             {
@@ -21,7 +22,8 @@ namespace KompasNet.Models
                 {nameof(DetailName),null },
                 {nameof(DrawingtId), null },
                 {nameof(Material), null },
-                {nameof(Company), null }
+                {nameof(Company), null },
+                {nameof(Scale), null }
             };
             SignDict = new Dictionary<string, short>()
             {
@@ -29,13 +31,15 @@ namespace KompasNet.Models
                 {nameof(DetailName), -1 },
                 {nameof(DrawingtId), -1 },
                 {nameof(Material), -1 },
-                {nameof(Company), -1 }
+                {nameof(Company), -1 },
+                {nameof(Scale), -1 }
             };
             Creator = creator;
             DetailName = detailName;
             DrawingtId = drawingtId;
             Material = material;
             Company = company;
+            Scale = scale;
         }
 
         public string Creator
@@ -120,6 +124,24 @@ namespace KompasNet.Models
                 {
                     SignDict[nameof(Company)] = 9;
                     ValueDict[nameof(Company)] = value;
+                }
+            }
+        }
+
+        public string Scale
+        {
+            get { return _scale; }
+            set
+            {
+                _scale = value;
+                if (string.IsNullOrEmpty(value))
+                {
+                    SignDict[nameof(Scale)] = -1;
+                }
+                else
+                {
+                    SignDict[nameof(Scale)] = 6;
+                    ValueDict[nameof(Scale)] = value;
                 }
             }
         }
