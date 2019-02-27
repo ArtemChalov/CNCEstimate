@@ -155,10 +155,10 @@ namespace DraftCanvas.Primitives
 
             using (DrawingContext drawingContext = visual.RenderOpen())
             {
-                drawingContext.DrawLine(new Pen(CanvasParam.PenColor, CanvasParam.Thikness / CanvasParam.Scale), new Point(P1.X, P1.Y), new Point(P2.X, P2.Y));
+                drawingContext.DrawLine(new Pen(CanvasParam.PenColor, CanvasParam.Thikness / CanvasParam.Scale), new Point(P1.X, CanvasParam.CanvasHeight - P1.Y), new Point(P2.X, CanvasParam.CanvasHeight - P2.Y));
             }
 
-            visual.Transform = new ScaleTransform(CanvasParam.Scale, CanvasParam.Scale, 0, 0);
+            visual.Transform = new ScaleTransform(CanvasParam.Scale, CanvasParam.Scale, 0, CanvasParam.CanvasHeight);
 
             return visual;
         }

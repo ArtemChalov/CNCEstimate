@@ -19,17 +19,24 @@ namespace DraftCanvas
 
         #endregion
 
-        public Canvas()
+        public Canvas(double width, double height)
         {
+            this.Width = width;
+            this.Height = height;
+
             _visualsCollection = new List<Visual>();
             ClipToBounds = true;
+
             CanvasParam.Scale = 0.5;
+
+            CanvasParam.CanvasHeight = this.Height;
+
             var points = CanvasCollections.Points;
             points.Add(new DcPoint(10, 10));
-            points.Add(new DcPoint(10, 200));
-            points.Add(new DcPoint(200, 200));
-            points.Add(new DcPoint(200, 180));
-            points.Add(new DcPoint(30, 10));
+            points.Add(new DcPoint(210, 10));
+            points.Add(new DcPoint(210, 30));
+            points.Add(new DcPoint(30, 210));
+            points.Add(new DcPoint(10, 210));
 
             for (int i = 0; i < CanvasCollections.Points.Count; i++)
             {

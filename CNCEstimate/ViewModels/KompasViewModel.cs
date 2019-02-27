@@ -16,7 +16,7 @@ namespace CNCEstimate.ViewModels
     {
         private List<KDocumentItem> _kDrawings;
         private KDocumentItem _selectedKDrawing;
-        private Canvas _draftCanvas = new Canvas() {Background = System.Windows.Media.Brushes.DarkGray, Width = 600, Height = 800 };
+        private Canvas _draftCanvas = new Canvas(600, 800) {Background = System.Windows.Media.Brushes.DarkGray };
 
         #region Properties
 
