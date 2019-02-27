@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using DraftCanvas.Primitives;
+using System.Windows.Media;
 
 namespace DraftCanvas
 {
@@ -8,16 +9,15 @@ namespace DraftCanvas
     /// </summary>
     public sealed class DrawingVisualEx : DrawingVisual
     {
-        private string _tag;
-        private int _id;
+        private IPrimitive _primitive;
 
-        public DrawingVisualEx(string tag) : base()
+        public DrawingVisualEx(IPrimitive primitive) : base()
         {
-            _id = ++CanvasParam.Index;
-            _tag = tag;
+            _primitive = primitive;
         }
 
-        public int Id { get { return _id; } }
-        public string Tag { get { return _tag; } }
+        public int Id => _primitive.ID;
+        public string Tag => _primitive.Tag;
+        public IPrimitive Primitive => _primitive;
     }
 }
