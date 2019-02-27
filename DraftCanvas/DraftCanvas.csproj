@@ -47,6 +47,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Canvas.cs" />
+    <Compile Include="CanvasCollections.cs" />
+    <Compile Include="CanvasParam.cs" />
+    <Compile Include="ExtendedClasses\DcPoint.cs" />
+    <Compile Include="ExtendedClasses\DrawingVisualEx.cs" />
     <Compile Include="Primitives\DcLineSegment.cs" />
     <Compile Include="Primitives\IVisualizable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

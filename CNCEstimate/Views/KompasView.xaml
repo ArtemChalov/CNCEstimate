@@ -15,6 +15,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         
@@ -39,7 +40,14 @@
         <!-- Grid Column 0 Row 1 -->
         <StackPanel Grid.Column="0"
                     Grid.Row="1"
+                    Grid.RowSpan="2"
                     Margin="5 0 0 0">
+            <ComboBox x:Name="KDrawings"
+                      DisplayMemberPath="Name"
+                      HorizontalAlignment="Left"
+                      VerticalAlignment="Top"
+                      MinWidth="200"
+                      SelectedItem="{Binding SelectedKDrawing}"/>
             <Button x:Name="Open"
                     Margin="5"
                     Style="{StaticResource MainButton}">
@@ -66,22 +74,12 @@
                 Параметры вида
             </Button>
         </StackPanel>
-        <StackPanel Orientation="Vertical"
-                    Grid.Column="1"
-                    Grid.Row="1">
-            <ComboBox x:Name="KDrawings"
-                      DisplayMemberPath="Name"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      MinWidth="200"
-                      SelectedItem="{Binding SelectedKDrawing}"/>
 
-        </StackPanel>
-        <draftcont:Cavvv x:Name="DraftCanvas"
-                         Grid.Column="1"
-                         Grid.Row="1"
-                         HorizontalAlignment="Stretch"
-                         VerticalAlignment="Stretch"
-                         Background="Black"/>
+        <!-- Grid Column 1 Row 1 -->
+        <ContentControl Grid.Column="1"
+                        Grid.Row="1"
+                        Content="{Binding DraftCanvas}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"/>
     </Grid>
 </UserControl>

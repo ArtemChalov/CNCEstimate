@@ -5,6 +5,6 @@ namespace DraftCanvas.Primitives
 {
     public interface IVisualizable
     {
-        DrawingVisual GetVisual();
+        DrawingVisualEx GetVisual();
     }
 }

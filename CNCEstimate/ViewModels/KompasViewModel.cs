@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using DraftCanvas;
 
 namespace CNCEstimate.ViewModels
 {
@@ -15,6 +16,7 @@ namespace CNCEstimate.ViewModels
     {
         private List<KDocumentItem> _kDrawings;
         private KDocumentItem _selectedKDrawing;
+        private Canvas _draftCanvas = new Canvas() {Background = System.Windows.Media.Brushes.DarkGray, Width = 600, Height = 800 };
 
         #region Properties
 
@@ -25,7 +27,6 @@ namespace CNCEstimate.ViewModels
                 NotifyOfPropertyChange(nameof(KDrawings));
             }
         }
-
 
         public KDocumentItem SelectedKDrawing
         {
@@ -45,6 +46,12 @@ namespace CNCEstimate.ViewModels
                 }
 
             }
+        }
+
+        public Canvas DraftCanvas
+        {
+            get { return _draftCanvas; }
+            set { _draftCanvas = value; }
         }
 
         #endregion

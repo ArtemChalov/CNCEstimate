@@ -1,16 +1,11 @@
 ﻿using DraftCanvas.Primitives;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace DraftCanvas
 {
-    public class Cavvv : FrameworkElement
+    public class Canvas : FrameworkElement
     {
         private List<Visual> _visualsCollection;
 
@@ -20,15 +15,33 @@ namespace DraftCanvas
         /// 
         /// </summary>
         public static readonly DependencyProperty BackgroundProperty =
-            DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(Cavvv), (PropertyMetadata)new FrameworkPropertyMetadata((object)null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender));
+            DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(Canvas), (PropertyMetadata)new FrameworkPropertyMetadata((object)null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender));
 
         #endregion
 
-        public Cavvv()
+        public Canvas()
         {
             _visualsCollection = new List<Visual>();
             ClipToBounds = true;
-            AddToVisualCollection(new DcLineSegment(10, 10, 50, 800).GetVisual());
+            CanvasParam.Scale = 0.5;
+            var points = CanvasCollections.Points;
+            points.Add(new DcPoint(10, 10));
+            points.Add(new DcPoint(10, 200));
+            points.Add(new DcPoint(200, 200));
+            points.Add(new DcPoint(200, 180));
+            points.Add(new DcPoint(30, 10));
+
+            for (int i = 0; i < CanvasCollections.Points.Count; i++)
+            {
+                if (i + 1 < CanvasCollections.Points.Count)
+                {
+                    AddToVisualCollection(new DcLineSegment(points[i], points[i + 1]).GetVisual());
+                }
+                if (i == (points.Count - 1))
+                {
+                    AddToVisualCollection(new DcLineSegment(points[i], points[0]).GetVisual());
+                }
+            }
         }
 
         #region Properties
@@ -38,7 +51,7 @@ namespace DraftCanvas
          ///</summary>
         public Brush Background
         {
-            get { return (Brush)this.GetValue(Cavvv.BackgroundProperty); }
+            get { return (Brush)this.GetValue(Canvas.BackgroundProperty); }
             set { SetValue(BackgroundProperty, (object)value); }
         }
 
