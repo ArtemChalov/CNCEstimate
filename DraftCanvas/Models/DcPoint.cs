@@ -1,4 +1,5 @@
-﻿using PM = DraftCanvas.Servicies.PointManager;
+﻿using System.Collections.Generic;
+using PM = DraftCanvas.Servicies.PointManager;
 
 namespace DraftCanvas
 {
@@ -6,20 +7,31 @@ namespace DraftCanvas
     {
         private static int _idCounter = -1;
 
-        public DcPoint(double x, double y)
+        public DcPoint(double x, double y, int parentId)
         {
             ID = ++_idCounter;
             X = x;
             Y = y;
-            HConstraint = false;
-            VConstraint = false;
+            Parents = new List<int>(parentId);
             PM.Points.Add(this);
         }
 
         public int ID { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
-        public bool HConstraint { get; set; }
-        public bool VConstraint { get; set; }
+        public List<int> Parents { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is DcPoint other)
+                return other.X == this.X && other.Y == this.Y;
+            else
+                return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ID;
+        }
     }
 }

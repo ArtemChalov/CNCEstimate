@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace DraftCanvas.Servicies
 {
-    public static class PointManager
+    internal static class PointManager
     {
-        private static readonly IList<DcPoint> _points = new List<DcPoint>();
+        private static readonly IList<DcPoint> _points = new List<DcPoint>(); 
 
         public static IList<DcPoint> Points => _points;
 
@@ -21,13 +21,14 @@ namespace DraftCanvas.Servicies
         }
 
         /// <summary>
-        /// 
+        /// Create new DcPoint
         /// </summary>
-        /// <param name="point1"></param>
+        /// <param name="p1ID"></param>
+        /// <param name="parentID"></param>
         /// <param name="length"></param>
         /// <param name="angle"></param>
         /// <returns>Returns point ID</returns>
-        static public int SetLine_P2_ByLengthAndAngel(int p1ID, double length, double angle)
+        static public int Create_P2_WithLengthAndAngle(int p1ID, int parentID, double length, double angle)
         {
             double x1 = GetX(p1ID);
             double y1 = GetY(p1ID);
@@ -41,7 +42,7 @@ namespace DraftCanvas.Servicies
                     return point.ID;
             }
 
-            DcPoint newPoint = new DcPoint(x2, y2);
+            DcPoint newPoint = new DcPoint(x2, y2, parentID);
 
             Points.Add(newPoint);
 

@@ -7,6 +7,10 @@ namespace DraftCanvas.Primitives
 {
     public class DcLineSegment : IPrimitive, IVisualizable
     {
+        private double _x1;
+        private double _y1;
+        private double _y2;
+        private double _x2;
         private int _point_1_ID = -1;
         private int _point_2_ID = -1;
         private double _length;
@@ -28,10 +32,12 @@ namespace DraftCanvas.Primitives
                 if (point.X == x1 && point.Y == y1)
                 {
                     _point_1_ID = point.ID;
+                    point.Parents.Add(ID);
                 }
                 if (point.X == x2 && point.Y == y2)
                 {
                     _point_2_ID = point.ID;
+                    point.Parents.Add(ID);
                 }
                 if (_point_1_ID >= 0 && _point_2_ID >= 0)
                     break;
@@ -39,13 +45,13 @@ namespace DraftCanvas.Primitives
 
             if (_point_1_ID == -1)
             {
-                DcPoint point = new DcPoint(x1, y1);
+                DcPoint point = new DcPoint(x1, y1, ID);
                 _point_1_ID = point.ID;
             }
 
             if (_point_2_ID == -1)
             {
-                DcPoint point = new DcPoint(x2, y2);
+                DcPoint point = new DcPoint(x2, y2, ID);
                 _point_2_ID = point.ID;
             }
 
@@ -62,42 +68,22 @@ namespace DraftCanvas.Primitives
                 if (point.X == x1 && point.Y == y1)
                 {
                     _point_1_ID = point.ID;
+                    point.Parents.Add(ID);
                     break;
                 }
             }
 
             if (_point_1_ID == -1)
             {
-                DcPoint point = new DcPoint(x1, y1);
+                DcPoint point = new DcPoint(x1, y1, ID);
                 _point_1_ID = point.ID;
             }
 
-            _point_2_ID = PM.SetLine_P2_ByLengthAndAngel(_point_1_ID, length, angle);
+            _point_2_ID = PM.Create_P2_WithLengthAndAngle(_point_1_ID, ID, length, angle);
 
             _angle = angle;
             _length = length;
         }
-
-        //public DcLineSegment(DcPoint point1, Orientation orientation, double length) : base()
-        //{
-        //    if (orientation == Orientation.Free) throw new ArgumentException("LineSegment orientation has value \"Free\"!");
-
-        //    _p1 = point1;
-        //    _lineOrientation = orientation;
-        //    _length = length;
-        //    if (orientation == Orientation.Horizontal)
-        //    {
-        //        _p2 = new DcPoint(point1.X + length, point1.Y);
-        //        if (length > 0) _angle = 0;
-        //        else _angle = 180;
-        //    }
-        //    if (orientation == Orientation.Vertical)
-        //    {
-        //        _p2 = new DcPoint(point1.X, point1.Y + length);
-        //        if (length > 0) _angle = 90;
-        //        else _angle = 270;
-        //    }
-        //}
 
         #endregion
 
@@ -106,6 +92,31 @@ namespace DraftCanvas.Primitives
         public int ID => _id;
 
         public string Tag => _tag;
+
+        public double X1
+        {
+            get { return PM.GetX(Point_1_ID); }
+            set { _x1 = value; }
+        }
+
+        public double Y1
+        {
+            get { return PM.GetY(Point_1_ID); }
+            set { _y1 = value; }
+        }        
+
+        public double X2
+        {
+            get { return PM.GetX(Point_2_ID); }
+            set { _x2 = value; }
+        }
+
+        public double Y2
+        {
+            get { return PM.GetY(Point_2_ID); }
+            set { _y2 = value; }
+        }
+
 
         public int Point_1_ID
         {
