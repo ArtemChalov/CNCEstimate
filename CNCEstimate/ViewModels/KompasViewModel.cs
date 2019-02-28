@@ -97,19 +97,23 @@ namespace CNCEstimate.ViewModels
         {
             //LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 2);
             //lineSeg.Draw();
-            //DcLineSegment lineSegment = new DcLineSegment(20, 20, 60, 180);
-            //DcLineSegment lineSegment1 = new DcLineSegment(70, 20, 70, 80);
-            DcLineSegment lineSegment2 = new DcLineSegment(30, 85, 112, 190);
-            DcLineSegment lineSegment3 = new DcLineSegment(30, 85, 80, 50, Orientation.Free);
+            DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 150, 170);
+            DcLineSegment lineSegment45 = new DcLineSegment(100, 170, 135, 205);
+            DcLineSegment lineSegment90 = new DcLineSegment(100, 170, 100, 220);
+            DcLineSegment lineSegment135 = new DcLineSegment(100, 170, 65, 205);
+            DcLineSegment lineSegment180 = new DcLineSegment(100, 170, 50, 170);
+            DcLineSegment lineSegment225 = new DcLineSegment(100, 170, 65, 135);
+            DcLineSegment lineSegment270 = new DcLineSegment(100, 170, 100, 120);
+            DcLineSegment lineSegment315 = new DcLineSegment(100, 170, 135, 135);
 
-            IList<DcPoint> Points = PointManager.Points;
-
-            double X2 = PointManager.GetX(lineSegment3.Point_2_ID);
-            double Y2 = PointManager.GetY(lineSegment3.Point_2_ID);
-
-            //DraftCanvas.AddToVisualCollection(lineSegment);
-            DraftCanvas.AddToVisualCollection(lineSegment2);
-            DraftCanvas.AddToVisualCollection(lineSegment3);
+            DraftCanvas.AddToVisualCollection(lineSegment0);
+            DraftCanvas.AddToVisualCollection(lineSegment45);
+            DraftCanvas.AddToVisualCollection(lineSegment90);
+            DraftCanvas.AddToVisualCollection(lineSegment135);
+            DraftCanvas.AddToVisualCollection(lineSegment180);
+            DraftCanvas.AddToVisualCollection(lineSegment225);
+            DraftCanvas.AddToVisualCollection(lineSegment270);
+            DraftCanvas.AddToVisualCollection(lineSegment315);
         }
 
         public void GetViewParam()

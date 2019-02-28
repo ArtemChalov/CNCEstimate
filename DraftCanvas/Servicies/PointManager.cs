@@ -32,8 +32,8 @@ namespace DraftCanvas.Servicies
             double x1 = GetX(p1ID);
             double y1 = GetY(p1ID);
 
-            double x2 = Math.Round((x1 + length * Math.Cos((Math.PI / 180) * angle)), 6);
-            double y2 = Math.Round((y1 + length * Math.Sin((Math.PI / 180) * angle)), 6);
+            double x2 = Math.Round((x1 + length * Math.Cos(DcMath.DegreeToRadian(angle))), 6);
+            double y2 = Math.Round((y1 + length * Math.Sin(DcMath.DegreeToRadian(angle))), 6);
 
             foreach (DcPoint point in Points)
             {
