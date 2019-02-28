@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using DraftCanvas.Servicies;
+using System.Windows;
 using System.Windows.Media;
 using PM = DraftCanvas.Servicies.PointManager;
 
@@ -18,7 +19,7 @@ namespace DraftCanvas.Primitives
 
         private DcLineSegment() { }
 
-        public DcLineSegment(double x1, double y1, double x2, double y2) : base()
+        public DcLineSegment(double x1, double y1, double x2, double y2)
         {
             LineOrientation = Orientation.Free;
 
@@ -47,15 +48,34 @@ namespace DraftCanvas.Primitives
                 DcPoint point = new DcPoint(x2, y2);
                 _point_2_ID = point.ID;
             }
+
+            _length = DcMath.GetDistance(_point_1_ID, _point_2_ID);
         }
 
-        //public DcLineSegment(DcPoint point1, DcPoint point2) : base()
-        //{
-        //    LineOrientation = Orientation.Free;
+        public DcLineSegment(double x1, double y1, double length, double angle, Orientation orientation)
+        {
+            LineOrientation = orientation;
 
-        //    _p1 = point1;
-        //    P2 = point2;
-        //}
+            foreach (DcPoint point in PM.Points)
+            {
+                if (point.X == x1 && point.Y == y1)
+                {
+                    _point_1_ID = point.ID;
+                    break;
+                }
+            }
+
+            if (_point_1_ID == -1)
+            {
+                DcPoint point = new DcPoint(x1, y1);
+                _point_1_ID = point.ID;
+            }
+
+            _point_2_ID = PM.SetLine_P2_ByLengthAndAngel(_point_1_ID, length, angle);
+
+            _angle = angle;
+            _length = length;
+        }
 
         //public DcLineSegment(DcPoint point1, Orientation orientation, double length) : base()
         //{
@@ -76,15 +96,6 @@ namespace DraftCanvas.Primitives
         //        if (length > 0) _angle = 90;
         //        else _angle = 270;
         //    }
-        //}
-
-        //public DcLineSegment(DcPoint point1, double length, double angle) : base()
-        //{
-        //    LineOrientation = Orientation.Free;
-        //    _p1 = point1;
-        //    _length = length;
-        //    _angle = angle;
-        //    _p2 = DcMath.GetLine_P2_ByLengthAndAngel(point1, length, angle);
         //}
 
         #endregion

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows;
 using DraftCanvas;
 using DraftCanvas.Primitives;
+using DraftCanvas.Servicies;
 
 namespace CNCEstimate.ViewModels
 {
@@ -96,13 +97,19 @@ namespace CNCEstimate.ViewModels
         {
             //LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 2);
             //lineSeg.Draw();
-            DcLineSegment lineSegment = new DcLineSegment(20, 20, 60, 180);
-            DcLineSegment lineSegment1 = new DcLineSegment(70, 20, 70, 80);
-            DcLineSegment lineSegment2 = new DcLineSegment(70, 20, 60, 180);
+            //DcLineSegment lineSegment = new DcLineSegment(20, 20, 60, 180);
+            //DcLineSegment lineSegment1 = new DcLineSegment(70, 20, 70, 80);
+            DcLineSegment lineSegment2 = new DcLineSegment(30, 85, 112, 190);
+            DcLineSegment lineSegment3 = new DcLineSegment(30, 85, 80, 50, Orientation.Free);
 
-            DraftCanvas.AddToVisualCollection(lineSegment);
-            DraftCanvas.AddToVisualCollection(lineSegment1);
+            IList<DcPoint> Points = PointManager.Points;
+
+            double X2 = PointManager.GetX(lineSegment3.Point_2_ID);
+            double Y2 = PointManager.GetY(lineSegment3.Point_2_ID);
+
+            //DraftCanvas.AddToVisualCollection(lineSegment);
             DraftCanvas.AddToVisualCollection(lineSegment2);
+            DraftCanvas.AddToVisualCollection(lineSegment3);
         }
 
         public void GetViewParam()
