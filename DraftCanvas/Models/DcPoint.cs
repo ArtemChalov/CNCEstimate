@@ -1,4 +1,5 @@
-﻿
+﻿using PM = DraftCanvas.Servicies.PointManager;
+
 namespace DraftCanvas
 {
     public struct DcPoint
@@ -12,12 +13,13 @@ namespace DraftCanvas
             Y = y;
             HConstraint = false;
             VConstraint = false;
+            PM.Points.Add(this);
         }
+
         public int ID { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
         public bool HConstraint { get; set; }
         public bool VConstraint { get; set; }
-
     }
 }

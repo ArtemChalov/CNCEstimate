@@ -50,12 +50,14 @@
     <Compile Include="CanvasCollections.cs" />
     <Compile Include="CanvasParam.cs" />
     <Compile Include="Enums\DraftCanvasEnums.cs" />
-    <Compile Include="ExtendedClasses\DcPoint.cs" />
+    <Compile Include="Models\DcPoint.cs" />
     <Compile Include="ExtendedClasses\DrawingVisualEx.cs" />
     <Compile Include="Primitives\DcLineSegment.cs" />
     <Compile Include="Primitives\IPrimitive.cs" />
     <Compile Include="Primitives\IVisualizable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Servicies\DcMath.cs" />
+    <Compile Include="Servicies\PointManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

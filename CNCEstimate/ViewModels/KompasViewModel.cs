@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using DraftCanvas;
+using DraftCanvas.Primitives;
 
 namespace CNCEstimate.ViewModels
 {
@@ -93,8 +94,15 @@ namespace CNCEstimate.ViewModels
 
         public void DrawLineSeg()
         {
-            LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 2);
-            lineSeg.Draw();
+            //LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 2);
+            //lineSeg.Draw();
+            DcLineSegment lineSegment = new DcLineSegment(20, 20, 60, 180);
+            DcLineSegment lineSegment1 = new DcLineSegment(70, 20, 70, 80);
+            DcLineSegment lineSegment2 = new DcLineSegment(70, 20, 60, 180);
+
+            DraftCanvas.AddToVisualCollection(lineSegment);
+            DraftCanvas.AddToVisualCollection(lineSegment1);
+            DraftCanvas.AddToVisualCollection(lineSegment2);
         }
 
         public void GetViewParam()

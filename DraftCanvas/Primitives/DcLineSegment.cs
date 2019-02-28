@@ -1,72 +1,91 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
+using PM = DraftCanvas.Servicies.PointManager;
 
 namespace DraftCanvas.Primitives
 {
     public class DcLineSegment : IPrimitive, IVisualizable
     {
-        private DcPoint _p1;
-        private DcPoint _p2;
+        private int _point_1_ID = -1;
+        private int _point_2_ID = -1;
         private double _length;
         private double _angle;
         private Orientation _lineOrientation;
-        private readonly string _tag;
-        private readonly int _id;
+        private readonly string _tag = "LineSegment";
+        private readonly int _id = CanvasCollections.PrimitiveID;
 
         #region Constructors
 
-        public DcLineSegment()
-        {
-            _id = CanvasCollections.PrimitiveID;
-            _tag = "LineSegment";
-        }
+        private DcLineSegment() { }
 
         public DcLineSegment(double x1, double y1, double x2, double y2) : base()
         {
             LineOrientation = Orientation.Free;
-           
-            _p1 = new DcPoint(x1, y1);
-            P2 = new DcPoint(x2, y2);
-        }
 
-        public DcLineSegment(DcPoint point1, DcPoint point2) : base()
-        {
-            LineOrientation = Orientation.Free;
-
-            _p1 = point1;
-            P2 = point2;
-        }
-
-        public DcLineSegment(DcPoint point1, Orientation orientation, double length) : base()
-        {
-            if (orientation == Orientation.Free) throw new ArgumentException("LineSegment orientation has value \"Free\"!");
-
-            _p1 = point1;
-            _lineOrientation = orientation;
-            _length = length;
-            if (orientation == Orientation.Horizontal)
+            foreach(DcPoint point in PM.Points)
             {
-                _p2 = new DcPoint(point1.X + length, point1.Y);
-                if (length > 0) _angle = 0;
-                else _angle = 180;
+                if (point.X == x1 && point.Y == y1)
+                {
+                    _point_1_ID = point.ID;
+                }
+                if (point.X == x2 && point.Y == y2)
+                {
+                    _point_2_ID = point.ID;
+                }
+                if (_point_1_ID >= 0 && _point_2_ID >= 0)
+                    break;
             }
-            if (orientation == Orientation.Vertical)
+
+            if (_point_1_ID == -1)
             {
-                _p2 = new DcPoint(point1.X, point1.Y + length);
-                if (length > 0) _angle = 90;
-                else _angle = 270;
+                DcPoint point = new DcPoint(x1, y1);
+                _point_1_ID = point.ID;
+            }
+
+            if (_point_2_ID == -1)
+            {
+                DcPoint point = new DcPoint(x2, y2);
+                _point_2_ID = point.ID;
             }
         }
 
-        public DcLineSegment(DcPoint point1, double length, double angel) : base()
-        {
-            LineOrientation = Orientation.Free;
-            _p1 = point1;
-            _length = length;
-            Angel = angel;
-        }
+        //public DcLineSegment(DcPoint point1, DcPoint point2) : base()
+        //{
+        //    LineOrientation = Orientation.Free;
+
+        //    _p1 = point1;
+        //    P2 = point2;
+        //}
+
+        //public DcLineSegment(DcPoint point1, Orientation orientation, double length) : base()
+        //{
+        //    if (orientation == Orientation.Free) throw new ArgumentException("LineSegment orientation has value \"Free\"!");
+
+        //    _p1 = point1;
+        //    _lineOrientation = orientation;
+        //    _length = length;
+        //    if (orientation == Orientation.Horizontal)
+        //    {
+        //        _p2 = new DcPoint(point1.X + length, point1.Y);
+        //        if (length > 0) _angle = 0;
+        //        else _angle = 180;
+        //    }
+        //    if (orientation == Orientation.Vertical)
+        //    {
+        //        _p2 = new DcPoint(point1.X, point1.Y + length);
+        //        if (length > 0) _angle = 90;
+        //        else _angle = 270;
+        //    }
+        //}
+
+        //public DcLineSegment(DcPoint point1, double length, double angle) : base()
+        //{
+        //    LineOrientation = Orientation.Free;
+        //    _p1 = point1;
+        //    _length = length;
+        //    _angle = angle;
+        //    _p2 = DcMath.GetLine_P2_ByLengthAndAngel(point1, length, angle);
+        //}
 
         #endregion
 
@@ -76,22 +95,22 @@ namespace DraftCanvas.Primitives
 
         public string Tag => _tag;
 
-        public DcPoint P1
+        public int Point_1_ID
         {
-            get { return _p1; }
+            get { return _point_1_ID; }
             set
             {
-                _p1 = value;
+                _point_1_ID = value;
                 OnP1Changed(value);
             }
         }
 
-        public DcPoint P2
+        public int Point_2_ID
         {
-            get { return _p2; }
+            get { return _point_2_ID; }
             set
             {
-                _p2 = value;
+                _point_2_ID = value;
                 OnP2Changed(value);
             }
         }
@@ -104,7 +123,7 @@ namespace DraftCanvas.Primitives
             }
         }
 
-        public double Angel
+        public double Angle
         {
             get { return _angle; }
             set { _angle = value;
@@ -129,7 +148,7 @@ namespace DraftCanvas.Primitives
 
         }
 
-        private void OnP2Changed(DcPoint value)
+        private void OnP2Changed(int value)
         {
 
         }
@@ -139,7 +158,7 @@ namespace DraftCanvas.Primitives
 
         }
 
-        private void OnP1Changed(DcPoint value)
+        private void OnP1Changed(int value)
         {
             
         }
@@ -155,7 +174,8 @@ namespace DraftCanvas.Primitives
 
             using (DrawingContext drawingContext = visual.RenderOpen())
             {
-                drawingContext.DrawLine(new Pen(CanvasParam.PenColor, CanvasParam.Thikness / CanvasParam.Scale), new Point(P1.X, CanvasParam.CanvasHeight - P1.Y), new Point(P2.X, CanvasParam.CanvasHeight - P2.Y));
+                drawingContext.DrawLine(new Pen(CanvasParam.PenColor, CanvasParam.Thikness / CanvasParam.Scale),
+                    new Point(PM.GetX(Point_1_ID), CanvasParam.CanvasHeight - PM.GetY(Point_1_ID)), new Point(PM.GetX(Point_2_ID), CanvasParam.CanvasHeight - PM.GetY(Point_2_ID)));
             }
 
             visual.Transform = new ScaleTransform(CanvasParam.Scale, CanvasParam.Scale, 0, CanvasParam.CanvasHeight);

@@ -27,28 +27,26 @@ namespace DraftCanvas
             _visualsCollection = new List<Visual>();
             ClipToBounds = true;
 
-            CanvasParam.Scale = 0.5;
-
             CanvasParam.CanvasHeight = this.Height;
 
-            var points = CanvasCollections.Points;
-            points.Add(new DcPoint(10, 10));
-            points.Add(new DcPoint(210, 10));
-            points.Add(new DcPoint(210, 30));
-            points.Add(new DcPoint(30, 210));
-            points.Add(new DcPoint(10, 210));
+            //var points = CanvasCollections.Points;
+            //points.Add(new DcPoint(10, 10));
+            //points.Add(new DcPoint(210, 10));
+            //points.Add(new DcPoint(210, 30));
+            //points.Add(new DcPoint(30, 210));
+            //points.Add(new DcPoint(10, 210));
 
-            for (int i = 0; i < CanvasCollections.Points.Count; i++)
-            {
-                if (i + 1 < CanvasCollections.Points.Count)
-                {
-                    AddToVisualCollection(new DcLineSegment(points[i], points[i + 1]).GetVisual());
-                }
-                if (i == (points.Count - 1))
-                {
-                    AddToVisualCollection(new DcLineSegment(points[i], points[0]).GetVisual());
-                }
-            }
+            //for (int i = 0; i < CanvasCollections.Points.Count; i++)
+            //{
+            //    if (i + 1 < CanvasCollections.Points.Count)
+            //    {
+            //        AddToVisualCollection(new DcLineSegment(points[i], points[i + 1]).GetVisual());
+            //    }
+            //    if (i == (points.Count - 1))
+            //    {
+            //        AddToVisualCollection(new DcLineSegment(points[i], points[0]).GetVisual());
+            //    }
+            //}
         }
 
         #region Properties
@@ -65,10 +63,17 @@ namespace DraftCanvas
         #endregion
 
         // Adds a new visual child
-        private void AddToVisualCollection(DrawingVisual visual)
+        public void AddToVisualCollection(DrawingVisual visual)
         {
             _visualsCollection.Add(visual);
             AddVisualChild(visual);
+        }
+
+        // Adds a new visual child
+        public void AddToVisualCollection(IVisualizable visualElement)
+        {
+            _visualsCollection.Add(visualElement.GetVisual());
+            AddVisualChild(visualElement.GetVisual());
         }
 
         #region Overrided Methods
