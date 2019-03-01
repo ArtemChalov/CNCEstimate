@@ -36,7 +36,9 @@ namespace DraftCanvas.Servicies
         public static void SetY(int pointId, double value)
         {
             DcPoint point = Points.Where(p => p.ID == pointId).First();
+            int index = Points.IndexOf(point);
             point.Y = value;
+            Points[index] = point;
             if (!DirtyPoints.Contains(point.ID))
                 DirtyPoints.Enqueue(point.ID);
         }
