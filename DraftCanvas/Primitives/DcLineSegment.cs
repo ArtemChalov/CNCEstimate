@@ -1,4 +1,5 @@
 ﻿using DraftCanvas.Servicies;
+using System;
 using System.Windows;
 using System.Windows.Media;
 using PM = DraftCanvas.Servicies.PointManager;
@@ -96,46 +97,45 @@ namespace DraftCanvas.Primitives
         public double X1
         {
             get { return PM.GetX(Point_1_ID); }
-            set { _x1 = value; }
+            set { PM.SetX(Point_1_ID, value);
+                On_X1_Changed();
+            }
         }
 
         public double Y1
         {
             get { return PM.GetY(Point_1_ID); }
-            set { _y1 = value; }
-        }        
+            set { PM.SetY(Point_1_ID, value);
+                On_Y1_Changed();
+            }
+        }
 
         public double X2
         {
             get { return PM.GetX(Point_2_ID); }
-            set { _x2 = value; }
+            set { PM.SetX(Point_2_ID, value);
+                On_X2_Changed();
+            }
         }
 
         public double Y2
         {
             get { return PM.GetY(Point_2_ID); }
-            set { _y2 = value; }
+            set { PM.SetY(Point_2_ID, value);
+                On_Y2_Changed();
+            }
         }
-
 
         public int Point_1_ID
         {
             get { return _point_1_ID; }
-            set
-            {
-                _point_1_ID = value;
-                OnP1Changed(value);
-            }
+            set { _point_1_ID = value; }
         }
 
         public int Point_2_ID
         {
             get { return _point_2_ID; }
-            set
-            {
-                _point_2_ID = value;
-                OnP2Changed(value);
-            }
+            set { _point_2_ID = value; }
         }
 
         public double Length
@@ -166,30 +166,44 @@ namespace DraftCanvas.Primitives
 
         #endregion
 
-        private void OnOrientationChanged(Orientation value)
+        #region Private Methods
+
+        private void On_X1_Changed()
         {
 
         }
 
-        private void OnP2Changed(int value)
+        private void On_Y1_Changed()
+        {
+
+        }
+
+        private void On_X2_Changed()
+        {
+
+        }
+
+        private void On_Y2_Changed()
         {
 
         }
 
         private void OnLengthChanged(double value)
         {
-
-        }
-
-        private void OnP1Changed(int value)
-        {
-            
+            PM.SetPointWithLengthAndAngle(Point_1_ID, Point_2_ID, ID, value, Angle);
         }
 
         private void OnAngelChanged()
         {
 
         }
+
+        private void OnOrientationChanged(Orientation value)
+        {
+
+        }
+
+        #endregion
 
         public DrawingVisualEx GetVisual()
         {

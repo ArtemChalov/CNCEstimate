@@ -62,6 +62,8 @@ namespace DraftCanvas
 
         #endregion
 
+        #region Public Methods
+
         // Adds a new visual child
         public void AddToVisualCollection(DrawingVisual visual)
         {
@@ -75,6 +77,13 @@ namespace DraftCanvas
             _visualsCollection.Add(visualElement.GetVisual());
             AddVisualChild(visualElement.GetVisual());
         }
+
+        public void Update()
+        {
+
+        }
+
+        #endregion
 
         #region Overrided Methods
 

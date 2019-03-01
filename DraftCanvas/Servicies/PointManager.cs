@@ -6,9 +6,12 @@ namespace DraftCanvas.Servicies
 {
     internal static class PointManager
     {
-        private static readonly IList<DcPoint> _points = new List<DcPoint>(); 
+        private static readonly IList<DcPoint> _points = new List<DcPoint>();
+        private static readonly Queue<int> _dirtyPoints = new Queue<int>();
 
         public static IList<DcPoint> Points => _points;
+        public static Queue<int> DirtyPoints => _dirtyPoints;
+
 
         public static double GetX(int id)
         {
@@ -18,6 +21,22 @@ namespace DraftCanvas.Servicies
         public static double GetY(int id)
         {
             return Points.Where(p => p.ID == id).First().Y;
+        }
+
+        public static void SetX(int pointId, double value)
+        {
+            DcPoint point = Points.Where(p => p.ID == pointId).First();
+            point.X = value;
+            if (!DirtyPoints.Contains(point.ID))
+                DirtyPoints.Enqueue(point.ID);
+        }
+
+        public static void SetY(int pointId, double value)
+        {
+            DcPoint point = Points.Where(p => p.ID == pointId).First();
+            point.Y = value;
+            if (!DirtyPoints.Contains(point.ID))
+                DirtyPoints.Enqueue(point.ID);
         }
 
         /// <summary>
@@ -38,8 +57,11 @@ namespace DraftCanvas.Servicies
 
             foreach (DcPoint point in Points)
             {
-                if (Math.Abs(point.X - x2) < 0.01 && Math.Abs(point.Y - y2) < 0.01)
+                if (Math.Abs(point.X - x2) < 0.05 && Math.Abs(point.Y - y2) < 0.05)
+                {
+                    point.Parents.Add(parentID);
                     return point.ID;
+                }
             }
 
             DcPoint newPoint = new DcPoint(x2, y2, parentID);
@@ -47,6 +69,18 @@ namespace DraftCanvas.Servicies
             Points.Add(newPoint);
 
             return newPoint.ID;
+        }
+
+        static public void SetPointWithLengthAndAngle(int startPointID, int currentPointID, int parentID, double length, double angle)
+        {
+            double x1 = GetX(startPointID);
+            double y1 = GetY(startPointID);
+
+            double x2 = Math.Round((x1 + length * Math.Cos(DcMath.DegreeToRadian(angle))), 6);
+            double y2 = Math.Round((y1 + length * Math.Sin(DcMath.DegreeToRadian(angle))), 6);
+
+            SetX(currentPointID, x2);
+            SetY(currentPointID, y2);
         }
     }
 }
