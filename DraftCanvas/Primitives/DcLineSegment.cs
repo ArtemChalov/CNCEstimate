@@ -54,6 +54,8 @@ namespace DraftCanvas.Primitives
 
             _length = DcMath.GetDistance(_point_1_ID, _point_2_ID);
             _angle = DcMath.GetLineSegmentAngle(this);
+
+            PrimitiveManager.Primitives.Add(this);
         }
 
         public DcLineSegment(double x1, double y1, double length, double angle, Orientation orientation)
@@ -80,6 +82,8 @@ namespace DraftCanvas.Primitives
 
             _angle = angle;
             _length = length;
+
+            PrimitiveManager.Primitives.Add(this);
         }
 
         #endregion
@@ -160,6 +164,8 @@ namespace DraftCanvas.Primitives
             }
         }
 
+        public bool IsDirty { get; set; } = false;
+
         #endregion
 
         #region Private Methods
@@ -187,6 +193,7 @@ namespace DraftCanvas.Primitives
         private void OnLengthChanged(double value)
         {
             PM.SetPointWithLengthAndAngle(Point_1_ID, Point_2_ID, ID, value, Angle);
+            IsDirty = true;
         }
 
         private void OnAngelChanged()

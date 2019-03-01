@@ -82,45 +82,23 @@ namespace DraftCanvas
 
         public void Update()
         {
-            while (PM.DirtyPoints.Count > 0)
+            for (int i = 0; i < _visualsCollection.Count; i++)
             {
-                int id = PM.DirtyPoints.Dequeue();
-
-                DcPoint point = PM.Points.Where(p => p.ID == id).First();
-
-                for (int i = 0; i < point.ParentsID.Count; i++)
+                if (((DrawingVisualEx)_visualsCollection[i]).Primitive.IsDirty)
                 {
-                    UpdateById(point.ParentsID[i]);
+                    DrawingVisualEx dv = (DrawingVisualEx)_visualsCollection[i];
+                    RemoveVisualChild(dv);
+
+                    _visualsCollection.RemoveAt(i);
+
+                    DrawingVisualEx newDv = ((IVisualizable)dv.Primitive).GetVisual();
+                    dv = null;
+                    newDv.Primitive.IsDirty = false;
+
+                    _visualsCollection.Insert(i, newDv);
+                    AddVisualChild(newDv);
+                    //OnDraftUnitUpdated?.Invoke(this, new UnitEventArgs(draftUnit, Draft));
                 }
-            }
-        }
-
-        private void UpdateById(int id)
-        {
-            DrawingVisualEx dv = null;
-
-            foreach (DrawingVisualEx item in _visualsCollection)
-            {
-                if (item.ID == id)
-                {
-                    dv = item;
-                    break;
-                }
-            }
-
-            if (dv != null)
-            {
-                RemoveVisualChild(dv);
-                int index = _visualsCollection.IndexOf(dv);
-                _visualsCollection.RemoveAt(index);
-
-                DrawingVisualEx newDv = ((IVisualizable)dv.Primitive).GetVisual();
-                dv = null;
-
-                _visualsCollection.Insert(index, newDv);
-                AddVisualChild(newDv);
-
-                //OnDraftUnitUpdated?.Invoke(this, new UnitEventArgs(draftUnit, Draft));
             }
         }
 

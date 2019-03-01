@@ -53,11 +53,13 @@
     <Compile Include="Models\DcPoint.cs" />
     <Compile Include="ExtendedClasses\DrawingVisualEx.cs" />
     <Compile Include="Primitives\DcLineSegment.cs" />
+    <Compile Include="Primitives\IDirty.cs" />
     <Compile Include="Primitives\IPrimitive.cs" />
     <Compile Include="Primitives\IVisualizable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicies\DcMath.cs" />
     <Compile Include="Servicies\PointManager.cs" />
+    <Compile Include="Servicies\PrimitiveManager.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
