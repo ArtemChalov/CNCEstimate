@@ -18,7 +18,7 @@ namespace CNCEstimate.ViewModels
     {
         private List<KDocumentItem> _kDrawings;
         private KDocumentItem _selectedKDrawing;
-        private Canvas _draftCanvas = new Canvas(600, 800) {Background = System.Windows.Media.Brushes.DarkGray };
+        private Canvas _draftCanvas = new Canvas(600, 400) {Background = System.Windows.Media.Brushes.DarkGray };
 
         #region Properties
 
@@ -93,32 +93,36 @@ namespace CNCEstimate.ViewModels
             kManager2D = null;
         }
 
+        DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 150, 170);
+
         public void DrawLineSeg()
         {
             //LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 2);
             //lineSeg.Draw();
-            DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 150, 170);
-            DcLineSegment lineSegment45 = new DcLineSegment(100, 170, 135, 205);
-            DcLineSegment lineSegment90 = new DcLineSegment(100, 170, 100, 220);
-            DcLineSegment lineSegment135 = new DcLineSegment(100, 170, 65, 205);
-            DcLineSegment lineSegment180 = new DcLineSegment(100, 170, 50, 170);
-            DcLineSegment lineSegment225 = new DcLineSegment(100, 170, 65, 135);
-            DcLineSegment lineSegment270 = new DcLineSegment(100, 170, 100, 120);
-            DcLineSegment lineSegment315 = new DcLineSegment(100, 170, 135, 135);
+            //DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 150, 170);
+            //DcLineSegment lineSegment45 = new DcLineSegment(100, 170, 135, 205);
+            //DcLineSegment lineSegment90 = new DcLineSegment(100, 170, 100, 220);
+            //DcLineSegment lineSegment135 = new DcLineSegment(100, 170, 65, 205);
+            //DcLineSegment lineSegment180 = new DcLineSegment(100, 170, 50, 170);
+            //DcLineSegment lineSegment225 = new DcLineSegment(100, 170, 65, 135);
+            //DcLineSegment lineSegment270 = new DcLineSegment(100, 170, 100, 120);
+            //DcLineSegment lineSegment315 = new DcLineSegment(100, 170, 135, 135);
 
             DraftCanvas.AddToVisualCollection(lineSegment0);
-            DraftCanvas.AddToVisualCollection(lineSegment45);
-            DraftCanvas.AddToVisualCollection(lineSegment90);
-            DraftCanvas.AddToVisualCollection(lineSegment135);
-            DraftCanvas.AddToVisualCollection(lineSegment180);
-            DraftCanvas.AddToVisualCollection(lineSegment225);
-            DraftCanvas.AddToVisualCollection(lineSegment270);
-            DraftCanvas.AddToVisualCollection(lineSegment315);
+            //DraftCanvas.AddToVisualCollection(lineSegment45);
+            //DraftCanvas.AddToVisualCollection(lineSegment90);
+            //DraftCanvas.AddToVisualCollection(lineSegment135);
+            //DraftCanvas.AddToVisualCollection(lineSegment180);
+            //DraftCanvas.AddToVisualCollection(lineSegment225);
+            //DraftCanvas.AddToVisualCollection(lineSegment270);
+            //DraftCanvas.AddToVisualCollection(lineSegment315);
         }
 
         public void GetViewParam()
         {
-            new KompasDocument2D().GetViewPram();
+            //new KompasDocument2D().GetViewPram();
+            lineSegment0.Length += 10;
+            DraftCanvas.Update();
         }
 
         #endregion

@@ -1,7 +1,9 @@
 ﻿using DraftCanvas.Primitives;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using PM = DraftCanvas.Servicies.PointManager;
 
 namespace DraftCanvas
 {
@@ -80,7 +82,46 @@ namespace DraftCanvas
 
         public void Update()
         {
+            while (PM.DirtyPoints.Count > 0)
+            {
+                int id = PM.DirtyPoints.Dequeue();
 
+                DcPoint point = PM.Points.Where(p => p.ID == id).First();
+
+                for (int i = 0; i < point.ParentsID.Count; i++)
+                {
+                    UpdateById(point.ParentsID[i]);
+                }
+            }
+        }
+
+        private void UpdateById(int id)
+        {
+            DrawingVisualEx dv = null;
+
+            foreach (DrawingVisualEx item in _visualsCollection)
+            {
+                if (item.ID == id)
+                {
+                    dv = item;
+                    break;
+                }
+            }
+
+            if (dv != null)
+            {
+                RemoveVisualChild(dv);
+                int index = _visualsCollection.IndexOf(dv);
+                _visualsCollection.RemoveAt(index);
+
+                DrawingVisualEx newDv = ((IVisualizable)dv.Primitive).GetVisual();
+                dv = null;
+
+                _visualsCollection.Insert(index, newDv);
+                AddVisualChild(newDv);
+
+                //OnDraftUnitUpdated?.Invoke(this, new UnitEventArgs(draftUnit, Draft));
+            }
         }
 
         #endregion

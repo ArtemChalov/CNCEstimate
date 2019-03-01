@@ -12,14 +12,15 @@ namespace DraftCanvas
             ID = ++_idCounter;
             X = x;
             Y = y;
-            Parents = new List<int>(parentId);
+            ParentsID = new List<int>();
+            ParentsID.Add(parentId);
             PM.Points.Add(this);
         }
 
         public int ID { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
-        public List<int> Parents { get; set; }
+        public List<int> ParentsID { get; set; }
 
         public override bool Equals(object obj)
         {

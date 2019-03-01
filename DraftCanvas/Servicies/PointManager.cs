@@ -26,7 +26,9 @@ namespace DraftCanvas.Servicies
         public static void SetX(int pointId, double value)
         {
             DcPoint point = Points.Where(p => p.ID == pointId).First();
+            int index = Points.IndexOf(point);
             point.X = value;
+            Points[index] = point;
             if (!DirtyPoints.Contains(point.ID))
                 DirtyPoints.Enqueue(point.ID);
         }
@@ -59,7 +61,7 @@ namespace DraftCanvas.Servicies
             {
                 if (Math.Abs(point.X - x2) < 0.05 && Math.Abs(point.Y - y2) < 0.05)
                 {
-                    point.Parents.Add(parentID);
+                    point.ParentsID.Add(parentID);
                     return point.ID;
                 }
             }

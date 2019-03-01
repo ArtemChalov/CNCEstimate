@@ -9,15 +9,15 @@ namespace DraftCanvas
     /// </summary>
     public sealed class DrawingVisualEx : DrawingVisual
     {
-        private IPrimitive _primitive;
+        IPrimitive _primitive;
 
         public DrawingVisualEx(IPrimitive primitive) : base()
         {
             _primitive = primitive;
         }
 
-        public int Id => _primitive.ID;
-        public string Tag => _primitive.Tag;
         public IPrimitive Primitive => _primitive;
+        public int ID => _primitive.ID;
+        public string Tag => _primitive.Tag;
     }
 }

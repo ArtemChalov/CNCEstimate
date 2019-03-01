@@ -6,12 +6,8 @@ using PM = DraftCanvas.Servicies.PointManager;
 
 namespace DraftCanvas.Primitives
 {
-    public class DcLineSegment : IPrimitive, IVisualizable
+    public class DcLineSegment : IPrimitive
     {
-        private double _x1;
-        private double _y1;
-        private double _y2;
-        private double _x2;
         private int _point_1_ID = -1;
         private int _point_2_ID = -1;
         private double _length;
@@ -33,12 +29,12 @@ namespace DraftCanvas.Primitives
                 if (point.X == x1 && point.Y == y1)
                 {
                     _point_1_ID = point.ID;
-                    point.Parents.Add(ID);
+                    point.ParentsID.Add(ID);
                 }
                 if (point.X == x2 && point.Y == y2)
                 {
                     _point_2_ID = point.ID;
-                    point.Parents.Add(ID);
+                    point.ParentsID.Add(ID);
                 }
                 if (_point_1_ID >= 0 && _point_2_ID >= 0)
                     break;
@@ -69,7 +65,7 @@ namespace DraftCanvas.Primitives
                 if (point.X == x1 && point.Y == y1)
                 {
                     _point_1_ID = point.ID;
-                    point.Parents.Add(ID);
+                    point.ParentsID.Add(ID);
                     break;
                 }
             }
