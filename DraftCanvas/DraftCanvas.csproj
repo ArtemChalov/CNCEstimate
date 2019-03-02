@@ -50,6 +50,7 @@
     <Compile Include="CanvasCollections.cs" />
     <Compile Include="CanvasParam.cs" />
     <Compile Include="Enums\DraftCanvasEnums.cs" />
+    <Compile Include="Models\Constraint.cs" />
     <Compile Include="Models\DcPoint.cs" />
     <Compile Include="ExtendedClasses\DrawingVisualEx.cs" />
     <Compile Include="Primitives\DcLineSegment.cs" />

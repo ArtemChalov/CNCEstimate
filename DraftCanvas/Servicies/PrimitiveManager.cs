@@ -10,5 +10,7 @@ namespace DraftCanvas.Servicies
     public static class PrimitiveManager
     {
         public static List<IVisualObject> Primitives = new List<IVisualObject>();
+
+        //public static Constraint PrimitiveConstraints = 
     }
 }

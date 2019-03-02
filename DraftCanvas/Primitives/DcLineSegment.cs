@@ -2,14 +2,11 @@
 using System;
 using System.Windows;
 using System.Windows.Media;
-using PM = DraftCanvas.Servicies.PointManager;
 
 namespace DraftCanvas.Primitives
 {
     public class DcLineSegment : IVisualObject
     {
-        private int _point_1_ID = -1;
-        private int _point_2_ID = -1;
         private double _length;
         private double _angle;
         private Orientation _lineOrientation;
@@ -33,38 +30,8 @@ namespace DraftCanvas.Primitives
             _x2 = x2;
             _y2 = y2;
 
-            //foreach (DcPoint point in PM.Points)
-            //{
-            //    if (point.X == x1 && point.Y == y1)
-            //    {
-            //        _point_1_ID = point.ID;
-            //        point.ParentsID.Add(ID);
-            //    }
-            //    if (point.X == x2 && point.Y == y2)
-            //    {
-            //        _point_2_ID = point.ID;
-            //        point.ParentsID.Add(ID);
-            //    }
-            //    if (_point_1_ID >= 0 && _point_2_ID >= 0)
-            //        break;
-            //}
-
-            //if (_point_1_ID == -1)
-            //{
-            //    DcPoint point = new DcPoint(x1, y1, ID);
-            //    _point_1_ID = point.ID;
-            //}
-
-            //if (_point_2_ID == -1)
-            //{
-            //    DcPoint point = new DcPoint(x2, y2, ID);
-            //    _point_2_ID = point.ID;
-            //}
-
             _length = DcMath.GetDistance(_x1, _y1, _x2, _y2);
             _angle = DcMath.GetLineSegmentAngle(this);
-
-            PrimitiveManager.Primitives.Add(this);
         }
 
         //public DcLineSegment(double x1, double y1, double length, double angle, Orientation orientation)
@@ -133,19 +100,6 @@ namespace DraftCanvas.Primitives
             set { _y2 =  value;
                 On_Y2_Changed();
             }
-        }
-
-        [Obsolete]
-        public int Point_1_ID
-        {
-            get { return _point_1_ID; }
-            set { _point_1_ID = value; }
-        }
-        [Obsolete]
-        public int Point_2_ID
-        {
-            get { return _point_2_ID; }
-            set { _point_2_ID = value; }
         }
 
         public double Length
