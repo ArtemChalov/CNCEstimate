@@ -46,7 +46,7 @@ namespace DraftCanvas
         #region Public Methods
 
         // Adds a new visual child
-        public void AddToVisualCollection(DrawingVisual visual)
+        public void  AddToVisualCollection(Visual visual)
         {
             _visualsCollection.Add(visual);
             AddVisualChild(visual);
@@ -55,8 +55,9 @@ namespace DraftCanvas
         // Adds a new visual child
         public void AddToVisualCollection(IVisualizable visualElement)
         {
-            _visualsCollection.Add(visualElement.GetVisual());
-            AddVisualChild(visualElement.GetVisual());
+            Visual visual = visualElement.GetVisual();
+            _visualsCollection.Add(visual);
+            AddVisualChild(visual);
         }
 
         public void Update()
@@ -66,17 +67,13 @@ namespace DraftCanvas
                 if (((DrawingVisualEx)_visualsCollection[i]).IsDirty)
                 {
                     DrawingVisualEx dv = (DrawingVisualEx)_visualsCollection[i];
-
                     RemoveVisualChild(dv);
-                    _visualsCollection.RemoveAt(i);
-
-                    DrawingVisualEx newDv = dv.VisualObject.GetVisual();
+                    _visualsCollection[i] = dv.VisualObject.GetVisual();
                     dv = null;
-                    newDv.IsDirty = false;
 
-                    _visualsCollection.Insert(i, newDv);
-                    AddVisualChild(newDv);
-                    
+                    ((DrawingVisualEx)_visualsCollection[i]).IsDirty = false;
+                    AddVisualChild(_visualsCollection[i]);
+
                     //OnDraftUnitUpdated?.Invoke(this, new UnitEventArgs(draftUnit, Draft));
                 }
             }
