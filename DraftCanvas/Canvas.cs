@@ -1,9 +1,7 @@
 ﻿using DraftCanvas.Primitives;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Media;
-using PM = DraftCanvas.Servicies.PointManager;
 
 namespace DraftCanvas
 {
@@ -30,25 +28,6 @@ namespace DraftCanvas
             ClipToBounds = true;
 
             CanvasParam.CanvasHeight = this.Height;
-
-            //var points = CanvasCollections.Points;
-            //points.Add(new DcPoint(10, 10));
-            //points.Add(new DcPoint(210, 10));
-            //points.Add(new DcPoint(210, 30));
-            //points.Add(new DcPoint(30, 210));
-            //points.Add(new DcPoint(10, 210));
-
-            //for (int i = 0; i < CanvasCollections.Points.Count; i++)
-            //{
-            //    if (i + 1 < CanvasCollections.Points.Count)
-            //    {
-            //        AddToVisualCollection(new DcLineSegment(points[i], points[i + 1]).GetVisual());
-            //    }
-            //    if (i == (points.Count - 1))
-            //    {
-            //        AddToVisualCollection(new DcLineSegment(points[i], points[0]).GetVisual());
-            //    }
-            //}
         }
 
         #region Properties

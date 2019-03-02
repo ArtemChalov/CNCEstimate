@@ -1,5 +1,4 @@
 ﻿using DraftCanvas.Servicies;
-using System;
 using System.Windows;
 using System.Windows.Media;
 using PM = DraftCanvas.Servicies.PointManager;
