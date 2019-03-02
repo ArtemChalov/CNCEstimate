@@ -121,7 +121,7 @@ namespace CNCEstimate.ViewModels
         public void GetViewParam()
         {
             //new KompasDocument2D().GetViewPram();
-            lineSegment0.Length += 10;
+            lineSegment0.Length -= 10;
             DraftCanvas.Update();
         }
 
