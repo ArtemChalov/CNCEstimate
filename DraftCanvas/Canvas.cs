@@ -84,16 +84,16 @@ namespace DraftCanvas
         {
             for (int i = 0; i < _visualsCollection.Count; i++)
             {
-                if (((DrawingVisualEx)_visualsCollection[i]).Primitive.IsDirty)
+                if (((DrawingVisualEx)_visualsCollection[i]).VisualObject.IsDirty)
                 {
                     DrawingVisualEx dv = (DrawingVisualEx)_visualsCollection[i];
                     RemoveVisualChild(dv);
 
                     _visualsCollection.RemoveAt(i);
 
-                    DrawingVisualEx newDv = ((IVisualizable)dv.Primitive).GetVisual();
+                    DrawingVisualEx newDv = ((IVisualizable)dv.VisualObject).GetVisual();
                     dv = null;
-                    newDv.Primitive.IsDirty = false;
+                    newDv.VisualObject.IsDirty = false;
 
                     _visualsCollection.Insert(i, newDv);
                     AddVisualChild(newDv);

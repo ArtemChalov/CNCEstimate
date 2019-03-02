@@ -9,6 +9,6 @@ namespace DraftCanvas.Servicies
 {
     public static class PrimitiveManager
     {
-        public static List<IPrimitive> Primitives = new List<IPrimitive>();
+        public static List<IVisualObject> Primitives = new List<IVisualObject>();
     }
 }

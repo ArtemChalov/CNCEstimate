@@ -6,7 +6,7 @@ using PM = DraftCanvas.Servicies.PointManager;
 
 namespace DraftCanvas.Primitives
 {
-    public class DcLineSegment : IPrimitive
+    public class DcLineSegment : IVisualObject
     {
         private int _point_1_ID = -1;
         private int _point_2_ID = -1;

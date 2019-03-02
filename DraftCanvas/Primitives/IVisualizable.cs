@@ -1,9 +1,7 @@
 ﻿
-using System.Windows.Media;
-
 namespace DraftCanvas.Primitives
 {
-    public interface IVisualizable
+    public interface IVisualizable : IDirty
     {
         DrawingVisualEx GetVisual();
     }

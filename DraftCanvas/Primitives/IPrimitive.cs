@@ -1,7 +1,7 @@
 ﻿
 namespace DraftCanvas.Primitives
 {
-    public interface IPrimitive : IVisualizable, IDirty
+    public interface IVisualObject : IVisualizable
     {
         int ID { get; }
         string Tag { get; }

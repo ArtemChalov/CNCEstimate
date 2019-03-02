@@ -4,20 +4,26 @@ using System.Windows.Media;
 namespace DraftCanvas
 {
     /// <summary>
-    /// This one class extends DrawingVisual class with the ID and Tag properties.
-    /// The extention helps us find out the visual object with tag or id in the visual collection.
+    /// This one class extends DrawingVisual class with the ID, Tag, IsDirty and IVisualObject reference properties.
+    /// The extention helps find out the visual object with tag or id in the visual collection.
     /// </summary>
-    public sealed class DrawingVisualEx : DrawingVisual
+    public sealed class DrawingVisualEx : DrawingVisual, IDirty
     {
-        IPrimitive _primitive;
+        IVisualObject _visualObj;
 
-        public DrawingVisualEx(IPrimitive primitive) : base()
+        public DrawingVisualEx(IVisualObject primitive) : base()
         {
-            _primitive = primitive;
+            _visualObj = primitive;
         }
 
-        public IPrimitive Primitive => _primitive;
-        public int ID => _primitive.ID;
-        public string Tag => _primitive.Tag;
+        public IVisualObject VisualObject => _visualObj;
+        public int ID => _visualObj.ID;
+        public string Tag => _visualObj.Tag;
+
+        public bool IsDirty
+        {
+            get { return _visualObj.IsDirty; }
+            set { _visualObj.IsDirty = value; }
+        }
     }
 }
