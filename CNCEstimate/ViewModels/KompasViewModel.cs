@@ -93,7 +93,7 @@ namespace CNCEstimate.ViewModels
             kManager2D = null;
         }
 
-        DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 150, 170);
+        DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 170, 220);
 
         public void DrawLineSeg()
         {
@@ -108,7 +108,7 @@ namespace CNCEstimate.ViewModels
             //DcLineSegment lineSegment270 = new DcLineSegment(100, 170, 100, 120);
             //DcLineSegment lineSegment315 = new DcLineSegment(100, 170, 135, 135);
 
-            DraftCanvas.AddToVisualCollection(lineSegment0);
+            DraftCanvas.AddToVisualCollection(lineSegment0.GetVisual());
             //DraftCanvas.AddToVisualCollection(lineSegment45);
             //DraftCanvas.AddToVisualCollection(lineSegment90);
             //DraftCanvas.AddToVisualCollection(lineSegment135);
