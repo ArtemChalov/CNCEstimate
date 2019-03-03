@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DraftCanvas.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,6 +12,8 @@ namespace DraftCanvas.Servicies
 
         public static IList<DcPoint> Points => _points;
         public static Queue<int> DirtyPoints => _dirtyPoints;
+
+        public static List<Constraint> Constraints = new List<Constraint>();
 
 
         public static double GetX(int id)
@@ -31,6 +34,23 @@ namespace DraftCanvas.Servicies
             Points[index] = point;
             if (!DirtyPoints.Contains(point.ID))
                 DirtyPoints.Enqueue(point.ID);
+        }
+
+        internal static int CreatePoint(double x, double y, int id)
+        {
+            Points.Add(new DcPoint(x, y, id));
+            for (int i = 0; i < Points.Count; i++)
+            {
+                if (Points[i].X == x && Points[i].Y == y)
+                {
+                    var memberList = new List<int>();
+                    memberList.Add(i);
+                    memberList.Add(Points.Count - 1);
+                    Constraints.Add(new Constraint("points", memberList, "equal"));
+                }
+            }
+
+            return (Points.Count - 1);
         }
 
         public static void SetY(int pointId, double value)

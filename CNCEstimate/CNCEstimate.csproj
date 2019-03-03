@@ -47,10 +47,6 @@
     <Reference Include="DraftCanvas">
       <HintPath>..\DraftCanvas\bin\Debug\DraftCanvas.dll</HintPath>
     </Reference>
-    <Reference Include="DraftCanvasFramework, Version=1.2.0.6, Culture=neutral, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\WPF_App\DraftCanvasFramework\DraftCanvasFramework\bin\x64\Release\DraftCanvasFramework.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.EntityFrameworkCore, Version=2.2.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.EntityFrameworkCore.2.2.2\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
     </Reference>

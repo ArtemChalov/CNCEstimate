@@ -1,5 +1,6 @@
 ﻿using DraftCanvas.Servicies;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
@@ -9,13 +10,14 @@ namespace DraftCanvas.Primitives
     {
         private double _length;
         private double _angle;
-        private Orientation _lineOrientation;
+        private LineConstraint _constraint;
         private double _x1;
         private double _y1;
         private double _x2;
         private double _y2;
         private readonly string _tag = "LineSegment";
         private readonly int _id = CanvasCollections.PrimitiveID;
+        public Dictionary<string, int> PointsIndexes = new Dictionary<string, int>();
 
         #region Constructors
 
@@ -23,17 +25,22 @@ namespace DraftCanvas.Primitives
 
         public DcLineSegment(double x1, double y1, double x2, double y2)
         {
-            LineOrientation = Orientation.Free;
-
+            _constraint = LineConstraint.Free;
             _x1 = x1;
             _y1 = y1;
+            PointsIndexes.Add("P1", PointManager.CreatePoint(x1, y1, ID));
             _x2 = x2;
             _y2 = y2;
+            PointsIndexes.Add("P2", PointManager.CreatePoint(x1, y1, ID));
+
+            if (x1 == x2) _constraint = LineConstraint.Vertical;
+            if (y1 == Y2) _constraint = LineConstraint.Horizontal;
 
             _length = DcMath.GetDistance(_x1, _y1, _x2, _y2);
             _angle = DcMath.GetLineSegmentAngle(this);
         }
 
+        /**
         //public DcLineSegment(double x1, double y1, double length, double angle, Orientation orientation)
         //{
         //    LineOrientation = orientation;
@@ -61,6 +68,7 @@ namespace DraftCanvas.Primitives
 
         //    PrimitiveManager.Primitives.Add(this);
         //}
+        **/
 
         #endregion
 
@@ -120,12 +128,12 @@ namespace DraftCanvas.Primitives
             }
         }
 
-        public Orientation LineOrientation
+        public LineConstraint Constraint
         {
-            get { return _lineOrientation; }
+            get { return _constraint; }
             set
             {
-                _lineOrientation = value;
+                _constraint = value;
                 OnOrientationChanged(value);
             }
         }
@@ -219,7 +227,7 @@ namespace DraftCanvas.Primitives
 
         }
 
-        private void OnOrientationChanged(Orientation value)
+        private void OnOrientationChanged(LineConstraint value)
         {
 
         }

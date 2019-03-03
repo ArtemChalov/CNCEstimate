@@ -1,5 +1,5 @@
 ﻿
-namespace DraftCanvas.Primitives
+namespace DraftCanvas
 {
     public interface IVisualObject : IVisualizable
     {

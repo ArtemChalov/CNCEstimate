@@ -93,7 +93,8 @@ namespace CNCEstimate.ViewModels
             kManager2D = null;
         }
 
-        DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 170, 220);
+        DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 100, 270);
+        DcLineSegment lineSegment1 = new DcLineSegment(100, 270, 200, 270);
 
         public void DrawLineSeg()
         {
@@ -109,6 +110,7 @@ namespace CNCEstimate.ViewModels
             //DcLineSegment lineSegment315 = new DcLineSegment(100, 170, 135, 135);
 
             DraftCanvas.AddToVisualCollection(lineSegment0.GetVisual());
+            DraftCanvas.AddToVisualCollection(lineSegment1.GetVisual());
             //DraftCanvas.AddToVisualCollection(lineSegment45);
             //DraftCanvas.AddToVisualCollection(lineSegment90);
             //DraftCanvas.AddToVisualCollection(lineSegment135);
@@ -121,7 +123,7 @@ namespace CNCEstimate.ViewModels
         public void GetViewParam()
         {
             //new KompasDocument2D().GetViewPram();
-            lineSegment0.Length -= 10;
+            lineSegment0.Length += 10;
             DraftCanvas.Update();
         }
 

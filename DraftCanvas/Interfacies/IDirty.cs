@@ -1,6 +1,6 @@
 ﻿
 
-namespace DraftCanvas.Primitives
+namespace DraftCanvas
 {
     public interface IDirty
     {
