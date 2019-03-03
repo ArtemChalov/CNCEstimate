@@ -93,8 +93,8 @@ namespace CNCEstimate.ViewModels
             kManager2D = null;
         }
 
-        DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 100, 270);
-        DcLineSegment lineSegment1 = new DcLineSegment(100, 270, 200, 270);
+        DcLineSegment lineSegment0 = new DcLineSegment(100, 100, 100, 200);
+        DcLineSegment lineSegment1 = new DcLineSegment(100, 200, 200, 200);
 
         public void DrawLineSeg()
         {

@@ -1,4 +1,5 @@
 ﻿using DraftCanvas.Primitives;
+using DraftCanvas.Servicies;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -25,6 +26,7 @@ namespace DraftCanvas
             this.Height = height;
 
             _visualsCollection = new List<Visual>();
+            Resolver._visualsCollection = _visualsCollection;
             ClipToBounds = true;
 
             CanvasParam.CanvasHeight = this.Height;

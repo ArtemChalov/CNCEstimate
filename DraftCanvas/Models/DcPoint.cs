@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using PM = DraftCanvas.Servicies.PointManager;
-
+﻿
 namespace DraftCanvas
 {
     public struct DcPoint
@@ -12,15 +10,13 @@ namespace DraftCanvas
             ID = ++_idCounter;
             X = x;
             Y = y;
-            ParentsID = new List<int>();
-            ParentsID.Add(parentId);
-            PM.Points.Add(this);
+            ParentID = parentId;
         }
 
         public int ID { get; set; }
         public double X { get; set; }
         public double Y { get; set; }
-        public List<int> ParentsID { get; set; }
+        public int ParentID { get; set; }
 
         public override bool Equals(object obj)
         {

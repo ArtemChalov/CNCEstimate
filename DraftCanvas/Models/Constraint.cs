@@ -1,18 +1,21 @@
-﻿using System.Collections.Generic;
-
+﻿
 namespace DraftCanvas.Models
 {
     public class Constraint
     {
-        public Constraint(string group, List<int> members, string relation)
+        private readonly int _issuer;
+        private readonly int _sub;
+        private readonly string _relationType;
+
+        public Constraint(int issuerIndex, int subIndex, string relationType)
         {
-            Group = group;
-            Members = members;
-            Relation = relation;
+            _issuer = issuerIndex;
+            _sub = subIndex;
+            _relationType = relationType;
         }
 
-        public string Group { get; set; }
-        public List<int> Members {get; set;}
-        public string Relation { get; set; }
+        public int IssuerIndex => _issuer;
+        public int SubIndex => _sub;
+        public string RelationType => _relationType;
     }
 }

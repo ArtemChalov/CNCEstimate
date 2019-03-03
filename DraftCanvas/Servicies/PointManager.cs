@@ -7,10 +7,10 @@ namespace DraftCanvas.Servicies
 {
     internal static class PointManager
     {
-        private static readonly IList<DcPoint> _points = new List<DcPoint>();
+        //private static readonly IList<DcPoint> _points = new List<DcPoint>();
         private static readonly Queue<int> _dirtyPoints = new Queue<int>();
 
-        public static IList<DcPoint> Points => _points;
+        public static List<DcPoint> Points = new List<DcPoint>();
         public static Queue<int> DirtyPoints => _dirtyPoints;
 
         public static List<Constraint> Constraints = new List<Constraint>();
@@ -38,17 +38,15 @@ namespace DraftCanvas.Servicies
 
         internal static int CreatePoint(double x, double y, int id)
         {
-            Points.Add(new DcPoint(x, y, id));
             for (int i = 0; i < Points.Count; i++)
             {
                 if (Points[i].X == x && Points[i].Y == y)
                 {
-                    var memberList = new List<int>();
-                    memberList.Add(i);
-                    memberList.Add(Points.Count - 1);
-                    Constraints.Add(new Constraint("points", memberList, "equal"));
+                    Constraints.Add(new Constraint(i, Points.Count, "equal"));
                 }
             }
+
+            Points.Add(new DcPoint(x, y, id));
 
             return (Points.Count - 1);
         }
@@ -83,7 +81,7 @@ namespace DraftCanvas.Servicies
             {
                 if (Math.Abs(point.X - x2) < 0.05 && Math.Abs(point.Y - y2) < 0.05)
                 {
-                    point.ParentsID.Add(parentID);
+                    //point.ParentID.Add(parentID);
                     return point.ID;
                 }
             }

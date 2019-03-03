@@ -61,6 +61,7 @@
     <Compile Include="Servicies\DcMath.cs" />
     <Compile Include="Servicies\PointManager.cs" />
     <Compile Include="Servicies\PrimitiveManager.cs" />
+    <Compile Include="Servicies\Resolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,6 +1,8 @@
-﻿using DraftCanvas.Servicies;
+﻿using DraftCanvas.Models;
+using DraftCanvas.Servicies;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -15,9 +17,11 @@ namespace DraftCanvas.Primitives
         private double _y1;
         private double _x2;
         private double _y2;
+        private int _p1Index;
+        private int _p2Index;
         private readonly string _tag = "LineSegment";
         private readonly int _id = CanvasCollections.PrimitiveID;
-        public Dictionary<string, int> PointsIndexes = new Dictionary<string, int>();
+        //public Dictionary<string, int> PointsIndexes = new Dictionary<string, int>();
 
         #region Constructors
 
@@ -28,10 +32,10 @@ namespace DraftCanvas.Primitives
             _constraint = LineConstraint.Free;
             _x1 = x1;
             _y1 = y1;
-            PointsIndexes.Add("P1", PointManager.CreatePoint(x1, y1, ID));
+            _p1Index = PointManager.CreatePoint(x1, y1, ID);
             _x2 = x2;
             _y2 = y2;
-            PointsIndexes.Add("P2", PointManager.CreatePoint(x1, y1, ID));
+            _p2Index = PointManager.CreatePoint(x2, y2, ID);
 
             if (x1 == x2) _constraint = LineConstraint.Vertical;
             if (y1 == Y2) _constraint = LineConstraint.Horizontal;
@@ -206,6 +210,15 @@ namespace DraftCanvas.Primitives
 
             DelataX1 = x1 - X1;
             DelataY1 = y1 - Y1;
+
+            foreach(Constraint constraint in PointManager.Constraints)
+            {
+                bool res = false;
+                if (constraint.IssuerIndex == _p1Index)
+                {
+                    res = Resolver.ResolveConstraint(constraint, DelataX1, DelataY1);
+                }
+            }
 
             _x1 = x1;
             _y1 = y1;
