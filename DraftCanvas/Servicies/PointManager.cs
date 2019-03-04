@@ -36,19 +36,28 @@ namespace DraftCanvas.Servicies
                 DirtyPoints.Enqueue(point.ID);
         }
 
-        internal static int CreatePoint(double x, double y, int id)
+        internal static int CreatePoint(double x, double y, int pointIndex, int ownerId)
         {
+            Constraint constraint = null;
             for (int i = 0; i < Points.Count; i++)
             {
                 if (Points[i].X == x && Points[i].Y == y)
                 {
-                    Constraints.Add(new Constraint(i, Points.Count, "equal"));
+                    constraint = new Constraint(Points[i].ID, "equal");
+                    break;
                 }
             }
+            DcPoint point = new DcPoint(x, y, pointIndex, ownerId);
 
-            Points.Add(new DcPoint(x, y, id));
+            if (constraint != null)
+            {
+                constraint.SubID = point.ID;
+                Constraints.Add(constraint);
+            }
 
-            return (Points.Count - 1);
+            Points.Add(point);
+
+            return (point.ID);
         }
 
         public static void SetY(int pointId, double value)
@@ -65,11 +74,11 @@ namespace DraftCanvas.Servicies
         /// Create new DcPoint
         /// </summary>
         /// <param name="p1ID"></param>
-        /// <param name="parentID"></param>
+        /// <param name="ownerId"></param>
         /// <param name="length"></param>
         /// <param name="angle"></param>
         /// <returns>Returns point ID</returns>
-        static public int Create_P2_WithLengthAndAngle(int p1ID, int parentID, double length, double angle)
+        static public int Create_P2_WithLengthAndAngle(int p1ID, int pointIndex,int ownerId, double length, double angle)
         {
             double x1 = GetX(p1ID);
             double y1 = GetY(p1ID);
@@ -86,7 +95,7 @@ namespace DraftCanvas.Servicies
                 }
             }
 
-            DcPoint newPoint = new DcPoint(x2, y2, parentID);
+            DcPoint newPoint = new DcPoint(x2, y2, pointIndex, ownerId);
 
             Points.Add(newPoint);
 

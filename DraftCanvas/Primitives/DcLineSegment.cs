@@ -1,11 +1,13 @@
-﻿using DraftCanvas.Servicies;
+﻿using DraftCanvas.Models;
+using DraftCanvas.Servicies;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
 namespace DraftCanvas.Primitives
 {
-    public class DcLineSegment : IVisualObject
+    public class DcLineSegment : IPrimitive
     {
         private double _length;
         private double _angle;
@@ -15,8 +17,8 @@ namespace DraftCanvas.Primitives
 
         private double _x2;
         private double _y2;
-        private int _p1Index;
-        private int _p2Index;
+        private int _p1Id;
+        private int _p2Id;
         private readonly string _tag = "LineSegment";
         private readonly int _id = CanvasCollections.PrimitiveID;
 
@@ -27,12 +29,13 @@ namespace DraftCanvas.Primitives
         public DcLineSegment(double x1, double y1, double x2, double y2)
         {
             _constraint = LineConstraint.Free;
+
             _x1 = x1;
             _y1 = y1;
-            _p1Index = PointManager.CreatePoint(x1, y1, ID);
+            _p1Id = PointManager.CreatePoint(x1, y1, 1, ID);
             _x2 = x2;
             _y2 = y2;
-            _p2Index = PointManager.CreatePoint(x2, y2, ID);
+            _p2Id = PointManager.CreatePoint(x2, y2, 2, ID);
 
             if (x1 == x2) _constraint = LineConstraint.Vertical;
             if (y1 == Y2) _constraint = LineConstraint.Horizontal;
@@ -82,37 +85,21 @@ namespace DraftCanvas.Primitives
         public double X1
         {
             get { return _x1; }
-            set { On_X1_Changed(value);
-                if (LocalConstraint != LineConstraint.Free)
-                    _x2 += DelataX;
-            }
         }
 
         public double Y1
         {
             get { return _y1; }
-            set { On_Y1_Changed(value);
-                if (LocalConstraint != LineConstraint.Free)
-                    _y2 += DelataY;
-            }
         }
 
         public double X2
         {
             get { return _x2; }
-            set { On_X2_Changed(value);
-                if (LocalConstraint != LineConstraint.Free)
-                    _x1 += DelataX;
-            }
         }
 
         public double Y2
         {
             get { return _y2; }
-            set { On_Y2_Changed(value);
-                if (LocalConstraint != LineConstraint.Free)
-                    _y1 += DelataY;
-            }
         }
 
         public double DelataX { get; private set; }
@@ -149,32 +136,106 @@ namespace DraftCanvas.Primitives
 
         #region Private Methods
 
-        private void On_X1_Changed(double newValue)
+        public bool SetPoint(double newX, double newY, int pointIndex)
         {
-            IsDirty = true;
-            DelataX = newValue - _x1;
-            _x1 = newValue;
+            switch (pointIndex)
+            {
+                case 1: return OnP1Changed(newX, newY);
+                case 2: return OnP2Changed(newX, newY);
+            }
+            return false;
         }
 
-        private void On_Y1_Changed(double newValue)
+        private bool OnP1Changed(double newX, double newY)
         {
+            Constraint constraint = null;
+
+            if (PointManager.Constraints.Count > 0)
+            {
+                foreach (var item in PointManager.Constraints)
+                {
+                    if (item.IssuerID == _p1Id)
+                    {
+                        constraint = item;
+                        break;
+                    }
+                }
+            }
+
+            if (constraint != null)
+            {
+                IVisualObject visualObject = null;
+                DcPoint point = PointManager.Points.Where(p => p.ID == constraint.SubID).First();
+                foreach (DrawingVisualEx item in Resolver._visualsCollection)
+                {
+                    if (item.ID == point.OwnerID)
+                    {
+                        visualObject = item.VisualObject;
+                        break;
+                    }
+                }
+
+                if (visualObject != null)
+                {
+                    if (visualObject is IPrimitive primitive)
+                    {
+                        primitive.SetPoint(newX, newY, point.PointIndex);
+                    }
+                }
+            }
+
+            _x1 = newX;
+            _y1 = newY;
+
             IsDirty = true;
-            DelataY = newValue - _y1;
-            _y1 = newValue;
+
+            return true;
         }
 
-        private void On_X2_Changed(double newValue)
+        private bool OnP2Changed(double newX, double newY)
         {
-            IsDirty = true;
-            DelataX = newValue - _x2;
-            _x2 = newValue;
-        }
+            Constraint constraint = null;
 
-        private void On_Y2_Changed(double newValue)
-        {
+            if (PointManager.Constraints.Count > 0)
+            {
+                foreach (var item in PointManager.Constraints)
+                {
+                    if (item.IssuerID == _p1Id)
+                    {
+                        constraint = item;
+                        break;
+                    }
+                }
+            }
+
+            if (constraint != null)
+            {
+                IVisualObject visualObject = null;
+                DcPoint point = PointManager.Points.Where(p => p.ID == constraint.SubID).First();
+                foreach (DrawingVisualEx item in Resolver._visualsCollection)
+                {
+                    if (item.ID == point.OwnerID)
+                    {
+                        visualObject = item.VisualObject;
+                        break;
+                    }
+                }
+
+                if (visualObject != null)
+                {
+                    if (visualObject is IPrimitive primitive)
+                    {
+                        primitive.SetPoint(newX, newY, point.PointIndex);
+                    }
+                }
+            }
+
+            _x2 = newX;
+            _y2 = newY;
+
             IsDirty = true;
-            DelataY = newValue - _y2;
-            _y2 = newValue;
+
+            return true;
         }
 
         private void OnLengthChanged(double newValue)
@@ -185,14 +246,12 @@ namespace DraftCanvas.Primitives
             double x1 = Math.Round((X1 - delta / 2 * Math.Cos(DcMath.DegreeToRadian(Angle))), 6);
             double y1 = Math.Round((Y1 - delta / 2 * Math.Sin(DcMath.DegreeToRadian(Angle))), 6);
 
-            On_X1_Changed(x1);
-            On_Y1_Changed(y1);
+            OnP1Changed(x1, y1);
 
             double x2 = Math.Round((X2 + delta / 2 * Math.Cos(DcMath.DegreeToRadian(Angle))), 6);
             double y2 = Math.Round((Y2 + delta / 2 * Math.Sin(DcMath.DegreeToRadian(Angle))), 6);
 
-            On_X2_Changed(x2);
-            On_Y2_Changed(y2);
+            OnP2Changed(x2, y2);
         }
 
         private void OnAngelChanged()

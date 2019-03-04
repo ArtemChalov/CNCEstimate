@@ -7,15 +7,14 @@ namespace DraftCanvas.Models
         private readonly int _sub;
         private readonly string _relationType;
 
-        public Constraint(int issuerIndex, int subIndex, string relationType)
+        public Constraint(int issuerId, string relationType)
         {
-            _issuer = issuerIndex;
-            _sub = subIndex;
+            _issuer = issuerId;
             _relationType = relationType;
         }
 
-        public int IssuerIndex => _issuer;
-        public int SubIndex => _sub;
+        public int IssuerID => _issuer;
+        public int SubID { get; set; }
         public string RelationType => _relationType;
     }
 }

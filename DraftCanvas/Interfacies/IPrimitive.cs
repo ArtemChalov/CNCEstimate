@@ -1,9 +1,8 @@
 ﻿
 namespace DraftCanvas
 {
-    public interface IVisualObject : IVisualizable
+    public interface IPrimitive : IVisualObject
     {
-        int ID { get; }
-        string Tag { get; }
+        bool SetPoint(double newX, double newY, int pointIndex);
     }
 }
