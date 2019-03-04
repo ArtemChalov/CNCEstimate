@@ -22,7 +22,6 @@ namespace DraftCanvas.Primitives
         private int _p2Index;
         private readonly string _tag = "LineSegment";
         private readonly int _id = CanvasCollections.PrimitiveID;
-        //public Dictionary<string, int> PointsIndexes = new Dictionary<string, int>();
 
         #region Constructors
 
@@ -86,26 +85,37 @@ namespace DraftCanvas.Primitives
         public double X1
         {
             get { return _x1; }
-            set { On_X1_Changed(value); }
+            set { On_X1_Changed(value);
+                if (Constraint != LineConstraint.Free)
+                    _x2 += DelataX;
+            }
         }
 
         public double Y1
         {
             get { return _y1; }
-            set { On_Y1_Changed(value); }
+            set { On_Y1_Changed(value);
+                if (Constraint != LineConstraint.Free)
+                    _y2 += DelataY;
+            }
         }
 
         public double X2
         {
             get { return _x2; }
             set { On_X2_Changed(value);
+                if (Constraint != LineConstraint.Free)
+                    _x1 += DelataX;
             }
         }
 
         public double Y2
         {
             get { return _y2; }
-            set { On_Y2_Changed(value); }
+            set { On_Y2_Changed(value);
+                if (Constraint != LineConstraint.Free)
+                    _y1 += DelataY;
+            }
         }
 
         public double DelataX { get; private set; }
@@ -114,11 +124,7 @@ namespace DraftCanvas.Primitives
         public double Length
         {
             get { return _length; }
-            set
-            {
-                IsDirty = true;
-                OnLengthChanged(value);
-            }
+            set {OnLengthChanged(value); }
         }
 
         public double Angle
@@ -147,80 +153,49 @@ namespace DraftCanvas.Primitives
 
         private void On_X1_Changed(double newValue)
         {
+            IsDirty = true;
             DelataX = newValue - _x1;
             _x1 = newValue;
-            if (Constraint != LineConstraint.Free)
-                _x2 += DelataX;
-            IsDirty = true;
         }
 
         private void On_Y1_Changed(double newValue)
         {
+            IsDirty = true;
             DelataY = newValue - _y1;
             _y1 = newValue;
-            if (Constraint != LineConstraint.Free)
-                _y2 += DelataY;
-            IsDirty = true;
         }
 
         private void On_X2_Changed(double newValue)
         {
+            IsDirty = true;
             DelataX = newValue - _x2;
             _x2 = newValue;
-            if (Constraint != LineConstraint.Free)
-                _x1 += DelataX;
-            IsDirty = true;
         }
 
         private void On_Y2_Changed(double newValue)
         {
+            IsDirty = true;
             DelataY = newValue - _y2;
             _y2 = newValue;
-            if (Constraint != LineConstraint.Free)
-                _y1 += DelataY;
-            IsDirty = true;
         }
 
-        private void OnLengthChanged(double value)
+        private void OnLengthChanged(double newValue)
         {
-            double delta = value -_length;
-            _length = value;
+            IsDirty = true;
+            double delta = newValue -_length;
+            _length = newValue;
 
             double x1 = Math.Round((X1 - delta / 2 * Math.Cos(DcMath.DegreeToRadian(Angle))), 6);
             double y1 = Math.Round((Y1 - delta / 2 * Math.Sin(DcMath.DegreeToRadian(Angle))), 6);
 
-            DelataX = x1 - X1;
-            DelataY = y1 - Y1;
-
-            foreach(Constraint constraint in PointManager.Constraints)
-            {
-                bool res = false;
-                if (constraint.IssuerIndex == _p1Index)
-                {
-                    res = Resolver.ResolveConstraint(constraint, DelataX, DelataY);
-                }
-            }
-
-            _x1 = x1;
-            _y1 = y1;
+            On_X1_Changed(x1);
+            On_Y1_Changed(y1);
 
             double x2 = Math.Round((X2 + delta / 2 * Math.Cos(DcMath.DegreeToRadian(Angle))), 6);
             double y2 = Math.Round((Y2 + delta / 2 * Math.Sin(DcMath.DegreeToRadian(Angle))), 6);
 
-            DelataX = x2 - X2;
-            DelataY = y2 - Y2;
-
-            foreach (Constraint constraint in PointManager.Constraints)
-            {
-                bool res = false;
-                if (constraint.IssuerIndex == _p2Index)
-                {
-                    res = Resolver.ResolveConstraint(constraint, DelataX, DelataY);
-                }
-            }
-
-            _x2 = x2;
-            _y2 = y2;
+            On_X2_Changed(x2);
+            On_Y2_Changed(y2);
 
             //PM.SetPointWithLengthAndAngle(Point_1_ID, Point_2_ID, ID, value, Angle);
         }
