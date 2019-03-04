@@ -181,7 +181,6 @@ namespace DraftCanvas.Primitives
 
         private void OnLengthChanged(double newValue)
         {
-            IsDirty = true;
             double delta = newValue -_length;
             _length = newValue;
 
@@ -196,8 +195,6 @@ namespace DraftCanvas.Primitives
 
             On_X2_Changed(x2);
             On_Y2_Changed(y2);
-
-            //PM.SetPointWithLengthAndAngle(Point_1_ID, Point_2_ID, ID, value, Angle);
         }
 
         private void OnAngelChanged()
