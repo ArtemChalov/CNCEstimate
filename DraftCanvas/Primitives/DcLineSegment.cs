@@ -1,8 +1,5 @@
-﻿using DraftCanvas.Models;
-using DraftCanvas.Servicies;
+﻿using DraftCanvas.Servicies;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -86,7 +83,7 @@ namespace DraftCanvas.Primitives
         {
             get { return _x1; }
             set { On_X1_Changed(value);
-                if (Constraint != LineConstraint.Free)
+                if (LocalConstraint != LineConstraint.Free)
                     _x2 += DelataX;
             }
         }
@@ -95,7 +92,7 @@ namespace DraftCanvas.Primitives
         {
             get { return _y1; }
             set { On_Y1_Changed(value);
-                if (Constraint != LineConstraint.Free)
+                if (LocalConstraint != LineConstraint.Free)
                     _y2 += DelataY;
             }
         }
@@ -104,7 +101,7 @@ namespace DraftCanvas.Primitives
         {
             get { return _x2; }
             set { On_X2_Changed(value);
-                if (Constraint != LineConstraint.Free)
+                if (LocalConstraint != LineConstraint.Free)
                     _x1 += DelataX;
             }
         }
@@ -113,12 +110,13 @@ namespace DraftCanvas.Primitives
         {
             get { return _y2; }
             set { On_Y2_Changed(value);
-                if (Constraint != LineConstraint.Free)
+                if (LocalConstraint != LineConstraint.Free)
                     _y1 += DelataY;
             }
         }
 
         public double DelataX { get; private set; }
+
         public double DelataY { get; private set; }
 
         public double Length
@@ -135,13 +133,13 @@ namespace DraftCanvas.Primitives
             }
         }
 
-        public LineConstraint Constraint
+        public LineConstraint LocalConstraint
         {
             get { return _constraint; }
             set
             {
                 _constraint = value;
-                OnOrientationChanged(value);
+                OnGlobConstrChanged(value);
             }
         }
 
@@ -202,7 +200,7 @@ namespace DraftCanvas.Primitives
 
         }
 
-        private void OnOrientationChanged(LineConstraint value)
+        private void OnGlobConstrChanged(LineConstraint value)
         {
 
         }
