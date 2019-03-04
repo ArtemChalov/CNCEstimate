@@ -93,7 +93,7 @@ namespace CNCEstimate.ViewModels
             kManager2D = null;
         }
 
-        DcLineSegment lineSegment0 = new DcLineSegment(100, 100, 100, 200);
+        DcLineSegment lineSegment0 = new DcLineSegment(100, 100, 70, 200);
         DcLineSegment lineSegment1 = new DcLineSegment(100, 200, 200, 200);
 
         public void DrawLineSeg()
@@ -123,7 +123,8 @@ namespace CNCEstimate.ViewModels
         public void GetViewParam()
         {
             //new KompasDocument2D().GetViewPram();
-            lineSegment0.Length += 10;
+            //lineSegment0.Length += 10;
+            lineSegment0.Y2 += 10;
             DraftCanvas.Update();
         }
 

@@ -15,6 +15,7 @@ namespace DraftCanvas.Primitives
         private LineConstraint _constraint;
         private double _x1;
         private double _y1;
+
         private double _x2;
         private double _y2;
         private int _p1Index;
@@ -85,34 +86,30 @@ namespace DraftCanvas.Primitives
         public double X1
         {
             get { return _x1; }
-            set { _x1 = value;
-                On_X1_Changed();
-            }
+            set { On_X1_Changed(value); }
         }
 
         public double Y1
         {
             get { return _y1; }
-            set { _y1 = value;
-                On_Y1_Changed();
-            }
+            set { On_Y1_Changed(value); }
         }
 
         public double X2
         {
             get { return _x2; }
-            set { _x2 = value;
-                On_X2_Changed();
+            set { On_X2_Changed(value);
             }
         }
 
         public double Y2
         {
             get { return _y2; }
-            set { _y2 =  value;
-                On_Y2_Changed();
-            }
+            set { On_Y2_Changed(value); }
         }
+
+        public double DelataX { get; private set; }
+        public double DelataY { get; private set; }
 
         public double Length
         {
@@ -148,56 +145,40 @@ namespace DraftCanvas.Primitives
 
         #region Private Methods
 
-        private void On_X1_Changed()
+        private void On_X1_Changed(double newValue)
         {
-
+            DelataX = newValue - _x1;
+            _x1 = newValue;
+            if (Constraint != LineConstraint.Free)
+                _x2 += DelataX;
+            IsDirty = true;
         }
 
-        private void On_Y1_Changed()
+        private void On_Y1_Changed(double newValue)
         {
-
+            DelataY = newValue - _y1;
+            _y1 = newValue;
+            if (Constraint != LineConstraint.Free)
+                _y2 += DelataY;
+            IsDirty = true;
         }
 
-        private void On_X2_Changed()
+        private void On_X2_Changed(double newValue)
         {
-
+            DelataX = newValue - _x2;
+            _x2 = newValue;
+            if (Constraint != LineConstraint.Free)
+                _x1 += DelataX;
+            IsDirty = true;
         }
 
-        private void On_Y2_Changed()
+        private void On_Y2_Changed(double newValue)
         {
-
-        }
-
-        private double _deltaX1;
-
-        public double DelataX1
-        {
-            get { return _deltaX1; }
-            set { _deltaX1 = value; }
-        }
-
-        private double _deltaY1;
-
-        public double DelataY1
-        {
-            get { return _deltaY1; }
-            set { _deltaY1 = value; }
-        }
-
-        private double _deltaX2;
-
-        public double DelataX2
-        {
-            get { return _deltaX2; }
-            set { _deltaX2 = value; }
-        }
-
-        private double _deltaY2;
-
-        public double DelataY2
-        {
-            get { return _deltaY2; }
-            set { _deltaY2 = value; }
+            DelataY = newValue - _y2;
+            _y2 = newValue;
+            if (Constraint != LineConstraint.Free)
+                _y1 += DelataY;
+            IsDirty = true;
         }
 
         private void OnLengthChanged(double value)
@@ -208,15 +189,15 @@ namespace DraftCanvas.Primitives
             double x1 = Math.Round((X1 - delta / 2 * Math.Cos(DcMath.DegreeToRadian(Angle))), 6);
             double y1 = Math.Round((Y1 - delta / 2 * Math.Sin(DcMath.DegreeToRadian(Angle))), 6);
 
-            DelataX1 = x1 - X1;
-            DelataY1 = y1 - Y1;
+            DelataX = x1 - X1;
+            DelataY = y1 - Y1;
 
             foreach(Constraint constraint in PointManager.Constraints)
             {
                 bool res = false;
                 if (constraint.IssuerIndex == _p1Index)
                 {
-                    res = Resolver.ResolveConstraint(constraint, DelataX1, DelataY1);
+                    res = Resolver.ResolveConstraint(constraint, DelataX, DelataY);
                 }
             }
 
@@ -226,8 +207,17 @@ namespace DraftCanvas.Primitives
             double x2 = Math.Round((X2 + delta / 2 * Math.Cos(DcMath.DegreeToRadian(Angle))), 6);
             double y2 = Math.Round((Y2 + delta / 2 * Math.Sin(DcMath.DegreeToRadian(Angle))), 6);
 
-            DelataX2 = x2 - X2;
-            DelataY2 = y2 - Y2;
+            DelataX = x2 - X2;
+            DelataY = y2 - Y2;
+
+            foreach (Constraint constraint in PointManager.Constraints)
+            {
+                bool res = false;
+                if (constraint.IssuerIndex == _p2Index)
+                {
+                    res = Resolver.ResolveConstraint(constraint, DelataX, DelataY);
+                }
+            }
 
             _x2 = x2;
             _y2 = y2;
