@@ -51,7 +51,7 @@ namespace DraftCanvas.Servicies
 
             if (constraint != null)
             {
-                constraint.SubID = point.ID;
+                constraint.SetSub(point.ID);
                 Constraints.Add(constraint);
             }
 

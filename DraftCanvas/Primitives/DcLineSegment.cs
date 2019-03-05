@@ -102,10 +102,6 @@ namespace DraftCanvas.Primitives
             get { return _y2; }
         }
 
-        public double DelataX { get; private set; }
-
-        public double DelataY { get; private set; }
-
         public double Length
         {
             get { return _length; }
@@ -138,104 +134,51 @@ namespace DraftCanvas.Primitives
 
         public bool SetPoint(double newX, double newY, int pointIndex)
         {
+            double DelataX = 0;
+            double DelataY = 0;
+            bool res = false;
             switch (pointIndex)
             {
-                case 1: return OnP1Changed(newX, newY);
-                case 2: return OnP2Changed(newX, newY);
+                case 1:
+                    DelataX = newX - X1;
+                    DelataY = newY - Y1;
+                    res = OnP1Changed(newX, newY);
+                    if (LocalConstraint != LineConstraint.Free)
+                        res = OnP2Changed(X2 + DelataX, Y2 + DelataY);
+                    break;
+                case 2:
+                    DelataX = newX - X2;
+                    DelataY = newY - Y2;
+                    res = OnP2Changed(newX, newY);
+                    if (LocalConstraint != LineConstraint.Free)
+                        res = OnP1Changed(X1 + DelataX, Y1 + DelataY);
+                    break;
             }
-            return false;
+            return res;
         }
 
         private bool OnP1Changed(double newX, double newY)
         {
-            Constraint constraint = null;
-
-            if (PointManager.Constraints.Count > 0)
-            {
-                foreach (var item in PointManager.Constraints)
-                {
-                    if (item.IssuerID == _p1Id)
-                    {
-                        constraint = item;
-                        break;
-                    }
-                }
-            }
-
-            if (constraint != null)
-            {
-                IVisualObject visualObject = null;
-                DcPoint point = PointManager.Points.Where(p => p.ID == constraint.SubID).First();
-                foreach (DrawingVisualEx item in Resolver._visualsCollection)
-                {
-                    if (item.ID == point.OwnerID)
-                    {
-                        visualObject = item.VisualObject;
-                        break;
-                    }
-                }
-
-                if (visualObject != null)
-                {
-                    if (visualObject is IPrimitive primitive)
-                    {
-                        primitive.SetPoint(newX, newY, point.PointIndex);
-                    }
-                }
-            }
+            bool res = Resolver.ResolveConstraint(_p1Id, newX, newY);
 
             _x1 = newX;
             _y1 = newY;
 
             IsDirty = true;
 
-            return true;
+            return res;
         }
 
         private bool OnP2Changed(double newX, double newY)
         {
-            Constraint constraint = null;
-
-            if (PointManager.Constraints.Count > 0)
-            {
-                foreach (var item in PointManager.Constraints)
-                {
-                    if (item.IssuerID == _p2Id)
-                    {
-                        constraint = item;
-                        break;
-                    }
-                }
-            }
-
-            if (constraint != null)
-            {
-                IVisualObject visualObject = null;
-                DcPoint point = PointManager.Points.Where(p => p.ID == constraint.SubID).First();
-                foreach (DrawingVisualEx item in Resolver._visualsCollection)
-                {
-                    if (item.ID == point.OwnerID)
-                    {
-                        visualObject = item.VisualObject;
-                        break;
-                    }
-                }
-
-                if (visualObject != null)
-                {
-                    if (visualObject is IPrimitive primitive)
-                    {
-                        primitive.SetPoint(newX, newY, point.PointIndex);
-                    }
-                }
-            }
+            bool res = Resolver.ResolveConstraint(_p2Id, newX, newY);
 
             _x2 = newX;
             _y2 = newY;
 
             IsDirty = true;
 
-            return true;
+            return res;
         }
 
         private void OnLengthChanged(double newValue)
