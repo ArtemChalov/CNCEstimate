@@ -200,7 +200,7 @@ namespace DraftCanvas.Primitives
             {
                 foreach (var item in PointManager.Constraints)
                 {
-                    if (item.IssuerID == _p1Id)
+                    if (item.IssuerID == _p2Id)
                     {
                         constraint = item;
                         break;
