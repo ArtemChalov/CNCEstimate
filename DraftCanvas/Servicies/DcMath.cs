@@ -14,6 +14,16 @@ namespace DraftCanvas.Servicies
             return Math.Round(Math.Sqrt((deltaX * deltaX + deltaY * deltaY)), 6);
         }
 
+        static public double Xoffset(double delta, double angle)
+        {
+            return Math.Round((delta * Math.Cos(DcMath.DegreeToRadian(angle))), 6);
+        }
+
+        static public double Yoffset(double delta, double angle)
+        {
+            return Math.Round((delta * Math.Sin(DcMath.DegreeToRadian(angle))), 6);
+        }
+
         static public double GetLineSegmentAngle(DcLineSegment lineSegment)
         {
             double deltaX = lineSegment.X2 - lineSegment.X1;

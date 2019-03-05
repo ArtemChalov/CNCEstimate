@@ -186,13 +186,13 @@ namespace DraftCanvas.Primitives
             double delta = newValue -_length;
             _length = newValue;
 
-            double x1 = Math.Round((X1 - delta / 2 * Math.Cos(DcMath.DegreeToRadian(Angle))), 6);
-            double y1 = Math.Round((Y1 - delta / 2 * Math.Sin(DcMath.DegreeToRadian(Angle))), 6);
+            double x1 = X1 - DcMath.Xoffset(delta / 2, Angle);
+            double y1 = Y1 - DcMath.Yoffset(delta / 2, Angle);
 
             OnP1Changed(x1, y1);
 
-            double x2 = Math.Round((X2 + delta / 2 * Math.Cos(DcMath.DegreeToRadian(Angle))), 6);
-            double y2 = Math.Round((Y2 + delta / 2 * Math.Sin(DcMath.DegreeToRadian(Angle))), 6);
+            double x2 = X2 + DcMath.Xoffset(delta / 2, Angle);
+            double y2 = Y2 + DcMath.Yoffset(delta / 2, Angle);
 
             OnP2Changed(x2, y2);
         }
