@@ -1,6 +1,5 @@
 ﻿using DraftCanvas.Primitives;
 using System;
-using PM = DraftCanvas.Servicies.PointManager;
 
 namespace DraftCanvas.Servicies
 {

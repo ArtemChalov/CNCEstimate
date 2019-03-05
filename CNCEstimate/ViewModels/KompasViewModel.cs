@@ -95,29 +95,13 @@ namespace CNCEstimate.ViewModels
 
         DcLineSegment lineSegment0 = new DcLineSegment(100, 100, 100, 200);
         DcLineSegment lineSegment1 = new DcLineSegment(100, 200, 200, 200);
+        DcLineSegment lineSegment3 = new DcLineSegment(200, 200, 200, 100);
 
         public void DrawLineSeg()
         {
-            //LineSeg lineSeg = new LineSeg(25, 30, 120, 50, 2);
-            //lineSeg.Draw();
-            //DcLineSegment lineSegment0 = new DcLineSegment(100, 170, 150, 170);
-            //DcLineSegment lineSegment45 = new DcLineSegment(100, 170, 135, 205);
-            //DcLineSegment lineSegment90 = new DcLineSegment(100, 170, 100, 220);
-            //DcLineSegment lineSegment135 = new DcLineSegment(100, 170, 65, 205);
-            //DcLineSegment lineSegment180 = new DcLineSegment(100, 170, 50, 170);
-            //DcLineSegment lineSegment225 = new DcLineSegment(100, 170, 65, 135);
-            //DcLineSegment lineSegment270 = new DcLineSegment(100, 170, 100, 120);
-            //DcLineSegment lineSegment315 = new DcLineSegment(100, 170, 135, 135);
-
             DraftCanvas.AddToVisualCollection(lineSegment0.GetVisual());
             DraftCanvas.AddToVisualCollection(lineSegment1.GetVisual());
-            //DraftCanvas.AddToVisualCollection(lineSegment45);
-            //DraftCanvas.AddToVisualCollection(lineSegment90);
-            //DraftCanvas.AddToVisualCollection(lineSegment135);
-            //DraftCanvas.AddToVisualCollection(lineSegment180);
-            //DraftCanvas.AddToVisualCollection(lineSegment225);
-            //DraftCanvas.AddToVisualCollection(lineSegment270);
-            //DraftCanvas.AddToVisualCollection(lineSegment315);
+            DraftCanvas.AddToVisualCollection(lineSegment3.GetVisual());
         }
 
         public void GetViewParam()
