@@ -5,11 +5,16 @@ using System.Windows.Media;
 
 namespace DraftCanvas.Servicies
 {
-    static class Resolver
+    internal class Resolver
     {
-        public static List<Visual> _visualsCollection;
+        Canvas _canvas;
 
-        internal static bool ResolveConstraint(double issuerID, double newX, double newY)
+        public Resolver(Canvas canvas)
+        {
+            _canvas = canvas;
+        }
+
+        internal bool ResolveConstraint(double issuerID, double newX, double newY)
         {
             Constraint constraint = null;
 
@@ -20,32 +25,19 @@ namespace DraftCanvas.Servicies
                     if (item.IssuerID == issuerID)
                     {
                         constraint = item;
-                        break;
+                        DcPoint point = PointManager.Points.Where(p => p.ID == constraint.SubID).First();
+                        IVisualObject visualObject = _canvas.GetDrawingVisualById(point.OwnerID).VisualObject;
+                        if (visualObject != null)
+                        {
+                            if (visualObject is IPrimitive primitive)
+                            {
+                                primitive.SetPoint(newX, newY, point.PointIndex);
+                            }
+                        }
                     }
                 }
             }
 
-            if (constraint != null)
-            {
-                IVisualObject visualObject = null;
-                DcPoint point = PointManager.Points.Where(p => p.ID == constraint.SubID).First();
-                foreach (DrawingVisualEx item in _visualsCollection)
-                {
-                    if (item.ID == point.OwnerID)
-                    {
-                        visualObject = item.VisualObject;
-                        break;
-                    }
-                }
-
-                if (visualObject != null)
-                {
-                    if (visualObject is IPrimitive primitive)
-                    {
-                        primitive.SetPoint(newX, newY, point.PointIndex);
-                    }
-                }
-            }
             return false;
         }
     }

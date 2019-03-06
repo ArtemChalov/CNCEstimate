@@ -1,6 +1,6 @@
-﻿using DraftCanvas.Primitives;
-using DraftCanvas.Servicies;
+﻿using DraftCanvas.Servicies;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 
@@ -9,6 +9,7 @@ namespace DraftCanvas
     public class Canvas : FrameworkElement
     {
         private List<Visual> _visualsCollection;
+        internal Resolver _resolver;
 
         #region DependencyProperties Registration
 
@@ -26,7 +27,7 @@ namespace DraftCanvas
             this.Height = height;
 
             _visualsCollection = new List<Visual>();
-            Resolver._visualsCollection = _visualsCollection;
+            _resolver = new Resolver(this);
             ClipToBounds = true;
 
             CanvasParam.CanvasHeight = this.Height;
@@ -43,6 +44,8 @@ namespace DraftCanvas
             set { SetValue(BackgroundProperty, (object)value); }
         }
 
+        internal Resolver Resolver => _resolver;
+
         #endregion
 
         #region Public Methods
@@ -57,6 +60,7 @@ namespace DraftCanvas
         // Adds a new visual child
         public void AddToVisualCollection(IVisualizable visualElement)
         {
+            visualElement.Owner = this;
             Visual visual = visualElement.GetVisual();
             _visualsCollection.Add(visual);
             AddVisualChild(visual);
@@ -79,6 +83,11 @@ namespace DraftCanvas
                     //OnDraftUnitUpdated?.Invoke(this, new UnitEventArgs(draftUnit, Draft));
                 }
             }
+        }
+
+        public DrawingVisualEx GetDrawingVisualById(int visualId)
+        {
+            return (DrawingVisualEx)_visualsCollection.Where(v => ((DrawingVisualEx)v).ID == visualId).First();
         }
 
         #endregion

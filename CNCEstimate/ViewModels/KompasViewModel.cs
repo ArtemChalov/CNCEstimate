@@ -95,21 +95,26 @@ namespace CNCEstimate.ViewModels
 
         DcLineSegment lineSegment0 = new DcLineSegment(100, 100, 100, 200);
         DcLineSegment lineSegment1 = new DcLineSegment(100, 200, 200, 200);
-        DcLineSegment lineSegment3 = new DcLineSegment(200, 200, 200, 100);
-        DcLineSegment lineSegment4 = new DcLineSegment(200, 100, 100, 100);
+        //DcLineSegment lineSegment2 = new DcLineSegment(200, 200, 200, 100);
+        DcLineSegment lineSegment3 = new DcLineSegment(200, 200, 100, 100);
 
         public void DrawLineSeg()
         {
-            DraftCanvas.AddToVisualCollection(lineSegment0.GetVisual());
-            DraftCanvas.AddToVisualCollection(lineSegment1.GetVisual());
-            DraftCanvas.AddToVisualCollection(lineSegment3.GetVisual());
-            DraftCanvas.AddToVisualCollection(lineSegment4.GetVisual());
+            lineSegment0.LocalConstraint = LineConstraint.Vertical;
+            DraftCanvas.AddToVisualCollection(lineSegment0);
+            lineSegment1.LocalConstraint = LineConstraint.Horizontal;
+            DraftCanvas.AddToVisualCollection(lineSegment1);
+            //DraftCanvas.AddToVisualCollection(lineSegment2);
+            //lineSegment3.LocalConstraint = LineConstraint.Horizontal;
+            DraftCanvas.AddToVisualCollection(lineSegment3);
         }
 
         public void GetViewParam()
         {
             //new KompasDocument2D().GetViewPram();
             lineSegment0.Length += 10;
+            DraftCanvas.Update();
+            lineSegment1.Length += 20;
             DraftCanvas.Update();
         }
 
