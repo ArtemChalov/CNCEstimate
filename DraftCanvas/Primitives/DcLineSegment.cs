@@ -1,7 +1,6 @@
-﻿using DraftCanvas.Models;
-using DraftCanvas.Servicies;
-using System;
-using System.Linq;
+﻿using DraftCanvas.Servicies;
+using System.Collections;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 
@@ -22,10 +21,9 @@ namespace DraftCanvas.Primitives
         private readonly string _tag = "LineSegment";
         private readonly int _id = CanvasCollections.PrimitiveID;
         private Canvas _owner;
+        readonly IDictionary<string, int> _pointDict;
 
         #region Constructors
-
-        private DcLineSegment() { }
 
         public DcLineSegment(Canvas owner, double x1, double y1, double x2, double y2)
         {
@@ -38,6 +36,12 @@ namespace DraftCanvas.Primitives
             _x2 = x2;
             _y2 = y2;
             _p2Id = _owner.PointManager.CreatePoint(x2, y2, 2, ID);
+
+            _pointDict = new Dictionary<string, int>()
+            {
+                {"Original", 0 },
+                {"End", 1 }
+            };
 
             _length = DcMath.GetDistance(_x1, _y1, _x2, _y2);
             _angle = DcMath.GetLineSegmentAngle(this);
@@ -83,6 +87,8 @@ namespace DraftCanvas.Primitives
 
         public string Tag => _tag;
 
+        public IDictionary<string, int> Points => _pointDict;
+
         public double X1
         {
             get { return _x1; }
@@ -112,19 +118,14 @@ namespace DraftCanvas.Primitives
         public double Angle
         {
             get { return _angle; }
-            set { _angle = value;
-                OnAngelChanged();
+            set { OnAngelChanged(value);
             }
         }
 
         public LineConstraint LocalConstraint
         {
             get { return _constraint; }
-            set
-            {
-                _constraint = value;
-                OnGlobConstrChanged(value);
-            }
+            set { _constraint = value; }
         }
 
         public bool IsDirty { get; set; } = false;
@@ -210,17 +211,14 @@ namespace DraftCanvas.Primitives
             _length = newValue;
         }
 
-        private void OnAngelChanged()
-        {
-
-        }
-
-        private void OnGlobConstrChanged(LineConstraint value)
+        private void OnAngelChanged(double newValue)
         {
 
         }
 
         #endregion
+
+        #region Interfaces Implementation
 
         public DrawingVisualEx GetVisual()
         {
@@ -236,5 +234,7 @@ namespace DraftCanvas.Primitives
 
             return visual;
         }
+
+        #endregion
     }
 }

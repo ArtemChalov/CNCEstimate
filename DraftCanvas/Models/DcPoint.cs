@@ -30,7 +30,7 @@ namespace DraftCanvas
 
         public override int GetHashCode()
         {
-            return this.ID;
+            return this.ID ^ this.PointIndex;
         }
     }
 }

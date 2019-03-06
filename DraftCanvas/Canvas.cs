@@ -63,6 +63,8 @@ namespace DraftCanvas
         // Adds a new visual child
         public void AddToVisualCollection(IVisualizable visualElement)
         {
+            if (visualElement is IPrimitive primitive)
+                PointManager.AddPrimitive(primitive);
             Visual visual = visualElement.GetVisual();
             _visualsCollection.Add(visual);
             AddVisualChild(visual);

@@ -1,4 +1,5 @@
 ﻿using DraftCanvas.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -6,8 +7,15 @@ namespace DraftCanvas.Servicies
 {
     internal class PointManager
     {
-        internal List<DcPoint> Points = new List<DcPoint>();
-        internal List<Constraint> Constraints = new List<Constraint>();
+        private List<DcPoint> _points         = new List<DcPoint>();
+        private List<Constraint> _constraints = new List<Constraint>();
+
+        #region Properties
+
+        public List<DcPoint> Points => _points;
+        public List<Constraint> Constraints => _constraints;
+
+        #endregion
 
         internal int CreatePoint(double x, double y, int pointIndex, int ownerId)
         {
@@ -36,6 +44,14 @@ namespace DraftCanvas.Servicies
         internal bool HasConstraint(int pointId)
         {
             return Constraints.Where(c => c.SubID == pointId).FirstOrDefault() != null;
+        }
+
+        public void AddPrimitive(IPrimitive primitive)
+        {
+            foreach(var item in primitive.Points)
+            {
+
+            }
         }
     }
 }
