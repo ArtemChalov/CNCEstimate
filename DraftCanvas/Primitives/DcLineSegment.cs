@@ -21,21 +21,23 @@ namespace DraftCanvas.Primitives
         private int _p2Id;
         private readonly string _tag = "LineSegment";
         private readonly int _id = CanvasCollections.PrimitiveID;
+        private Canvas _owner;
 
         #region Constructors
 
         private DcLineSegment() { }
 
-        public DcLineSegment(double x1, double y1, double x2, double y2)
+        public DcLineSegment(Canvas owner, double x1, double y1, double x2, double y2)
         {
+            _owner = owner;
             _constraint = LineConstraint.Free;
 
             _x1 = x1;
             _y1 = y1;
-            _p1Id = PointManager.CreatePoint(x1, y1, 1, ID);
+            _p1Id = _owner.PointManager.CreatePoint(x1, y1, 1, ID);
             _x2 = x2;
             _y2 = y2;
-            _p2Id = PointManager.CreatePoint(x2, y2, 2, ID);
+            _p2Id = _owner.PointManager.CreatePoint(x2, y2, 2, ID);
 
             _length = DcMath.GetDistance(_x1, _y1, _x2, _y2);
             _angle = DcMath.GetLineSegmentAngle(this);
@@ -75,7 +77,7 @@ namespace DraftCanvas.Primitives
 
         #region Properties
 
-        public Canvas Owner { get; set; }
+        public Canvas Owner => _owner;
 
         public int ID => _id;
 
@@ -184,36 +186,28 @@ namespace DraftCanvas.Primitives
         {
             double delta = newValue -_length;
             
-            var p1HasConstraint = PointManager.Constraints.Where(c => c.SubID == _p1Id).FirstOrDefault();
-            var p2HasConstraint = PointManager.Constraints.Where(c => c.SubID == _p2Id).FirstOrDefault();
+            var p1HasConstraint = Owner.PointManager.HasConstraint(_p1Id);
+            var p2HasConstraint = Owner.PointManager.HasConstraint(_p2Id);
 
-            if (p1HasConstraint != null)
+            if (p1HasConstraint)
             {
-                if (p2HasConstraint != null)
+                if (p2HasConstraint)
                     return;
                 else
-                {
-                    _length = newValue;
-
                     OnP2Changed(X2 + DcMath.Xoffset(delta, Angle), Y2 + DcMath.Yoffset(delta, Angle));
-                }
             }
             else
             {
-                if (p2HasConstraint != null)
-                {
-                    _length = newValue;
-
+                if (p2HasConstraint)
                     OnP1Changed(X1 - DcMath.Xoffset(delta, Angle), Y1 - DcMath.Yoffset(delta, Angle));
-                }
                 else
                 {
-                    _length = newValue;
-
                     OnP1Changed(X1 - DcMath.Xoffset(delta / 2, Angle), Y1 - DcMath.Yoffset(delta / 2, Angle));
                     OnP2Changed(X2 + DcMath.Xoffset(delta / 2, Angle), Y2 + DcMath.Yoffset(delta / 2, Angle));
                 }
             }
+
+            _length = newValue;
         }
 
         private void OnAngelChanged()

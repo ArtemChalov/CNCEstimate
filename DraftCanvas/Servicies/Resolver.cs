@@ -18,14 +18,14 @@ namespace DraftCanvas.Servicies
         {
             Constraint constraint = null;
 
-            if (PointManager.Constraints.Count > 0)
+            if (_canvas.PointManager.Constraints.Count > 0)
             {
-                foreach (var item in PointManager.Constraints)
+                foreach (var item in _canvas.PointManager.Constraints)
                 {
                     if (item.IssuerID == issuerID)
                     {
                         constraint = item;
-                        DcPoint point = PointManager.Points.Where(p => p.ID == constraint.SubID).First();
+                        DcPoint point = _canvas.PointManager.Points.Where(p => p.ID == constraint.SubID).First();
                         IVisualObject visualObject = _canvas.GetDrawingVisualById(point.OwnerID).VisualObject;
                         if (visualObject != null)
                         {

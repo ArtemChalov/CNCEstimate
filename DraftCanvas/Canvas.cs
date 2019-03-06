@@ -9,7 +9,8 @@ namespace DraftCanvas
     public class Canvas : FrameworkElement
     {
         private List<Visual> _visualsCollection;
-        internal Resolver _resolver;
+        private Resolver _resolver;
+        private PointManager _pointManager;
 
         #region DependencyProperties Registration
 
@@ -28,6 +29,7 @@ namespace DraftCanvas
 
             _visualsCollection = new List<Visual>();
             _resolver = new Resolver(this);
+            _pointManager = new PointManager();
             ClipToBounds = true;
 
             CanvasParam.CanvasHeight = this.Height;
@@ -45,6 +47,7 @@ namespace DraftCanvas
         }
 
         internal Resolver Resolver => _resolver;
+        internal PointManager PointManager => _pointManager;
 
         #endregion
 
@@ -60,7 +63,6 @@ namespace DraftCanvas
         // Adds a new visual child
         public void AddToVisualCollection(IVisualizable visualElement)
         {
-            visualElement.Owner = this;
             Visual visual = visualElement.GetVisual();
             _visualsCollection.Add(visual);
             AddVisualChild(visual);

@@ -19,6 +19,18 @@ namespace CNCEstimate.ViewModels
         private List<KDocumentItem> _kDrawings;
         private KDocumentItem _selectedKDrawing;
         private Canvas _draftCanvas = new Canvas(600, 400) {Background = System.Windows.Media.Brushes.DarkGray };
+        DcLineSegment lineSegment0 ;
+        DcLineSegment lineSegment1 ;
+        //DcLineSegment lineSegment2;
+        DcLineSegment lineSegment3;
+
+        public KompasViewModel()
+        {
+            lineSegment0 = new DcLineSegment(_draftCanvas, 100, 100, 100, 200);
+            lineSegment1 = new DcLineSegment(_draftCanvas, 100, 200, 200, 200);
+            //lineSegment2 = new DcLineSegment(_draftCanvas, 200, 200, 200, 100);
+            lineSegment3 = new DcLineSegment(_draftCanvas, 200, 200, 100, 100);
+        }
 
         #region Properties
 
@@ -92,11 +104,6 @@ namespace CNCEstimate.ViewModels
             title = null;
             kManager2D = null;
         }
-
-        DcLineSegment lineSegment0 = new DcLineSegment(100, 100, 100, 200);
-        DcLineSegment lineSegment1 = new DcLineSegment(100, 200, 200, 200);
-        //DcLineSegment lineSegment2 = new DcLineSegment(200, 200, 200, 100);
-        DcLineSegment lineSegment3 = new DcLineSegment(200, 200, 100, 100);
 
         public void DrawLineSeg()
         {
