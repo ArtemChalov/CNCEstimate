@@ -60,6 +60,7 @@
     <Compile Include="Interfacies\IVisualizable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Servicies\DcMath.cs" />
+    <Compile Include="Servicies\PointHash.cs" />
     <Compile Include="Servicies\PointManager.cs" />
     <Compile Include="Servicies\PrimitiveManager.cs" />
     <Compile Include="Servicies\Resolver.cs" />

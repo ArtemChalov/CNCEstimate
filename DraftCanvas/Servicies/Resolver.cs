@@ -14,7 +14,7 @@ namespace DraftCanvas.Servicies
             _canvas = canvas;
         }
 
-        internal bool ResolveConstraint(double issuerID, double newX, double newY)
+        internal bool ResolveConstraint1(double issuerID, double newX, double newY)
         {
             Constraint constraint = null;
 
@@ -31,11 +31,23 @@ namespace DraftCanvas.Servicies
                         {
                             if (visualObject is IPrimitive primitive)
                             {
-                                primitive.SetPoint(newX, newY, point.PointIndex);
+                                primitive.SetPoint(newX, newY, point.PointHash);
                             }
                         }
                     }
                 }
+            }
+
+            return false;
+        }
+
+        internal bool ResolveConstraint(Canvas canvas, int objId, double newX, double newY)
+        {
+            IVisualObject visualObject = canvas.GetDrawingVisualById(objId).VisualObject;
+
+            if (visualObject is IPrimitive primitive)
+            {
+                primitive.SetPoint(newX, newY, point.PointHash);
             }
 
             return false;

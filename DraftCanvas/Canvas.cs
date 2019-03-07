@@ -11,12 +11,10 @@ namespace DraftCanvas
         private List<Visual> _visualsCollection;
         private Resolver _resolver;
         private PointManager _pointManager;
+        private readonly Dictionary<int, DcPoint> _pointCollection = new Dictionary<int, DcPoint>();
 
         #region DependencyProperties Registration
 
-        /// <summary>
-        /// 
-        /// </summary>
         public static readonly DependencyProperty BackgroundProperty =
             DependencyProperty.Register(nameof(Background), typeof(Brush), typeof(Canvas), (PropertyMetadata)new FrameworkPropertyMetadata((object)null, FrameworkPropertyMetadataOptions.AffectsRender | FrameworkPropertyMetadataOptions.SubPropertiesDoNotAffectRender));
 
@@ -30,6 +28,7 @@ namespace DraftCanvas
             _visualsCollection = new List<Visual>();
             _resolver = new Resolver(this);
             _pointManager = new PointManager();
+
             ClipToBounds = true;
 
             CanvasParam.CanvasHeight = this.Height;
@@ -48,23 +47,21 @@ namespace DraftCanvas
 
         internal Resolver Resolver => _resolver;
         internal PointManager PointManager => _pointManager;
+        public Dictionary<int, DcPoint> PointCollection => _pointCollection;
 
         #endregion
 
         #region Public Methods
 
         // Adds a new visual child
-        public void AddToVisualCollection(Visual visual)
-        {
-            _visualsCollection.Add(visual);
-            AddVisualChild(visual);
-        }
-
-        // Adds a new visual child
         public void AddToVisualCollection(IVisualizable visualElement)
         {
+            visualElement.Owner = this;
+
             if (visualElement is IPrimitive primitive)
-                PointManager.AddPrimitive(primitive);
+            {
+                PointManager.AddPrimitive(primitive, PointCollection);
+            }
             Visual visual = visualElement.GetVisual();
             _visualsCollection.Add(visual);
             AddVisualChild(visual);

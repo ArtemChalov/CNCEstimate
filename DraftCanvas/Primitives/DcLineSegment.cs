@@ -1,4 +1,5 @@
 ﻿using DraftCanvas.Servicies;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
@@ -20,27 +21,25 @@ namespace DraftCanvas.Primitives
         private int _p2Id;
         private readonly string _tag = "LineSegment";
         private readonly int _id = CanvasCollections.PrimitiveID;
-        private Canvas _owner;
-        readonly IDictionary<string, int> _pointDict;
+        readonly IDictionary<int, Point> _points;
 
         #region Constructors
 
         public DcLineSegment(Canvas owner, double x1, double y1, double x2, double y2)
         {
-            _owner = owner;
             _constraint = LineConstraint.Free;
 
             _x1 = x1;
             _y1 = y1;
-            _p1Id = _owner.PointManager.CreatePoint(x1, y1, 1, ID);
+            //_p1Id = _owner.PointManager.CreatePoint(x1, y1, 1, ID);
             _x2 = x2;
             _y2 = y2;
-            _p2Id = _owner.PointManager.CreatePoint(x2, y2, 2, ID);
+            //_p2Id = _owner.PointManager.CreatePoint(x2, y2, 2, ID);
 
-            _pointDict = new Dictionary<string, int>()
+            _points = new Dictionary<int, Point>()
             {
-                {"Original", 0 },
-                {"End", 1 }
+                {PointHash.GetHashCode(1, ID), new Point(_x1, _y1)},
+                {PointHash.GetHashCode(2, ID), new Point(_x2, _y2)}
             };
 
             _length = DcMath.GetDistance(_x1, _y1, _x2, _y2);
@@ -81,13 +80,11 @@ namespace DraftCanvas.Primitives
 
         #region Properties
 
-        public Canvas Owner => _owner;
+        public Canvas Owner { get; set; }
 
         public int ID => _id;
 
         public string Tag => _tag;
-
-        public IDictionary<string, int> Points => _pointDict;
 
         public double X1
         {
@@ -130,6 +127,8 @@ namespace DraftCanvas.Primitives
 
         public bool IsDirty { get; set; } = false;
 
+        public IDictionary<int, Point> Points => _points;
+
         #endregion
 
         #region Private Methods
@@ -161,7 +160,9 @@ namespace DraftCanvas.Primitives
 
         private bool OnP1Changed(double newX, double newY)
         {
-            bool res = Owner.Resolver.ResolveConstraint(_p1Id, newX, newY);
+            bool res = false;
+            if (PointManager.HasConstraint(Owner, PointHash.GetHashCode(1, ID)))
+                res = Owner.Resolver.ResolveConstraint(Owner, ID, newX, newY);
 
             _x1 = newX;
             _y1 = newY;
@@ -173,7 +174,7 @@ namespace DraftCanvas.Primitives
 
         private bool OnP2Changed(double newX, double newY)
         {
-            bool res = Owner.Resolver.ResolveConstraint(_p2Id, newX, newY);
+            bool res = Owner.Resolver.ResolveConstraint(Owner, PointHash.GetHashCode(2, ID), newX, newY);
 
             _x2 = newX;
             _y2 = newY;
@@ -187,8 +188,8 @@ namespace DraftCanvas.Primitives
         {
             double delta = newValue -_length;
             
-            var p1HasConstraint = Owner.PointManager.HasConstraint(_p1Id);
-            var p2HasConstraint = Owner.PointManager.HasConstraint(_p2Id);
+            var p1HasConstraint = PointManager.HasConstraint(Owner, PointHash.GetHashCode(1, ID));
+            var p2HasConstraint = PointManager.HasConstraint(Owner, PointHash.GetHashCode(2, ID));
 
             if (p1HasConstraint)
             {
