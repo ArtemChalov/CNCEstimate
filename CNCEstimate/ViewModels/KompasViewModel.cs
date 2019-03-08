@@ -20,15 +20,15 @@ namespace CNCEstimate.ViewModels
         private Canvas _draftCanvas = new Canvas(600, 400) {Background = System.Windows.Media.Brushes.DarkGray };
         DcLineSegment lineSegment0 ;
         DcLineSegment lineSegment1 ;
-        //DcLineSegment lineSegment2;
+        DcLineSegment lineSegment2;
         DcLineSegment lineSegment3;
 
         public KompasViewModel()
         {
             lineSegment0 = new DcLineSegment(_draftCanvas, 100, 100, 100, 200);
             lineSegment1 = new DcLineSegment(_draftCanvas, 100, 200, 200, 200);
-            //lineSegment2 = new DcLineSegment(_draftCanvas, 200, 200, 200, 100);
-            lineSegment3 = new DcLineSegment(_draftCanvas, 200, 200, 100, 100);
+            lineSegment2 = new DcLineSegment(_draftCanvas, 200, 200, 200, 100);
+            lineSegment3 = new DcLineSegment(_draftCanvas, 200, 100, 100, 100);
         }
 
         #region Properties
@@ -108,10 +108,14 @@ namespace CNCEstimate.ViewModels
         {
             lineSegment0.LocalConstraint = LineConstraint.Vertical;
             DraftCanvas.AddToVisualCollection(lineSegment0);
+
             lineSegment1.LocalConstraint = LineConstraint.Horizontal;
             DraftCanvas.AddToVisualCollection(lineSegment1);
-            //DraftCanvas.AddToVisualCollection(lineSegment2);
-            //lineSegment3.LocalConstraint = LineConstraint.Horizontal;
+
+            //lineSegment2.LocalConstraint = LineConstraint.Vertical;
+            DraftCanvas.AddToVisualCollection(lineSegment2);
+
+            lineSegment3.LocalConstraint = LineConstraint.Horizontal;
             DraftCanvas.AddToVisualCollection(lineSegment3);
         }
 
@@ -120,8 +124,8 @@ namespace CNCEstimate.ViewModels
             //new KompasDocument2D().GetViewPram();
             lineSegment0.Length += 10;
             DraftCanvas.Update();
-            lineSegment1.Length += 20;
-            DraftCanvas.Update();
+            //lineSegment1.Length += 20;
+            //DraftCanvas.Update();
         }
 
         #endregion
