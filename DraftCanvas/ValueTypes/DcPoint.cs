@@ -1,5 +1,4 @@
-﻿
-using System.Windows;
+﻿using System.Windows;
 
 namespace DraftCanvas
 {
@@ -15,6 +14,7 @@ namespace DraftCanvas
             PointHash = pointHash;
             OwnerID = ownerId;
             IssuerHash = 0;
+            SubHash = 0;
         }
 
         public DcPoint(Point point, int pointHash, int ownerId)
@@ -25,6 +25,7 @@ namespace DraftCanvas
             PointHash = pointHash;
             OwnerID = ownerId;
             IssuerHash = 0;
+            SubHash = 0;
         }
 
         public int ID { get; set; }
@@ -33,6 +34,7 @@ namespace DraftCanvas
         public int PointHash { get; set; }
         public int OwnerID { get; set; }
         public int IssuerHash { get; set; }
+        public int SubHash { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -44,7 +46,7 @@ namespace DraftCanvas
 
         public override int GetHashCode()
         {
-            return this.ID ^ this.PointHash;
+            return this.PointHash;
         }
     }
 }

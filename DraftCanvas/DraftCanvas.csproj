@@ -51,8 +51,7 @@
     <Compile Include="CanvasParam.cs" />
     <Compile Include="Enums\DraftCanvasEnums.cs" />
     <Compile Include="Interfacies\IPrimitive.cs" />
-    <Compile Include="Models\Constraint.cs" />
-    <Compile Include="Models\DcPoint.cs" />
+    <Compile Include="ValueTypes\DcPoint.cs" />
     <Compile Include="ExtendedClasses\DrawingVisualEx.cs" />
     <Compile Include="Primitives\DcLineSegment.cs" />
     <Compile Include="Interfacies\IDirty.cs" />
@@ -63,7 +62,6 @@
     <Compile Include="Servicies\PointHash.cs" />
     <Compile Include="Servicies\PointManager.cs" />
     <Compile Include="Servicies\PrimitiveManager.cs" />
-    <Compile Include="Servicies\Resolver.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,16 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DraftCanvas.Servicies
 {
     internal static class PointHash
     {
-        public static int GetHashCode(int index, int id)
+        private static readonly int _offset = 18;
+
+        internal static int GetHashCode(int index, int id)
         {
-            return (index << 4) + id;
+            return (index << _offset) + id;
+        }
+
+        internal static int GetIndexFromHash(int hash)
+        {
+            return (hash >> _offset);
         }
     }
 }

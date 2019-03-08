@@ -10,7 +10,6 @@ using System.Linq;
 using System.Windows;
 using DraftCanvas;
 using DraftCanvas.Primitives;
-using DraftCanvas.Servicies;
 
 namespace CNCEstimate.ViewModels
 {

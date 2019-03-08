@@ -9,8 +9,6 @@ namespace DraftCanvas
     public class Canvas : FrameworkElement
     {
         private List<Visual> _visualsCollection;
-        private Resolver _resolver;
-        private PointManager _pointManager;
         private readonly Dictionary<int, DcPoint> _pointCollection = new Dictionary<int, DcPoint>();
 
         #region DependencyProperties Registration
@@ -26,9 +24,6 @@ namespace DraftCanvas
             this.Height = height;
 
             _visualsCollection = new List<Visual>();
-            _resolver = new Resolver(this);
-            _pointManager = new PointManager();
-
             ClipToBounds = true;
 
             CanvasParam.CanvasHeight = this.Height;
@@ -45,8 +40,6 @@ namespace DraftCanvas
             set { SetValue(BackgroundProperty, (object)value); }
         }
 
-        internal Resolver Resolver => _resolver;
-        internal PointManager PointManager => _pointManager;
         public Dictionary<int, DcPoint> PointCollection => _pointCollection;
 
         #endregion

@@ -1,6 +1,4 @@
 ﻿using DraftCanvas.Servicies;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
@@ -11,14 +9,11 @@ namespace DraftCanvas.Primitives
     {
         private double _length;
         private double _angle;
-        private LineConstraint _constraint;
         private double _x1;
         private double _y1;
 
         private double _x2;
         private double _y2;
-        private int _p1Id;
-        private int _p2Id;
         private readonly string _tag = "LineSegment";
         private readonly int _id = CanvasCollections.PrimitiveID;
         readonly IDictionary<int, Point> _points;
@@ -27,14 +22,10 @@ namespace DraftCanvas.Primitives
 
         public DcLineSegment(Canvas owner, double x1, double y1, double x2, double y2)
         {
-            _constraint = LineConstraint.Free;
-
             _x1 = x1;
             _y1 = y1;
-            //_p1Id = _owner.PointManager.CreatePoint(x1, y1, 1, ID);
             _x2 = x2;
             _y2 = y2;
-            //_p2Id = _owner.PointManager.CreatePoint(x2, y2, 2, ID);
 
             _points = new Dictionary<int, Point>()
             {
@@ -106,6 +97,8 @@ namespace DraftCanvas.Primitives
             get { return _y2; }
         }
 
+        public IDictionary<int, Point> Points => _points;
+
         public double Length
         {
             get { return _length; }
@@ -119,26 +112,20 @@ namespace DraftCanvas.Primitives
             }
         }
 
-        public LineConstraint LocalConstraint
-        {
-            get { return _constraint; }
-            set { _constraint = value; }
-        }
+        public LineConstraint LocalConstraint { get; set; } = LineConstraint.Free;
 
         public bool IsDirty { get; set; } = false;
-
-        public IDictionary<int, Point> Points => _points;
 
         #endregion
 
         #region Private Methods
 
-        public bool SetPoint(double newX, double newY, int pointIndex)
+        public bool SetPoint(double newX, double newY, int pointHash)
         {
             double DelataX = 0;
             double DelataY = 0;
             bool res = false;
-            switch (pointIndex)
+            switch (PointHash.GetIndexFromHash(pointHash))
             {
                 case 1:
                     DelataX = newX - X1;
@@ -161,8 +148,8 @@ namespace DraftCanvas.Primitives
         private bool OnP1Changed(double newX, double newY)
         {
             bool res = false;
-            if (PointManager.HasConstraint(Owner, PointHash.GetHashCode(1, ID)))
-                res = Owner.Resolver.ResolveConstraint(Owner, ID, newX, newY);
+            if (PointManager.HasSub(Owner, PointHash.GetHashCode(1, ID)))
+                res = PointManager.ResolveConstraint(Owner, newX, newY, PointHash.GetHashCode(1, ID));
 
             _x1 = newX;
             _y1 = newY;
@@ -174,7 +161,9 @@ namespace DraftCanvas.Primitives
 
         private bool OnP2Changed(double newX, double newY)
         {
-            bool res = Owner.Resolver.ResolveConstraint(Owner, PointHash.GetHashCode(2, ID), newX, newY);
+            bool res = false;
+            if (PointManager.HasSub(Owner, PointHash.GetHashCode(2, ID)))
+                res = PointManager.ResolveConstraint(Owner, newX, newY, PointHash.GetHashCode(2, ID));
 
             _x2 = newX;
             _y2 = newY;
@@ -188,13 +177,15 @@ namespace DraftCanvas.Primitives
         {
             double delta = newValue -_length;
             
-            var p1HasConstraint = PointManager.HasConstraint(Owner, PointHash.GetHashCode(1, ID));
-            var p2HasConstraint = PointManager.HasConstraint(Owner, PointHash.GetHashCode(2, ID));
+            var p1HasConstraint = PointManager.HasIssuer(Owner, PointHash.GetHashCode(1, ID));
+            var p2HasConstraint = PointManager.HasIssuer(Owner, PointHash.GetHashCode(2, ID));
 
             if (p1HasConstraint)
             {
                 if (p2HasConstraint)
+                {
                     return;
+                }
                 else
                     OnP2Changed(X2 + DcMath.Xoffset(delta, Angle), Y2 + DcMath.Yoffset(delta, Angle));
             }
