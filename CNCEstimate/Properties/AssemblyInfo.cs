@@ -10,10 +10,10 @@ using System.Windows;
 [assembly: AssemblyTitle("CNCEstimate")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("ProDescSoft")]
 [assembly: AssemblyProduct("CNCEstimate")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright ©  ProDescSoft  Artem Chalov 2019")]
+[assembly: AssemblyTrademark("ProDescSoft")]
 [assembly: AssemblyCulture("")]
 
 // Установка значения False для параметра ComVisible делает типы в этой сборке невидимыми
