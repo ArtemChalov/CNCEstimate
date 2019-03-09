@@ -22,6 +22,7 @@ namespace CNCEstimate.ViewModels
         DcLineSegment lineSegment1 ;
         DcLineSegment lineSegment2;
         DcLineSegment lineSegment3;
+        DcLineSegment lineSegment4;
 
         public KompasViewModel()
         {
@@ -29,6 +30,8 @@ namespace CNCEstimate.ViewModels
             lineSegment1 = new DcLineSegment(100, 200, 200, 200);
             lineSegment2 = new DcLineSegment(200, 200, 200, 100);
             lineSegment3 = new DcLineSegment(200, 100, 100, 100);
+
+            lineSegment4 = new DcLineSegment(new Point(100, 100), 100, 45);
         }
 
         #region Properties
@@ -117,6 +120,8 @@ namespace CNCEstimate.ViewModels
 
             lineSegment3.LocalConstraint = LineConstraint.Horizontal;
             DraftCanvas.AddToVisualCollection(lineSegment3);
+
+            DraftCanvas.AddToVisualCollection(lineSegment4);
         }
 
         public void GetViewParam()
@@ -124,8 +129,8 @@ namespace CNCEstimate.ViewModels
             //new KompasDocument2D().GetViewPram();
             lineSegment0.Length += 10;
             DraftCanvas.Update();
-            //lineSegment1.Length += 20;
-            //DraftCanvas.Update();
+            lineSegment1.Length += 20;
+            DraftCanvas.Update();
         }
 
         #endregion
