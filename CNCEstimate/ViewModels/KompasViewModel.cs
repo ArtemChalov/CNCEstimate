@@ -30,8 +30,7 @@ namespace CNCEstimate.ViewModels
             lineSegment1 = new DcLineSegment(100, 200, 200, 200);
             lineSegment2 = new DcLineSegment(200, 200, 200, 100);
             lineSegment3 = new DcLineSegment(200, 100, 100, 100);
-
-            lineSegment4 = new DcLineSegment(new Point(100, 100), 100, 45);
+            lineSegment4 = new DcLineSegment(200, 200, 100, 100, LineConstraint.Angle);
         }
 
         #region Properties
@@ -130,6 +129,8 @@ namespace CNCEstimate.ViewModels
             lineSegment0.Length += 10;
             DraftCanvas.Update();
             lineSegment1.Length += 20;
+            DraftCanvas.Update();
+            lineSegment4.Angle += 45;
             DraftCanvas.Update();
         }
 
